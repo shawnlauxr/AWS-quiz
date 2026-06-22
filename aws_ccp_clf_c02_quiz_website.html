@@ -1,0 +1,3363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AWS CCP CLF-C02 MCQ Quiz</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --panel2: #1f2937;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --accent: #f59e0b;
+      --accent2: #38bdf8;
+      --good: #22c55e;
+      --bad: #ef4444;
+      --border: #374151;
+      --white: #ffffff;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.15), transparent 28rem),
+        radial-gradient(circle at top right, rgba(245,158,11,0.12), transparent 25rem),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    header {
+      padding: 28px 18px 16px;
+      text-align: center;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: clamp(1.8rem, 4vw, 3rem);
+      letter-spacing: -0.04em;
+    }
+
+    header p {
+      color: var(--muted);
+      max-width: 850px;
+      margin: 10px auto 0;
+      line-height: 1.5;
+    }
+
+    .wrap {
+      max-width: 1150px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .top-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    @media (max-width: 850px) {
+      .top-grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: rgba(17, 24, 39, 0.88);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 20px 55px rgba(0,0,0,0.25);
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 750px) {
+      .controls { grid-template-columns: 1fr; }
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+
+    select, input {
+      width: 100%;
+      padding: 11px 12px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: var(--panel2);
+      color: var(--text);
+      outline: none;
+    }
+
+    button {
+      border: 0;
+      border-radius: 13px;
+      padding: 11px 14px;
+      font-weight: 700;
+      cursor: pointer;
+      background: var(--accent);
+      color: #111827;
+      transition: transform 0.08s ease, opacity 0.15s ease, background 0.15s ease;
+    }
+
+    button:hover { opacity: 0.92; }
+    button:active { transform: translateY(1px); }
+    button.secondary { background: var(--panel2); color: var(--text); border: 1px solid var(--border); }
+    button.blue { background: var(--accent2); color: #06202b; }
+    button.good { background: var(--good); color: #052e16; }
+    button.bad { background: var(--bad); color: white; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+
+    .stat {
+      background: rgba(31, 41, 55, 0.8);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 13px;
+    }
+
+    .stat .num {
+      font-size: 1.65rem;
+      font-weight: 800;
+    }
+
+    .stat .label {
+      color: var(--muted);
+      font-size: 0.83rem;
+      margin-top: 2px;
+    }
+
+    .progress {
+      height: 12px;
+      background: var(--panel2);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 14px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+
+    .progress > div {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      transition: width 0.25s ease;
+    }
+
+    .quiz-card {
+      margin-top: 18px;
+    }
+
+    .pill-row {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-bottom: 12px;
+    }
+
+    .pill {
+      background: rgba(56,189,248,0.12);
+      border: 1px solid rgba(56,189,248,0.32);
+      color: #bae6fd;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .pill.orange {
+      background: rgba(245,158,11,0.12);
+      border-color: rgba(245,158,11,0.35);
+      color: #fde68a;
+    }
+
+    .question {
+      font-size: clamp(1.15rem, 2.5vw, 1.65rem);
+      line-height: 1.35;
+      font-weight: 800;
+      margin: 8px 0 16px;
+    }
+
+    .options {
+      display: grid;
+      gap: 10px;
+    }
+
+    .option {
+      text-align: left;
+      width: 100%;
+      background: rgba(31, 41, 55, 0.9);
+      color: var(--text);
+      border: 1px solid var(--border);
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .option .letter {
+      background: rgba(255,255,255,0.08);
+      border-radius: 10px;
+      padding: 3px 8px;
+      font-weight: 900;
+      min-width: 30px;
+      text-align: center;
+    }
+
+    .option.selected {
+      border-color: rgba(56,189,248,0.9);
+      background: rgba(56,189,248,0.15);
+    }
+
+    .option.correct {
+      border-color: rgba(34,197,94,0.9);
+      background: rgba(34,197,94,0.14);
+    }
+
+    .option.incorrect {
+      border-color: rgba(239,68,68,0.9);
+      background: rgba(239,68,68,0.13);
+    }
+
+    .option:disabled {
+      cursor: not-allowed;
+      opacity: 0.95;
+    }
+
+    .feedback {
+      display: none;
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 14px;
+      background: rgba(31, 41, 55, 0.8);
+      border: 1px solid rgba(255,255,255,0.08);
+      line-height: 1.5;
+    }
+
+    .hint {
+      display: none;
+      margin-top: 12px;
+      padding: 12px;
+      border-radius: 14px;
+      background: rgba(245,158,11,0.12);
+      border: 1px solid rgba(245,158,11,0.35);
+      color: #fde68a;
+      line-height: 1.45;
+    }
+
+    .quiz-actions {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 16px;
+    }
+
+    .review-list {
+      margin-top: 18px;
+      display: none;
+    }
+
+    details {
+      background: rgba(31, 41, 55, 0.75);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 12px;
+      margin: 10px 0;
+    }
+
+    summary {
+      cursor: pointer;
+      font-weight: 800;
+    }
+
+    .small {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    .footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 28px 12px 40px;
+      font-size: 0.9rem;
+    }
+
+    .domain-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    @media (max-width: 800px) {
+      .domain-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .domain-grid { grid-template-columns: 1fr; }
+    }
+
+    .domain {
+      background: rgba(31, 41, 55, 0.75);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      padding: 12px;
+    }
+
+    .domain b { display: block; margin-bottom: 4px; }
+    .domain span { color: var(--muted); font-size: 0.88rem; }
+
+    .kbd {
+      display: inline-block;
+      padding: 2px 6px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      background: var(--panel2);
+      color: var(--text);
+      font-size: 0.8rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>AWS CCP CLF-C02 Quiz Website</h1>
+    <p>MCQ and multi-select revision for Cloud Concepts, Security, AWS services, Billing, Support, Well-Architected, and common exam traps. Each question has its own hint button and explanation.</p>
+  </header>
+
+  <main class="wrap">
+    <section class="top-grid">
+      <div class="card">
+        <h2 style="margin-top:0;">Quiz Setup</h2>
+        <p class="small">Choose a category, search topic, and number of questions. Some questions are single-answer and some are multi-select, just like the real exam style.</p>
+
+        <div class="controls">
+          <div>
+            <label for="categorySelect">Category</label>
+            <select id="categorySelect"></select>
+          </div>
+          <div>
+            <label for="countSelect">Question count</label>
+            <select id="countSelect">
+              <option value="10">10 questions</option>
+              <option value="20">20 questions</option>
+              <option value="30">30 questions</option>
+              <option value="50">50 questions</option>
+              <option value="75">75 questions</option>
+              <option value="100">100 questions</option>
+              <option value="all">All questions</option>
+            </select>
+          </div>
+          <div>
+            <label for="searchInput">Search topic/service</label>
+            <input id="searchInput" placeholder="e.g. Macie, IAM, S3, billing" />
+          </div>
+        </div>
+
+        <div class="quiz-actions">
+          <button id="startBtn">Start / Restart Quiz</button>
+          <button id="shuffleBtn" class="blue">Shuffle Current Set</button>
+          <button id="reviewWrongBtn" class="secondary">Review Wrong Answers</button>
+        </div>
+
+        <div class="domain-grid">
+          <div class="domain"><b>Cloud Concepts</b><span>Elasticity, HA, global reach</span></div>
+          <div class="domain"><b>Security</b><span>IAM, Macie, WAF, Shield</span></div>
+          <div class="domain"><b>Services</b><span>EC2, S3, RDS, VPC</span></div>
+          <div class="domain"><b>Billing</b><span>Cost Explorer, support plans</span></div>
+        </div>
+      </div>
+
+      <aside class="card">
+        <h2 style="margin-top:0;">Scoreboard</h2>
+        <div class="stats">
+          <div class="stat"><div class="num" id="scoreNum">0</div><div class="label">Correct</div></div>
+          <div class="stat"><div class="num" id="wrongNum">0</div><div class="label">Wrong</div></div>
+          <div class="stat"><div class="num" id="leftNum">0</div><div class="label">Left</div></div>
+          <div class="stat"><div class="num" id="percentNum">0%</div><div class="label">Accuracy</div></div>
+        </div>
+        <div class="progress"><div id="progressBar"></div></div>
+        <p class="small" style="margin-bottom:0;">Keyboard: press <span class="kbd">1</span> to <span class="kbd">6</span> to select, <span class="kbd">Enter</span> to submit, <span class="kbd">H</span> for hint, <span class="kbd">N</span> for next.</p>
+      </aside>
+    </section>
+
+    <section class="card quiz-card">
+      <div class="pill-row">
+        <span class="pill" id="categoryPill">Ready</span>
+        <span class="pill orange" id="counterPill">0 / 0</span>
+      </div>
+
+      <div id="questionText" class="question">Press “Start / Restart Quiz” to begin.</div>
+      <div id="options" class="options"></div>
+
+      <div id="hintBox" class="hint"></div>
+      <div id="feedbackBox" class="feedback"></div>
+
+      <div class="quiz-actions">
+        <button id="submitBtn" class="good">Submit Answer</button>
+        <button id="hintBtn" class="secondary">Show Hint</button>
+        <button id="nextBtn">Next Question</button>
+        <button id="resetBtn" class="secondary">Reset Score</button>
+      </div>
+    </section>
+
+    <section id="reviewList" class="card review-list">
+      <h2 style="margin-top:0;">Wrong Answer Review</h2>
+      <div id="reviewContent"></div>
+    </section>
+  </main>
+
+  <div class="footer">
+    Made for AWS Certified Cloud Practitioner CLF-C02 revision. This quiz uses original practice wording and focuses on exam-style service clues.
+  </div>
+
+  <script>
+    const questionBank = [
+  {
+    "category": "Cloud Concepts",
+    "question": "A shop has quiet months and sudden holiday traffic spikes. Which cloud benefits help the most?",
+    "options": [
+      "Elasticity and pay-as-you-go pricing",
+      "Dedicated Hosts and AWS Artifact",
+      "Edge locations and AWS Config",
+      "Reserved Instances only"
+    ],
+    "hint": "Think: scale when demand changes, then pay only for what was used.",
+    "explanation": "Elasticity lets resources scale up/down with demand. Pay-as-you-go avoids paying for unused capacity during quiet periods.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Cloud Concepts",
+    "question": "A company wants to launch infrastructure quickly without waiting weeks for hardware delivery. Which AWS Cloud benefit is this?",
+    "options": [
+      "Agility",
+      "Physical security",
+      "Consolidated billing",
+      "Data residency"
+    ],
+    "hint": "This is about moving faster.",
+    "explanation": "Agility means you can provision resources quickly and improve time to market.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Cloud Concepts",
+    "question": "A workload should continue running even if one resource fails. Which concept best describes this?",
+    "options": [
+      "High availability",
+      "Data classification",
+      "Inline policy",
+      "Consolidated billing"
+    ],
+    "hint": "The app remains accessible despite failure.",
+    "explanation": "High availability means the application remains accessible even when a component fails.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Cloud Concepts",
+    "question": "Which cloud concept means automatically adding or removing resources based on demand?",
+    "options": [
+      "Elasticity",
+      "Immutable infrastructure",
+      "Global reach",
+      "Traceability"
+    ],
+    "hint": "Elastic = stretch and shrink.",
+    "explanation": "Elasticity is the ability to scale resources up or down automatically based on demand.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Cloud Concepts",
+    "question": "Which benefit allows users to deploy applications in multiple geographic areas around the world?",
+    "options": [
+      "Global reach",
+      "AWS Artifact",
+      "Spot pricing",
+      "Client-side encryption"
+    ],
+    "hint": "Look for the word geographic.",
+    "explanation": "Global reach refers to AWS's worldwide infrastructure, allowing deployments across Regions.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Cloud Concepts",
+    "question": "A company wants to avoid guessing future capacity and instead use only the resources it needs. Which cloud advantage is this?",
+    "options": [
+      "Stop guessing capacity",
+      "Use root credentials daily",
+      "Deploy as a monolith",
+      "Manually recover from failure"
+    ],
+    "hint": "AWS best-practice phrase: don't guess capacity.",
+    "explanation": "Cloud services let users provision capacity on demand, reducing the need to overbuy hardware.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Global Infrastructure",
+    "question": "What is an AWS Region?",
+    "options": [
+      "A geographic area containing multiple Availability Zones",
+      "A single server rack inside a data center",
+      "A DNS caching location only",
+      "A customer-owned office connected to AWS"
+    ],
+    "hint": "Region = broad geographic area.",
+    "explanation": "An AWS Region is a separate geographic area that normally contains multiple Availability Zones.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Global Infrastructure",
+    "question": "What is an Availability Zone?",
+    "options": [
+      "One or more discrete data centers inside a Region",
+      "A global DNS service",
+      "A billing account boundary",
+      "A hardware device shipped to customers"
+    ],
+    "hint": "AZ is inside a Region.",
+    "explanation": "Availability Zones are isolated locations within a Region, designed for high availability and low-latency connectivity.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Global Infrastructure",
+    "question": "Two EC2 instances must be in separate data centers with low latency between them. Where should they be placed?",
+    "options": [
+      "Different Availability Zones in the same Region",
+      "Different AWS accounts only",
+      "Different continents",
+      "One in AWS and one on-premises"
+    ],
+    "hint": "Separate data centers, but still close.",
+    "explanation": "Different AZs in the same Region provide physical separation while maintaining low-latency connectivity.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Global Infrastructure",
+    "question": "A disaster recovery plan requires data replication between multiple geographic areas. Which AWS component should be used?",
+    "options": [
+      "AWS Regions",
+      "Edge locations",
+      "IAM groups",
+      "Security groups"
+    ],
+    "hint": "Geographic area = Region.",
+    "explanation": "Regions are geographically separated and are commonly used for disaster recovery strategies.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Global Infrastructure",
+    "question": "Which AWS infrastructure component is mainly used by Amazon CloudFront to cache content closer to users?",
+    "options": [
+      "Edge locations",
+      "IAM roles",
+      "Dedicated Hosts",
+      "NAT gateways"
+    ],
+    "hint": "CDN content is cached at the edge.",
+    "explanation": "CloudFront uses edge locations to cache and deliver content with lower latency.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Shared Responsibility",
+    "question": "Under the AWS shared responsibility model, who secures the physical AWS data centers?",
+    "options": [
+      "AWS",
+      "The customer",
+      "The IAM administrator",
+      "The application user"
+    ],
+    "hint": "Physical infrastructure is security OF the cloud.",
+    "explanation": "AWS is responsible for security of the cloud, including physical data centers, hardware, and facilities.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Shared Responsibility",
+    "question": "For an application running on Amazon EC2, who is responsible for patching the guest operating system?",
+    "options": [
+      "The customer",
+      "AWS only",
+      "Amazon Route 53",
+      "AWS Support only"
+    ],
+    "hint": "EC2 gives you control over the OS.",
+    "explanation": "For EC2, the customer manages the guest operating system, applications, and configurations.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Shared Responsibility",
+    "question": "Which task is AWS responsible for when customers run workloads on Amazon EC2?",
+    "options": [
+      "Updating physical hardware",
+      "Updating the customer's app code",
+      "Creating the customer's IAM users",
+      "Configuring customer security groups"
+    ],
+    "hint": "Hardware below EC2 is AWS responsibility.",
+    "explanation": "AWS manages the underlying physical hardware and infrastructure that EC2 runs on.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Shared Responsibility",
+    "question": "Which customer tasks are part of security IN the cloud? Select the best pair.",
+    "options": [
+      "Configure security groups and protect customer data",
+      "Secure AWS data centers and replace hardware",
+      "Patch hypervisors and secure edge locations",
+      "Manage AWS global network and physical cabling"
+    ],
+    "hint": "Customer controls their data and configurations.",
+    "explanation": "Customers are responsible for their data, IAM, guest OS on EC2, applications, and network configurations such as security groups.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Shared Responsibility",
+    "question": "Which responsibility is shared between AWS and the customer?",
+    "options": [
+      "Security awareness and training",
+      "Physical destruction of retired disks only",
+      "Customer application code only",
+      "Changing AWS facility access controls"
+    ],
+    "hint": "People/process security can involve both sides.",
+    "explanation": "Awareness and training is a shared responsibility. AWS trains its staff; customers train their own users and administrators.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "IAM & Security",
+    "question": "An EC2 instance needs to access Amazon S3 and DynamoDB securely. What should be used?",
+    "options": [
+      "An IAM role attached to the EC2 instance",
+      "A root user access key stored in the app",
+      "A hard-coded IAM user access key",
+      "A network ACL only"
+    ],
+    "hint": "AWS service permissions for EC2 = role.",
+    "explanation": "Attach an IAM role to the EC2 instance so the instance can use temporary credentials securely.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "IAM & Security",
+    "question": "What is a best practice for the AWS account root user?",
+    "options": [
+      "Enable MFA and avoid using it for daily tasks",
+      "Share the root password with admins",
+      "Create root access keys for CLI work",
+      "Use root for all IAM tasks"
+    ],
+    "hint": "Protect the most powerful account identity.",
+    "explanation": "The root user has full account access. Enable MFA and use IAM users/roles for daily administrative tasks.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "IAM & Security",
+    "question": "What should you do with AWS account root user access keys?",
+    "options": [
+      "Delete them if possible and avoid creating them",
+      "Store them inside EC2 user data",
+      "Share them with the operations team",
+      "Use them for production database access"
+    ],
+    "hint": "Root access keys are almost never needed.",
+    "explanation": "Best practice is not to create root user access keys. Delete existing root access keys if possible.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "IAM & Security",
+    "question": "Which task can require the AWS account root user?",
+    "options": [
+      "Closing an AWS account",
+      "Changing an EC2 instance type",
+      "Creating a normal S3 bucket",
+      "Starting an ECS task"
+    ],
+    "hint": "Some account-level actions need root.",
+    "explanation": "Closing an AWS account is one of the tasks that requires root user access.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "IAM & Security",
+    "question": "Which statement about IAM groups is correct?",
+    "options": [
+      "Groups can contain users, but groups cannot be nested inside groups",
+      "Every user must be in exactly one group",
+      "Groups can contain other groups",
+      "New users automatically join a default group"
+    ],
+    "hint": "Groups are collections of users.",
+    "explanation": "IAM groups can contain users only. A user can be a member of multiple groups.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "IAM & Security",
+    "question": "Which IAM principle means granting only the permissions needed to perform a task?",
+    "options": [
+      "Least privilege",
+      "Global reach",
+      "Elasticity",
+      "Pay-as-you-go"
+    ],
+    "hint": "Minimum access required.",
+    "explanation": "Least privilege is a security best practice: provide only the permissions required, nothing extra.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "IAM & Security",
+    "question": "Which feature can a developer use to authenticate AWS CLI programmatic access?",
+    "options": [
+      "IAM access keys",
+      "AWS Budgets",
+      "Amazon CloudFront",
+      "AWS Shield"
+    ],
+    "hint": "CLI needs key-based credentials unless using roles/federation.",
+    "explanation": "IAM access keys are used for programmatic access to AWS through CLI, SDKs, and APIs.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "IAM & Security",
+    "question": "Which AWS service stores and can rotate database credentials and API keys?",
+    "options": [
+      "AWS Secrets Manager",
+      "AWS Config",
+      "Amazon Macie",
+      "Amazon Inspector"
+    ],
+    "hint": "The service name literally contains the word secrets.",
+    "explanation": "AWS Secrets Manager securely stores, manages, and rotates secrets such as passwords and database credentials.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "IAM & Security",
+    "question": "Which AWS service helps create and manage encryption keys?",
+    "options": [
+      "AWS Key Management Service (AWS KMS)",
+      "Amazon GuardDuty",
+      "AWS CloudTrail",
+      "Amazon WorkSpaces"
+    ],
+    "hint": "KMS = key management.",
+    "explanation": "AWS KMS is used to create, control, and manage cryptographic keys for encryption.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "IAM & Security",
+    "question": "Which AWS service uses machine learning and pattern matching to discover sensitive data in S3?",
+    "options": [
+      "Amazon Macie",
+      "Amazon Personalize",
+      "AWS CodePipeline",
+      "AWS CodeArtifact"
+    ],
+    "hint": "Sensitive data + S3 + ML = Macie.",
+    "explanation": "Amazon Macie discovers sensitive data, such as PII, in Amazon S3 buckets.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "IAM & Security",
+    "question": "A company wants to find PII stored in S3 buckets. Which service should it use?",
+    "options": [
+      "Amazon Macie",
+      "Amazon CloudWatch",
+      "AWS Direct Connect",
+      "Amazon Route 53"
+    ],
+    "hint": "PII in S3 is the biggest Macie clue.",
+    "explanation": "Amazon Macie is designed to identify sensitive data and PII in S3.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "IAM & Security",
+    "question": "Which AWS service detects suspicious activity and possible threats in an AWS account?",
+    "options": [
+      "Amazon GuardDuty",
+      "Amazon Macie",
+      "AWS Pricing Calculator",
+      "AWS Artifact"
+    ],
+    "hint": "Guard = watch for threats.",
+    "explanation": "Amazon GuardDuty is a threat detection service that monitors for malicious or suspicious activity.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "IAM & Security",
+    "question": "Which AWS service scans for software vulnerabilities in EC2 instances and container images?",
+    "options": [
+      "Amazon Inspector",
+      "Amazon Macie",
+      "AWS WAF",
+      "Amazon Route 53"
+    ],
+    "hint": "Inspector inspects for vulnerabilities.",
+    "explanation": "Amazon Inspector is used for vulnerability management, including EC2 and container image scanning.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "IAM & Security",
+    "question": "A web app is receiving SQL injection attacks. Which AWS service helps block these requests?",
+    "options": [
+      "AWS WAF",
+      "AWS CloudTrail",
+      "AWS Config",
+      "Amazon EFS"
+    ],
+    "hint": "SQL injection is a web application attack.",
+    "explanation": "AWS WAF helps protect web applications from common web exploits such as SQL injection and XSS.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "IAM & Security",
+    "question": "Which AWS service is mainly associated with DDoS protection?",
+    "options": [
+      "AWS Shield",
+      "Amazon Macie",
+      "AWS CodeBuild",
+      "Amazon RDS"
+    ],
+    "hint": "DDoS = Shield.",
+    "explanation": "AWS Shield provides protection against distributed denial-of-service attacks.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "IAM & Security",
+    "question": "Which AWS service provides compliance reports and security documents for download?",
+    "options": [
+      "AWS Artifact",
+      "Amazon Inspector",
+      "AWS Lambda",
+      "AWS Batch"
+    ],
+    "hint": "Artifact = documents/reports.",
+    "explanation": "AWS Artifact provides access to AWS compliance reports and agreements.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "IAM & Security",
+    "question": "A company wants to remotely access EC2 instances without opening inbound SSH ports. What should it use?",
+    "options": [
+      "AWS Systems Manager Session Manager",
+      "EC2 key pairs only",
+      "Network ACLs only",
+      "Amazon CloudFront"
+    ],
+    "hint": "No inbound SSH, no key management.",
+    "explanation": "Session Manager lets users securely access instances without opening inbound SSH/RDP ports.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Compute",
+    "question": "Which AWS compute service is serverless?",
+    "options": [
+      "AWS Lambda",
+      "Amazon EC2",
+      "Amazon RDS",
+      "Amazon EBS"
+    ],
+    "hint": "Runs code without managing servers.",
+    "explanation": "AWS Lambda is a serverless compute service for running code in response to events.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Compute",
+    "question": "Which service provides virtual servers in the AWS Cloud?",
+    "options": [
+      "Amazon EC2",
+      "Amazon S3",
+      "Amazon Route 53",
+      "AWS Artifact"
+    ],
+    "hint": "Elastic Compute Cloud.",
+    "explanation": "Amazon EC2 provides resizable virtual servers called instances.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Compute",
+    "question": "A company needs more EC2 instances when traffic increases and fewer when traffic decreases. What should it use?",
+    "options": [
+      "Amazon EC2 Auto Scaling",
+      "AWS Artifact",
+      "Amazon Macie",
+      "AWS Direct Connect"
+    ],
+    "hint": "It automatically adjusts EC2 capacity.",
+    "explanation": "EC2 Auto Scaling automatically launches or terminates EC2 instances based on demand.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Compute",
+    "question": "Which service distributes incoming application traffic across multiple targets?",
+    "options": [
+      "Elastic Load Balancing",
+      "Amazon Macie",
+      "AWS Budgets",
+      "Amazon Glacier"
+    ],
+    "hint": "It balances traffic.",
+    "explanation": "Elastic Load Balancing distributes incoming traffic across EC2 instances, containers, IPs, or Lambda functions.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Compute",
+    "question": "A Java web application needs automatic environment creation and deployment. Which service is the best fit?",
+    "options": [
+      "AWS Elastic Beanstalk",
+      "AWS Control Tower",
+      "AWS Shield",
+      "Amazon S3 Glacier"
+    ],
+    "hint": "Platform-as-a-service style deployment for web apps.",
+    "explanation": "Elastic Beanstalk can provision the environment and deploy web applications automatically.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Compute",
+    "question": "Which compute option runs containers without requiring you to manage servers?",
+    "options": [
+      "AWS Fargate",
+      "Amazon EBS",
+      "AWS Artifact",
+      "Amazon Route 53"
+    ],
+    "hint": "Serverless containers.",
+    "explanation": "AWS Fargate provides serverless compute for containers with ECS or EKS.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Compute",
+    "question": "A workload cannot be interrupted and requires no long-term commitment. Which EC2 purchasing option fits best?",
+    "options": [
+      "On-Demand Instances",
+      "Spot Instances",
+      "Reserved Instances",
+      "Dedicated Hosts only"
+    ],
+    "hint": "No commitment + no interruption.",
+    "explanation": "On-Demand Instances require no long-term commitment and are not interruptible like Spot Instances.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Compute",
+    "question": "A stateless workload can tolerate interruptions and needs the lowest cost for peak capacity. Which option is best?",
+    "options": [
+      "Spot Instances",
+      "On-Demand only",
+      "Dedicated Hosts only",
+      "All Upfront Reserved Instances only"
+    ],
+    "hint": "Interruptible and cheap.",
+    "explanation": "Spot Instances are cost-effective for workloads that can handle interruptions.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Compute",
+    "question": "A company has predictable baseline usage for 1 year or 3 years. Which purchasing option can reduce EC2 cost?",
+    "options": [
+      "Reserved Instances or Savings Plans",
+      "Spot Instances only",
+      "AWS Artifact",
+      "AWS Config rules"
+    ],
+    "hint": "Commitment gives discount.",
+    "explanation": "Reserved Instances and Savings Plans provide discounts in exchange for a usage commitment.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Compute",
+    "question": "A software license requires licensing physical CPU cores. Which EC2 option is best?",
+    "options": [
+      "Dedicated Host",
+      "Spot Instance",
+      "Lambda function",
+      "Standard S3 bucket"
+    ],
+    "hint": "Need visibility/control of physical server.",
+    "explanation": "Dedicated Hosts provide physical servers dedicated to your use and support licensing tied to physical cores.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Compute",
+    "question": "After choosing an EC2 Dedicated Host reservation, which payment option gives the largest discount?",
+    "options": [
+      "All Upfront",
+      "No Upfront",
+      "Hourly On-Demand",
+      "Pay-as-you-go only"
+    ],
+    "hint": "More upfront commitment usually means larger discount.",
+    "explanation": "All Upfront payment generally provides the largest discount for reservations.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Storage",
+    "question": "Which AWS service is object storage and commonly used for static websites and images?",
+    "options": [
+      "Amazon S3",
+      "Amazon EBS",
+      "Amazon RDS",
+      "AWS KMS"
+    ],
+    "hint": "Object storage = S3.",
+    "explanation": "Amazon S3 stores objects and can host static website content.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Storage",
+    "question": "Which feature protects S3 buckets from accidental overwrites or deletions by keeping previous copies?",
+    "options": [
+      "S3 Versioning",
+      "S3 Lifecycle only",
+      "Amazon Macie",
+      "AWS Shield"
+    ],
+    "hint": "Previous versions are kept.",
+    "explanation": "S3 Versioning preserves, retrieves, and restores previous versions of objects.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Storage",
+    "question": "Which AWS storage service provides block storage volumes for EC2 instances?",
+    "options": [
+      "Amazon EBS",
+      "Amazon S3",
+      "AWS Snowball Edge",
+      "Amazon Route 53"
+    ],
+    "hint": "Block disk attached to EC2.",
+    "explanation": "Amazon EBS provides block-level storage volumes for EC2.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Storage",
+    "question": "Which AWS storage service provides a shared file system for Linux workloads across multiple EC2 instances?",
+    "options": [
+      "Amazon EFS",
+      "Amazon EBS",
+      "AWS CloudTrail",
+      "Amazon Macie"
+    ],
+    "hint": "Elastic File System.",
+    "explanation": "Amazon EFS is a scalable file system that multiple Linux instances can mount.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Storage",
+    "question": "A company needs low-cost long-term archival storage. Which service/storage class family fits?",
+    "options": [
+      "Amazon S3 Glacier",
+      "Amazon ElastiCache",
+      "Amazon DynamoDB",
+      "AWS Lambda"
+    ],
+    "hint": "Glacier = archive.",
+    "explanation": "S3 Glacier storage classes are designed for low-cost archive use cases.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Storage",
+    "question": "A company must transfer 60 TB of data securely to AWS using a physical device. Which service fits?",
+    "options": [
+      "AWS Snowball Edge",
+      "Amazon EBS",
+      "Amazon EFS",
+      "AWS Budgets"
+    ],
+    "hint": "Large offline data transfer device.",
+    "explanation": "AWS Snowball Edge is used to move large amounts of data to AWS using a physical device.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Storage",
+    "question": "A company has petabytes of data and no high-speed network connection. Which AWS family of services is fastest for migration?",
+    "options": [
+      "AWS Snow Family such as Snowball Edge",
+      "AWS VPN only",
+      "Amazon CloudWatch",
+      "AWS CodePipeline"
+    ],
+    "hint": "No fast network = physical transfer.",
+    "explanation": "The AWS Snow Family supports large-scale offline data transfer when networks are too slow.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Storage",
+    "question": "Which service connects on-premises environments to AWS storage using hybrid storage options?",
+    "options": [
+      "AWS Storage Gateway",
+      "Amazon GuardDuty",
+      "AWS IAM Identity Center",
+      "Amazon QuickSight"
+    ],
+    "hint": "Gateway from on-prem to AWS storage.",
+    "explanation": "AWS Storage Gateway provides hybrid cloud storage access between on-premises environments and AWS.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Databases",
+    "question": "Which AWS service is a managed relational database service?",
+    "options": [
+      "Amazon RDS",
+      "Amazon S3",
+      "AWS WAF",
+      "Amazon CloudFront"
+    ],
+    "hint": "Relational Database Service.",
+    "explanation": "Amazon RDS is a managed service for relational databases such as MySQL, PostgreSQL, MariaDB, Oracle, and SQL Server.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Databases",
+    "question": "Which AWS database is AWS-compatible relational database built for high performance and availability?",
+    "options": [
+      "Amazon Aurora",
+      "Amazon DynamoDB",
+      "Amazon Neptune",
+      "Amazon Macie"
+    ],
+    "hint": "Relational, AWS-built, MySQL/PostgreSQL compatible.",
+    "explanation": "Amazon Aurora is a MySQL- and PostgreSQL-compatible relational database built for the cloud.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Databases",
+    "question": "Which AWS database service is serverless NoSQL key-value/document storage?",
+    "options": [
+      "Amazon DynamoDB",
+      "Amazon RDS",
+      "Amazon Redshift",
+      "Amazon Aurora"
+    ],
+    "hint": "NoSQL + serverless + key-value.",
+    "explanation": "Amazon DynamoDB is a fully managed serverless NoSQL database.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Databases",
+    "question": "Which AWS database service provides in-memory data storage/caching?",
+    "options": [
+      "Amazon ElastiCache",
+      "Amazon S3",
+      "AWS DMS",
+      "Amazon Timestream"
+    ],
+    "hint": "Cache in memory.",
+    "explanation": "Amazon ElastiCache provides in-memory caching using engines such as Redis/Valkey and Memcached.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Databases",
+    "question": "A company needs a data warehouse for analytics. Which AWS service is most appropriate?",
+    "options": [
+      "Amazon Redshift",
+      "Amazon EFS",
+      "AWS Shield",
+      "Amazon Route 53"
+    ],
+    "hint": "Red = warehouse analytics.",
+    "explanation": "Amazon Redshift is a data warehouse service for analytics workloads.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Databases",
+    "question": "Which AWS service migrates an active on-premises database to AWS?",
+    "options": [
+      "AWS Database Migration Service (AWS DMS)",
+      "AWS Storage Gateway",
+      "AWS CloudTrail",
+      "Amazon Macie"
+    ],
+    "hint": "Database Migration Service.",
+    "explanation": "AWS DMS helps migrate databases to AWS with minimal downtime.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Databases",
+    "question": "A database has a predefined schema and relationships. Which AWS options are usually appropriate?",
+    "options": [
+      "Amazon RDS or Amazon Aurora",
+      "Amazon S3 or Amazon Macie",
+      "AWS Shield or AWS WAF",
+      "Amazon CloudFront or Route 53"
+    ],
+    "hint": "Predefined schema = relational.",
+    "explanation": "Relational databases with schemas are commonly hosted on Amazon RDS or Amazon Aurora.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Databases",
+    "question": "Which AWS database is designed for graph relationships?",
+    "options": [
+      "Amazon Neptune",
+      "Amazon ElastiCache",
+      "Amazon EBS",
+      "AWS Artifact"
+    ],
+    "hint": "Graph database = Neptune.",
+    "explanation": "Amazon Neptune is a managed graph database service.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Networking",
+    "question": "Which AWS service provides DNS and can route users away from unhealthy endpoints?",
+    "options": [
+      "Amazon Route 53",
+      "AWS Config",
+      "Amazon Inspector",
+      "AWS KMS"
+    ],
+    "hint": "Route users using DNS.",
+    "explanation": "Amazon Route 53 is AWS's DNS service and supports health checks and failover routing.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Networking",
+    "question": "Which AWS service is a content delivery network that caches content close to users?",
+    "options": [
+      "Amazon CloudFront",
+      "Amazon RDS",
+      "AWS CloudTrail",
+      "AWS DMS"
+    ],
+    "hint": "CDN = CloudFront.",
+    "explanation": "Amazon CloudFront is AWS's CDN service.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Networking",
+    "question": "Which VPC feature acts as an instance-level stateful firewall?",
+    "options": [
+      "Security group",
+      "Network ACL",
+      "Route table",
+      "Internet gateway"
+    ],
+    "hint": "Stateful and attached to instances/ENIs.",
+    "explanation": "Security groups are stateful firewalls associated with instances or network interfaces.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Networking",
+    "question": "Which VPC feature acts as a subnet-level stateless firewall?",
+    "options": [
+      "Network ACL",
+      "Security group",
+      "IAM role",
+      "CloudTrail trail"
+    ],
+    "hint": "Subnet-level = NACL.",
+    "explanation": "Network ACLs control traffic at the subnet level and are stateless.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Networking",
+    "question": "Which two features can control traffic in a VPC?",
+    "options": [
+      "Security groups and Network ACLs",
+      "CloudTrail and CloudWatch",
+      "Macie and Inspector",
+      "Budgets and Cost Explorer"
+    ],
+    "hint": "Firewalls in VPC.",
+    "explanation": "Security groups and Network ACLs are the main VPC traffic control features.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Networking",
+    "question": "A company is moving offices and needs an encrypted connection from the office network to AWS over the internet. Which service fits?",
+    "options": [
+      "AWS Site-to-Site VPN",
+      "Amazon Route 53 only",
+      "AWS Artifact",
+      "Amazon S3 Glacier"
+    ],
+    "hint": "Encrypted tunnel over internet.",
+    "explanation": "AWS Site-to-Site VPN creates encrypted tunnels between a customer network and AWS.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Networking",
+    "question": "A company wants a dedicated private network connection to AWS, not over the public internet. Which service should it use?",
+    "options": [
+      "AWS Direct Connect",
+      "AWS VPN",
+      "Amazon Macie",
+      "AWS Lambda"
+    ],
+    "hint": "Dedicated connection.",
+    "explanation": "AWS Direct Connect provides a dedicated private network connection from on-premises to AWS.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Networking",
+    "question": "A company has no physical data center and wants employee laptops to connect directly to AWS. Which service fits?",
+    "options": [
+      "AWS Client VPN",
+      "AWS Outposts",
+      "AWS Snowball Edge",
+      "Amazon CloudFront"
+    ],
+    "hint": "Remote users/laptops need VPN client access.",
+    "explanation": "AWS Client VPN lets remote users securely connect to AWS resources.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Networking",
+    "question": "Which VPC component allows resources in a public subnet to communicate with the internet?",
+    "options": [
+      "Internet Gateway",
+      "AWS Config",
+      "AWS Artifact",
+      "Amazon Inspector"
+    ],
+    "hint": "Gateway to the internet.",
+    "explanation": "An Internet Gateway enables internet connectivity for resources in a VPC when route tables and public IPs are configured.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Networking",
+    "question": "Which VPC component lets instances in a private subnet initiate outbound internet access without allowing inbound internet traffic?",
+    "options": [
+      "NAT Gateway",
+      "Internet Gateway only",
+      "AWS KMS",
+      "Amazon Macie"
+    ],
+    "hint": "Private subnet outbound internet.",
+    "explanation": "A NAT Gateway allows private subnet resources to initiate outbound internet connections.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Monitoring & Governance",
+    "question": "Which service monitors EC2 CPU and network utilization and can create alarms?",
+    "options": [
+      "Amazon CloudWatch",
+      "AWS CloudTrail",
+      "AWS Config",
+      "Amazon Macie"
+    ],
+    "hint": "Metrics and alarms.",
+    "explanation": "CloudWatch collects metrics and logs and can create alarms based on thresholds.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Monitoring & Governance",
+    "question": "Which service records AWS account activity, including console, CLI, SDK, and API actions?",
+    "options": [
+      "AWS CloudTrail",
+      "Amazon CloudWatch",
+      "Amazon EFS",
+      "AWS WAF"
+    ],
+    "hint": "Who did what?",
+    "explanation": "CloudTrail records API activity and account actions for auditing.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Monitoring & Governance",
+    "question": "Which service helps audit resource configuration changes over time?",
+    "options": [
+      "AWS Config",
+      "Amazon CloudFront",
+      "AWS Budgets",
+      "Amazon WorkSpaces"
+    ],
+    "hint": "What changed?",
+    "explanation": "AWS Config records resource configuration history and evaluates compliance against rules.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Monitoring & Governance",
+    "question": "Which AWS service provides recommendations/checks for cost optimization, security, fault tolerance, and service quotas?",
+    "options": [
+      "AWS Trusted Advisor",
+      "Amazon Macie",
+      "AWS CodeArtifact",
+      "Amazon EC2"
+    ],
+    "hint": "Advisor = recommendations.",
+    "explanation": "Trusted Advisor provides best-practice checks across categories like cost optimization, security, fault tolerance, performance, and service quotas.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Monitoring & Governance",
+    "question": "Which service helps users view and request AWS service quota increases?",
+    "options": [
+      "AWS Service Quotas",
+      "AWS Artifact",
+      "Amazon Personalize",
+      "Amazon Route 53"
+    ],
+    "hint": "The service name contains quota.",
+    "explanation": "AWS Service Quotas helps view and manage quotas for AWS services.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Monitoring & Governance",
+    "question": "Which service gives alerts and guidance about AWS events that may affect your account?",
+    "options": [
+      "AWS Health Dashboard",
+      "Amazon Redshift",
+      "AWS CodePipeline",
+      "Amazon Neptune"
+    ],
+    "hint": "Health of AWS services for your account.",
+    "explanation": "AWS Health Dashboard provides visibility into AWS service events and account-specific impacts.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Monitoring & Governance",
+    "question": "Which AWS service provides a simple way to set up and govern a new multi-account AWS environment at scale?",
+    "options": [
+      "AWS Control Tower",
+      "AWS WAF",
+      "Amazon EBS",
+      "Amazon WorkSpaces"
+    ],
+    "hint": "Landing zone and account governance.",
+    "explanation": "AWS Control Tower helps set up and govern a secure multi-account AWS environment.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Monitoring & Governance",
+    "question": "Which service is used to centrally manage multiple AWS accounts and consolidated billing?",
+    "options": [
+      "AWS Organizations",
+      "Amazon Inspector",
+      "AWS Elastic Beanstalk",
+      "Amazon QuickSight"
+    ],
+    "hint": "Organization of accounts.",
+    "explanation": "AWS Organizations supports centralized multi-account management and consolidated billing.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Monitoring & Governance",
+    "question": "Which AWS service allows sharing selected AWS resources with other AWS accounts?",
+    "options": [
+      "AWS Resource Access Manager (RAM)",
+      "AWS Budgets",
+      "Amazon GuardDuty",
+      "AWS Shield"
+    ],
+    "hint": "Resource sharing across accounts.",
+    "explanation": "AWS RAM helps securely share resources across accounts or within an AWS Organization.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Billing, Pricing & Support",
+    "question": "Which AWS tool gives a high-level estimate for future AWS usage costs?",
+    "options": [
+      "AWS Pricing Calculator",
+      "Amazon CloudWatch",
+      "AWS Config",
+      "AWS Secrets Manager"
+    ],
+    "hint": "Estimate before using.",
+    "explanation": "AWS Pricing Calculator estimates expected AWS service costs.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Billing, Pricing & Support",
+    "question": "Which tool helps visualize, understand, and manage AWS spending and usage over time?",
+    "options": [
+      "AWS Cost Explorer",
+      "AWS Shield",
+      "Amazon WorkSpaces",
+      "AWS DMS"
+    ],
+    "hint": "Explore costs over time.",
+    "explanation": "AWS Cost Explorer helps analyze AWS costs and usage trends.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Billing, Pricing & Support",
+    "question": "Which AWS service can send alerts when costs or usage exceed thresholds?",
+    "options": [
+      "AWS Budgets",
+      "AWS Config",
+      "Amazon Macie",
+      "AWS Lambda only"
+    ],
+    "hint": "Budget alerts.",
+    "explanation": "AWS Budgets lets users set custom cost and usage budgets and receive alerts.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Billing, Pricing & Support",
+    "question": "Which report provides the most detailed AWS cost and usage data?",
+    "options": [
+      "AWS Cost and Usage Report",
+      "AWS Artifact report only",
+      "CloudWatch alarm history",
+      "Route 53 health check report"
+    ],
+    "hint": "Detailed billing data.",
+    "explanation": "The AWS Cost and Usage Report contains detailed cost and usage information.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Billing, Pricing & Support",
+    "question": "Which AWS Support plan is the least expensive plan that provides 24/7 access to cloud support engineers?",
+    "options": [
+      "Business Support",
+      "Basic Support",
+      "Developer Support",
+      "No support plan"
+    ],
+    "hint": "24/7 technical support starts here.",
+    "explanation": "Business Support is the least expensive plan with 24/7 access to cloud support engineers.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Billing, Pricing & Support",
+    "question": "Which AWS Support plan includes a designated Technical Account Manager (TAM)?",
+    "options": [
+      "Enterprise Support",
+      "Basic Support",
+      "Developer Support",
+      "Business Support"
+    ],
+    "hint": "TAM is an Enterprise-level feature.",
+    "explanation": "AWS Enterprise Support includes a designated Technical Account Manager.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Billing, Pricing & Support",
+    "question": "Which pricing model is best when usage is steady and the company can commit to 1 or 3 years?",
+    "options": [
+      "Reserved Instances or Savings Plans",
+      "Spot Instances only",
+      "On-Demand only",
+      "Snowball Edge"
+    ],
+    "hint": "Commitment reduces cost.",
+    "explanation": "Reserved Instances and Savings Plans are designed for discounted pricing in exchange for long-term commitment.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Billing, Pricing & Support",
+    "question": "Which AWS tool or service is used to view consolidated billing across accounts?",
+    "options": [
+      "AWS Organizations",
+      "AWS WAF",
+      "Amazon CloudFront",
+      "AWS Secrets Manager"
+    ],
+    "hint": "Billing across multiple accounts.",
+    "explanation": "AWS Organizations can set up a management account for consolidated billing.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Well-Architected & CAF",
+    "question": "Which AWS Well-Architected pillar focuses on the ability of a workload to recover from failures?",
+    "options": [
+      "Reliability",
+      "Cost Optimization",
+      "Sustainability",
+      "Operational Excellence only"
+    ],
+    "hint": "Failure recovery.",
+    "explanation": "The Reliability pillar focuses on operating correctly and consistently, including recovery from failures.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Well-Architected & CAF",
+    "question": "Which Well-Architected pillar includes protecting data in transit and at rest?",
+    "options": [
+      "Security",
+      "Cost Optimization",
+      "Global Infrastructure",
+      "Billing"
+    ],
+    "hint": "Protecting data = security.",
+    "explanation": "The Security pillar includes protecting data, systems, and assets.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Well-Architected & CAF",
+    "question": "Rightsizing AWS resources is mainly related to which Well-Architected pillar?",
+    "options": [
+      "Cost Optimization",
+      "Security",
+      "Reliability",
+      "Sustainability only"
+    ],
+    "hint": "Rightsizing avoids overpaying.",
+    "explanation": "Rightsizing helps choose the correct resource size and is a cost optimization practice.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Well-Architected & CAF",
+    "question": "Performing operations as code is mainly related to which Well-Architected pillar?",
+    "options": [
+      "Operational Excellence",
+      "Billing and Support",
+      "Shared Responsibility",
+      "Global Reach"
+    ],
+    "hint": "Operations as code improves operational processes.",
+    "explanation": "Operational Excellence includes running and monitoring systems and improving processes, including operations as code.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Well-Architected & CAF",
+    "question": "Which Well-Architected pillar focuses on using computing resources efficiently to meet requirements?",
+    "options": [
+      "Performance Efficiency",
+      "Security",
+      "CAF People Perspective",
+      "Consolidated Billing"
+    ],
+    "hint": "Efficient performance.",
+    "explanation": "Performance Efficiency focuses on using IT and computing resources efficiently.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Well-Architected & CAF",
+    "question": "Which Well-Architected pillar focuses on minimizing environmental impact?",
+    "options": [
+      "Sustainability",
+      "Security",
+      "Reliability",
+      "Migration"
+    ],
+    "hint": "Environmental impact.",
+    "explanation": "The Sustainability pillar focuses on minimizing environmental impacts of running cloud workloads.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Well-Architected & CAF",
+    "question": "In AWS CAF, which perspective includes performance and capacity management?",
+    "options": [
+      "Operations",
+      "Business",
+      "People",
+      "Security"
+    ],
+    "hint": "Running and monitoring workloads.",
+    "explanation": "Performance and capacity management is a capability under the AWS CAF Operations perspective.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Well-Architected & CAF",
+    "question": "In AWS CAF, which perspective focuses on identity and access management?",
+    "options": [
+      "Security",
+      "Business",
+      "People",
+      "Platform only"
+    ],
+    "hint": "IAM is a security capability.",
+    "explanation": "Identity and access management belongs to the Security perspective in AWS CAF.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Other CCP Services",
+    "question": "Which AWS service provides virtual desktops for employees using personal devices?",
+    "options": [
+      "Amazon WorkSpaces",
+      "Amazon AppSync",
+      "AWS CodeArtifact",
+      "Amazon Neptune"
+    ],
+    "hint": "Workspace = desktop.",
+    "explanation": "Amazon WorkSpaces provides managed virtual desktops.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Other CCP Services",
+    "question": "Which AWS service streams desktop applications to users without giving them full virtual desktops?",
+    "options": [
+      "Amazon AppStream 2.0",
+      "Amazon WorkSpaces",
+      "Amazon S3",
+      "AWS Macie"
+    ],
+    "hint": "App streaming, not full desktop.",
+    "explanation": "Amazon AppStream 2.0 provides application streaming to users.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Other CCP Services",
+    "question": "Which AWS service gives business intelligence dashboards and visualizations?",
+    "options": [
+      "Amazon QuickSight",
+      "AWS Shield",
+      "Amazon EBS",
+      "AWS DMS"
+    ],
+    "hint": "Sight = visuals.",
+    "explanation": "Amazon QuickSight is a business intelligence service for dashboards and data visualization.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Other CCP Services",
+    "question": "Which AWS service analyzes images and videos using machine learning?",
+    "options": [
+      "Amazon Rekognition",
+      "Amazon Macie",
+      "AWS Config",
+      "Amazon ElastiCache"
+    ],
+    "hint": "Recognize objects/faces/text in media.",
+    "explanation": "Amazon Rekognition provides image and video analysis.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Other CCP Services",
+    "question": "Which AWS service provides personalized recommendations using machine learning?",
+    "options": [
+      "Amazon Personalize",
+      "Amazon Macie",
+      "AWS WAF",
+      "AWS Storage Gateway"
+    ],
+    "hint": "Personalized recommendations.",
+    "explanation": "Amazon Personalize helps build recommendation systems.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Other CCP Services",
+    "question": "Which AWS service converts text into lifelike speech?",
+    "options": [
+      "Amazon Polly",
+      "Amazon Textract",
+      "AWS CodeBuild",
+      "Amazon Route 53"
+    ],
+    "hint": "Polly talks.",
+    "explanation": "Amazon Polly turns text into speech.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Other CCP Services",
+    "question": "Which AWS service extracts text and data from scanned documents?",
+    "options": [
+      "Amazon Textract",
+      "Amazon Polly",
+      "Amazon CloudFront",
+      "AWS Shield"
+    ],
+    "hint": "Text extraction.",
+    "explanation": "Amazon Textract extracts printed text, handwriting, and data from documents.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Other CCP Services",
+    "question": "Which service helps migrate servers/applications to AWS?",
+    "options": [
+      "AWS Application Migration Service",
+      "Amazon Macie",
+      "AWS Artifact",
+      "Amazon Route 53"
+    ],
+    "hint": "Application/server migration.",
+    "explanation": "AWS Application Migration Service helps migrate and modernize applications from physical, virtual, or cloud infrastructure.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Other CCP Services",
+    "question": "A company needs AWS hardware on premises but wants the same AWS management and control plane. Which service should it use?",
+    "options": [
+      "AWS Outposts",
+      "AWS Fargate",
+      "AWS Ground Station",
+      "AWS Device Farm"
+    ],
+    "hint": "AWS racks on-premises.",
+    "explanation": "AWS Outposts brings AWS infrastructure and services to on-premises locations.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Other CCP Services",
+    "question": "Which developer tool stores software packages/artifacts for application dependencies?",
+    "options": [
+      "AWS CodeArtifact",
+      "Amazon Macie",
+      "AWS Shield",
+      "Amazon VPC"
+    ],
+    "hint": "Artifact repository for code packages.",
+    "explanation": "AWS CodeArtifact is a managed artifact repository for software packages.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Other CCP Services",
+    "question": "Which developer service automates build and test phases for source code?",
+    "options": [
+      "AWS CodeBuild",
+      "Amazon Route 53",
+      "Amazon WorkSpaces",
+      "AWS Budgets"
+    ],
+    "hint": "Build service.",
+    "explanation": "AWS CodeBuild compiles source code, runs tests, and produces software packages.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Other CCP Services",
+    "question": "Which developer service automates software release workflows?",
+    "options": [
+      "AWS CodePipeline",
+      "Amazon EBS",
+      "Amazon GuardDuty",
+      "AWS Organizations"
+    ],
+    "hint": "Pipeline = release workflow.",
+    "explanation": "AWS CodePipeline automates build, test, and deploy workflows.",
+    "answers": [
+      0
+    ]
+  },
+  {
+    "category": "Multi-Select: Cloud Concepts",
+    "question": "Which benefits are commonly associated with moving to the AWS Cloud? (Select TWO.)",
+    "options": [
+      "Trade fixed expense for variable expense",
+      "Benefit from massive economies of scale",
+      "Eliminate all security responsibilities",
+      "Always use physical servers owned by the customer",
+      "Avoid all architecture planning"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "AWS Cloud helps with cost model and scale, but it does not remove customer responsibility.",
+    "explanation": "AWS commonly describes cloud value as trading fixed expense for variable expense and benefiting from economies of scale. Customers still need security and architecture planning."
+  },
+  {
+    "category": "Multi-Select: Cloud Concepts",
+    "question": "Which design principles can improve reliability in the AWS Cloud? (Select TWO.)",
+    "options": [
+      "Automatically recover from failure",
+      "Test recovery procedures",
+      "Use one large server for all workloads",
+      "Avoid monitoring systems",
+      "Manually provision all capacity only once a year"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Reliability is about recovery and proving that recovery works.",
+    "explanation": "The Reliability pillar includes automatically recovering from failure and testing recovery procedures. Single-server designs and lack of monitoring reduce reliability."
+  },
+  {
+    "category": "Multi-Select: Cloud Concepts",
+    "question": "Which statements describe elasticity? (Select TWO.)",
+    "options": [
+      "Resources can scale out when demand increases",
+      "Resources can scale in when demand decreases",
+      "Resources must be purchased years in advance",
+      "The customer must always manually add servers",
+      "The application must run in only one Availability Zone"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Elasticity means stretch and shrink.",
+    "explanation": "Elasticity is the ability to add resources as demand increases and remove resources as demand decreases."
+  },
+  {
+    "category": "Multi-Select: Global Infrastructure",
+    "question": "Which statements about AWS Regions and Availability Zones are correct? (Select TWO.)",
+    "options": [
+      "A Region is a geographic area",
+      "A Region usually contains multiple Availability Zones",
+      "An Availability Zone contains multiple Regions",
+      "All Regions are located in the same country",
+      "Edge locations are the same as IAM users"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Region is broad; AZ is inside it.",
+    "explanation": "A Region is a geographic area, and each Region typically has multiple Availability Zones. An AZ does not contain Regions."
+  },
+  {
+    "category": "Multi-Select: Global Infrastructure",
+    "question": "Which choices help design for high availability? (Select TWO.)",
+    "options": [
+      "Deploy resources across multiple Availability Zones",
+      "Use Elastic Load Balancing across healthy targets",
+      "Store all data on one local disk only",
+      "Disable health checks",
+      "Use only one EC2 instance for production"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "HA avoids single points of failure.",
+    "explanation": "Using multiple AZs and load balancing across healthy targets helps keep applications available if one resource or AZ has issues."
+  },
+  {
+    "category": "Multi-Select: Shared Responsibility",
+    "question": "Which tasks are AWS responsibilities under the shared responsibility model? (Select TWO.)",
+    "options": [
+      "Physical security of AWS data centers",
+      "Patching and maintaining the hypervisor",
+      "Configuring the customer's security groups",
+      "Patching the guest OS on customer EC2 instances",
+      "Managing customer application code"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "AWS handles security OF the cloud.",
+    "explanation": "AWS is responsible for physical facilities and underlying infrastructure such as the hypervisor. Customers configure their own resources and guest OS on EC2."
+  },
+  {
+    "category": "Multi-Select: Shared Responsibility",
+    "question": "Which tasks are customer responsibilities for workloads running on Amazon EC2? (Select TWO.)",
+    "options": [
+      "Patch the guest operating system",
+      "Configure security groups",
+      "Maintain AWS physical data centers",
+      "Replace failed physical servers",
+      "Patch AWS global network devices"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "EC2 gives the customer control of the OS and network config.",
+    "explanation": "For EC2, customers patch the guest OS and configure security groups. AWS manages physical facilities and underlying infrastructure."
+  },
+  {
+    "category": "Multi-Select: Shared Responsibility",
+    "question": "Which items are normally part of customer responsibility? (Select TWO.)",
+    "options": [
+      "Customer data classification",
+      "IAM permissions and access control",
+      "AWS edge location security",
+      "AWS hardware lifecycle management",
+      "AWS Availability Zone power and cooling"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Customer controls their data and identities.",
+    "explanation": "Customers are responsible for their data and access permissions. AWS handles physical infrastructure and facilities."
+  },
+  {
+    "category": "Multi-Select: IAM & Security",
+    "question": "Which are IAM security best practices? (Select TWO.)",
+    "options": [
+      "Enable multi-factor authentication (MFA)",
+      "Apply least privilege permissions",
+      "Share root user credentials with the admin team",
+      "Use root access keys for daily CLI access",
+      "Give every user AdministratorAccess by default"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Protect sign-in and avoid excessive permissions.",
+    "explanation": "MFA and least privilege are core IAM best practices. Root and administrator credentials should not be used casually."
+  },
+  {
+    "category": "Multi-Select: IAM & Security",
+    "question": "Which statements about IAM users and groups are correct? (Select TWO.)",
+    "options": [
+      "A user can be a member of multiple groups",
+      "Groups can contain users only, not other groups",
+      "A user must be in exactly one group",
+      "All new users are automatically placed into a default group",
+      "Groups are used to physically isolate data centers"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "IAM groups are collections of users, and users can be in more than one.",
+    "explanation": "IAM users can be members of multiple groups, and IAM groups can contain users but cannot be nested."
+  },
+  {
+    "category": "Multi-Select: IAM & Security",
+    "question": "Which tasks can require the AWS account root user? (Select TWO.)",
+    "options": [
+      "Close the AWS account",
+      "Restore IAM administrator permissions",
+      "Start an EC2 instance",
+      "Create a normal IAM user",
+      "Upload an object to S3"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Root is for rare account-level actions.",
+    "explanation": "Closing an account and restoring IAM administrator access can require root user credentials. Day-to-day tasks should use IAM identities."
+  },
+  {
+    "category": "Multi-Select: IAM & Security",
+    "question": "Which services or features help protect web applications from attacks? (Select TWO.)",
+    "options": [
+      "AWS WAF",
+      "AWS Shield",
+      "AWS Cost Explorer",
+      "Amazon RDS",
+      "AWS CodeArtifact"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "One is for web request filtering; one is for DDoS.",
+    "explanation": "AWS WAF helps block web exploits like SQL injection and XSS. AWS Shield helps protect against DDoS attacks."
+  },
+  {
+    "category": "Multi-Select: IAM & Security",
+    "question": "Which services are mainly used for detection or security findings? (Select TWO.)",
+    "options": [
+      "Amazon GuardDuty",
+      "Amazon Inspector",
+      "AWS Pricing Calculator",
+      "Amazon Route 53",
+      "Amazon EFS"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Threat detection and vulnerability scanning.",
+    "explanation": "GuardDuty detects suspicious activity and threats. Inspector scans workloads for software vulnerabilities and exposure."
+  },
+  {
+    "category": "Multi-Select: IAM & Security",
+    "question": "Which services are used to protect or manage sensitive information? (Select TWO.)",
+    "options": [
+      "AWS Secrets Manager",
+      "AWS Key Management Service (AWS KMS)",
+      "Amazon CloudFront",
+      "AWS Budgets",
+      "Amazon WorkSpaces"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Secrets and keys.",
+    "explanation": "Secrets Manager stores and rotates secrets. KMS manages encryption keys."
+  },
+  {
+    "category": "Multi-Select: IAM & Security",
+    "question": "Which clues point to Amazon Macie? (Select TWO.)",
+    "options": [
+      "Discover PII in S3 buckets",
+      "Use machine learning/pattern matching to find sensitive data",
+      "Distribute DNS traffic",
+      "Run serverless functions",
+      "Create virtual desktops"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Macie is about sensitive data discovery in S3.",
+    "explanation": "Amazon Macie helps discover sensitive data such as PII in S3 using techniques including machine learning and pattern matching."
+  },
+  {
+    "category": "Multi-Select: Compute",
+    "question": "Which AWS services are compute services? (Select TWO.)",
+    "options": [
+      "Amazon EC2",
+      "AWS Lambda",
+      "Amazon S3",
+      "AWS KMS",
+      "Amazon Route 53"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "One is virtual servers; one is serverless functions.",
+    "explanation": "Amazon EC2 provides virtual servers. AWS Lambda runs code without managing servers."
+  },
+  {
+    "category": "Multi-Select: Compute",
+    "question": "Which statements about AWS Lambda are correct? (Select TWO.)",
+    "options": [
+      "It is serverless compute",
+      "It runs code in response to events",
+      "It is block storage for EC2",
+      "It is a relational database engine",
+      "It is a physical migration device"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Lambda is serverless event-driven compute.",
+    "explanation": "Lambda is a serverless compute service that can run code in response to events."
+  },
+  {
+    "category": "Multi-Select: Compute",
+    "question": "Which options are best for predictable baseline traffic and interruptible peak traffic? (Select TWO.)",
+    "options": [
+      "Reserved Instances or Savings Plans for baseline traffic",
+      "Spot Instances for interruptible peak traffic",
+      "Root user access keys for baseline traffic",
+      "S3 Glacier for peak compute",
+      "AWS Artifact for auto scaling"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Stable usage gets commitment discounts; interruptible work can use Spot.",
+    "explanation": "Reserved Instances or Savings Plans are good for predictable baseline usage. Spot Instances are cost-effective for interruptible peak capacity."
+  },
+  {
+    "category": "Multi-Select: Compute",
+    "question": "Which services can help run containers on AWS? (Select TWO.)",
+    "options": [
+      "Amazon ECS",
+      "Amazon EKS",
+      "Amazon Macie",
+      "AWS Cost Explorer",
+      "Amazon Route 53"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "One is AWS container orchestration; one is Kubernetes.",
+    "explanation": "Amazon ECS runs containers using AWS orchestration. Amazon EKS runs managed Kubernetes."
+  },
+  {
+    "category": "Multi-Select: Compute",
+    "question": "Which compute-related services reduce the need to manage infrastructure directly? (Select TWO.)",
+    "options": [
+      "AWS Elastic Beanstalk",
+      "AWS Fargate",
+      "Amazon EBS",
+      "AWS Artifact",
+      "Amazon Route 53"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "One deploys web apps; one runs containers without server management.",
+    "explanation": "Elastic Beanstalk handles application environment deployment and management. Fargate runs containers without managing servers."
+  },
+  {
+    "category": "Multi-Select: Storage",
+    "question": "Which storage services are commonly attached to or used with EC2 instances? (Select TWO.)",
+    "options": [
+      "Amazon EBS",
+      "Amazon EFS",
+      "Amazon Macie",
+      "AWS Organizations",
+      "Amazon Polly"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Block storage and shared file storage.",
+    "explanation": "EBS provides block storage volumes for EC2. EFS provides a shared file system for Linux workloads."
+  },
+  {
+    "category": "Multi-Select: Storage",
+    "question": "Which S3 features can help protect or manage objects over time? (Select TWO.)",
+    "options": [
+      "S3 Versioning",
+      "S3 Lifecycle policies",
+      "Amazon GuardDuty only",
+      "AWS CodePipeline",
+      "Amazon Neptune"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "One keeps old versions; one moves/deletes objects by rules.",
+    "explanation": "S3 Versioning keeps previous object versions. S3 Lifecycle policies can transition or expire objects automatically."
+  },
+  {
+    "category": "Multi-Select: Storage",
+    "question": "Which services are used for large-scale data transfer or hybrid storage? (Select TWO.)",
+    "options": [
+      "AWS Snowball Edge",
+      "AWS Storage Gateway",
+      "Amazon Rekognition",
+      "AWS WAF",
+      "Amazon WorkSpaces"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "One is a physical device; one connects on-prem storage to AWS.",
+    "explanation": "Snowball Edge is a physical data transfer device. Storage Gateway connects on-premises environments to AWS storage."
+  },
+  {
+    "category": "Multi-Select: Storage",
+    "question": "Which are valid Amazon S3 use cases? (Select TWO.)",
+    "options": [
+      "Object storage for static images",
+      "Hosting static website content",
+      "Running SQL Server as a managed relational database",
+      "Providing DNS failover",
+      "Managing IAM users"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "S3 stores objects; static files are objects.",
+    "explanation": "Amazon S3 stores objects such as images and can host static website content."
+  },
+  {
+    "category": "Multi-Select: Databases",
+    "question": "Which AWS services are relational database services? (Select TWO.)",
+    "options": [
+      "Amazon RDS",
+      "Amazon Aurora",
+      "Amazon DynamoDB",
+      "Amazon S3",
+      "Amazon Macie"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Relational means tables/schemas/SQL style.",
+    "explanation": "Amazon RDS and Amazon Aurora are relational database services. DynamoDB is NoSQL; S3 is object storage."
+  },
+  {
+    "category": "Multi-Select: Databases",
+    "question": "Which database services are correctly matched to their use cases? (Select TWO.)",
+    "options": [
+      "Amazon DynamoDB for NoSQL key-value/document workloads",
+      "Amazon Redshift for data warehousing and analytics",
+      "Amazon S3 for managed relational database schemas",
+      "Amazon Route 53 for in-memory caching",
+      "AWS WAF for graph databases"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "DynamoDB is NoSQL; Redshift is analytics warehouse.",
+    "explanation": "DynamoDB is a NoSQL database. Redshift is a data warehouse for analytics."
+  },
+  {
+    "category": "Multi-Select: Databases",
+    "question": "Which services are database-related? (Select TWO.)",
+    "options": [
+      "Amazon ElastiCache",
+      "AWS Database Migration Service (AWS DMS)",
+      "AWS Shield",
+      "Amazon CloudFront",
+      "AWS Artifact"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "One is in-memory caching; one migrates databases.",
+    "explanation": "ElastiCache provides in-memory data storage/caching. AWS DMS migrates databases to AWS."
+  },
+  {
+    "category": "Multi-Select: Networking",
+    "question": "Which AWS services or features are used for content delivery and DNS? (Select TWO.)",
+    "options": [
+      "Amazon CloudFront",
+      "Amazon Route 53",
+      "Amazon Macie",
+      "AWS Secrets Manager",
+      "Amazon EBS"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "CDN and DNS.",
+    "explanation": "CloudFront is a CDN. Route 53 is a DNS service with routing and health check features."
+  },
+  {
+    "category": "Multi-Select: Networking",
+    "question": "Which VPC components can act as firewalls for traffic control? (Select TWO.)",
+    "options": [
+      "Security groups",
+      "Network ACLs",
+      "AWS Budgets",
+      "Amazon Polly",
+      "AWS DMS"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "One is instance-level, one is subnet-level.",
+    "explanation": "Security groups control instance/ENI-level traffic and are stateful. Network ACLs control subnet-level traffic and are stateless."
+  },
+  {
+    "category": "Multi-Select: Networking",
+    "question": "Which statements are correct? (Select TWO.)",
+    "options": [
+      "Security groups are stateful",
+      "Network ACLs are stateless",
+      "Security groups are used for consolidated billing",
+      "Network ACLs discover PII in S3",
+      "Route 53 patches EC2 operating systems"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Stateful vs stateless is a classic VPC exam trap.",
+    "explanation": "Security groups are stateful; Network ACLs are stateless."
+  },
+  {
+    "category": "Multi-Select: Networking",
+    "question": "Which services connect on-premises or users to AWS networks? (Select TWO.)",
+    "options": [
+      "AWS Site-to-Site VPN",
+      "AWS Direct Connect",
+      "Amazon Comprehend",
+      "Amazon Macie",
+      "AWS CodeArtifact"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Encrypted internet tunnel vs dedicated private connection.",
+    "explanation": "Site-to-Site VPN creates encrypted network tunnels over the internet. Direct Connect provides dedicated private connectivity."
+  },
+  {
+    "category": "Multi-Select: Networking",
+    "question": "Which services/features help with private subnet internet access or public subnet internet access? (Select TWO.)",
+    "options": [
+      "NAT Gateway",
+      "Internet Gateway",
+      "AWS Artifact",
+      "Amazon Textract",
+      "AWS Budgets"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "One is outbound from private; one connects VPC to internet.",
+    "explanation": "NAT Gateway allows outbound internet access from private subnets. Internet Gateway enables internet connectivity for public resources in a VPC."
+  },
+  {
+    "category": "Multi-Select: Monitoring & Governance",
+    "question": "Which services are used for monitoring and auditing AWS activity or resources? (Select TWO.)",
+    "options": [
+      "Amazon CloudWatch",
+      "AWS CloudTrail",
+      "Amazon Polly",
+      "AWS Snowball Edge",
+      "Amazon EKS"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Metrics/logs/alarms and API activity history.",
+    "explanation": "CloudWatch monitors metrics/logs/alarms. CloudTrail records AWS API and account activity."
+  },
+  {
+    "category": "Multi-Select: Monitoring & Governance",
+    "question": "Which services help with AWS governance or account management? (Select TWO.)",
+    "options": [
+      "AWS Organizations",
+      "AWS Control Tower",
+      "Amazon EBS",
+      "Amazon Rekognition",
+      "AWS Lambda"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Multi-account management and multi-account governance.",
+    "explanation": "Organizations centrally manages multiple AWS accounts and consolidated billing. Control Tower helps set up and govern a multi-account environment."
+  },
+  {
+    "category": "Multi-Select: Monitoring & Governance",
+    "question": "Which services/tools provide best-practice checks or service quota visibility? (Select TWO.)",
+    "options": [
+      "AWS Trusted Advisor",
+      "AWS Service Quotas",
+      "AWS CodeArtifact",
+      "Amazon RDS",
+      "Amazon Kinesis"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Advisor gives checks; quotas show limits.",
+    "explanation": "Trusted Advisor provides best-practice checks. Service Quotas helps view and request quota increases."
+  },
+  {
+    "category": "Multi-Select: Monitoring & Governance",
+    "question": "Which services can help manage or automate infrastructure operations? (Select TWO.)",
+    "options": [
+      "AWS CloudFormation",
+      "AWS Systems Manager",
+      "Amazon Personalize",
+      "AWS Shield",
+      "Amazon Route 53 Resolver only"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Templates and systems/instance management.",
+    "explanation": "CloudFormation provides infrastructure as code. Systems Manager helps manage instances and operational tasks."
+  },
+  {
+    "category": "Multi-Select: Billing, Pricing & Support",
+    "question": "Which tools help estimate or analyze AWS costs? (Select TWO.)",
+    "options": [
+      "AWS Pricing Calculator",
+      "AWS Cost Explorer",
+      "Amazon Macie",
+      "AWS Shield",
+      "Amazon Route 53"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "One estimates future costs; one explores actual spend over time.",
+    "explanation": "Pricing Calculator estimates costs. Cost Explorer visualizes and analyzes AWS spending and usage over time."
+  },
+  {
+    "category": "Multi-Select: Billing, Pricing & Support",
+    "question": "Which tools help manage AWS budgets or detailed billing data? (Select TWO.)",
+    "options": [
+      "AWS Budgets",
+      "AWS Cost and Usage Report",
+      "AWS WAF",
+      "Amazon EC2 Auto Scaling",
+      "Amazon Textract"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Budget alerts and detailed cost report.",
+    "explanation": "AWS Budgets creates budget thresholds and alerts. Cost and Usage Report provides detailed billing data."
+  },
+  {
+    "category": "Multi-Select: Billing, Pricing & Support",
+    "question": "Which statements about AWS Support plans are correct? (Select TWO.)",
+    "options": [
+      "Business Support provides 24/7 access to cloud support engineers",
+      "Enterprise Support includes a designated Technical Account Manager (TAM)",
+      "Basic Support includes a designated TAM",
+      "Developer Support is always the highest support tier",
+      "AWS Support plans replace customer security responsibilities"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Business = 24/7 engineers; Enterprise = TAM.",
+    "explanation": "Business Support includes 24/7 cloud support engineer access. Enterprise Support includes a designated TAM."
+  },
+  {
+    "category": "Multi-Select: Billing, Pricing & Support",
+    "question": "Which options can help reduce cost for steady or committed usage? (Select TWO.)",
+    "options": [
+      "Savings Plans",
+      "Reserved Instances",
+      "On-Demand only with no commitment",
+      "Root user MFA",
+      "AWS Artifact agreements only"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Commitment-based discounts.",
+    "explanation": "Savings Plans and Reserved Instances can reduce costs when usage is steady or the customer can commit to usage."
+  },
+  {
+    "category": "Multi-Select: Well-Architected & CAF",
+    "question": "Which are pillars of the AWS Well-Architected Framework? (Select TWO.)",
+    "options": [
+      "Reliability",
+      "Cost Optimization",
+      "Root User Management",
+      "Consolidated Billing",
+      "AWS Marketplace"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "The framework has six pillars, including these two.",
+    "explanation": "Reliability and Cost Optimization are two of the six AWS Well-Architected Framework pillars."
+  },
+  {
+    "category": "Multi-Select: Well-Architected & CAF",
+    "question": "Which practices belong to the Security pillar? (Select TWO.)",
+    "options": [
+      "Protect data in transit and at rest",
+      "Monitor, alert, and audit actions",
+      "Use one server to lower complexity",
+      "Ignore identity management",
+      "Buy only reserved capacity"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Security is about protecting and tracing actions.",
+    "explanation": "The Security pillar includes data protection and traceability through monitoring, alerting, and auditing."
+  },
+  {
+    "category": "Multi-Select: Well-Architected & CAF",
+    "question": "Which AWS CAF perspectives are commonly included in the framework? (Select TWO.)",
+    "options": [
+      "Business",
+      "People",
+      "Gaming",
+      "Physical Cabling",
+      "Root User"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "CAF covers organisational perspectives, not just tech.",
+    "explanation": "AWS CAF includes perspectives such as Business, People, Governance, Platform, Security, and Operations."
+  },
+  {
+    "category": "Multi-Select: Application Integration",
+    "question": "Which services help decouple or integrate application components? (Select TWO.)",
+    "options": [
+      "Amazon SQS",
+      "Amazon SNS",
+      "Amazon EBS",
+      "AWS Artifact",
+      "Amazon WorkSpaces"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Queue and notification service.",
+    "explanation": "SQS provides message queues. SNS provides publish/subscribe messaging and notifications."
+  },
+  {
+    "category": "Multi-Select: Application Integration",
+    "question": "Which statements are correct? (Select TWO.)",
+    "options": [
+      "Amazon SQS is used for message queues",
+      "Amazon SNS is used for publish/subscribe notifications",
+      "Amazon SQS is used to manage encryption keys",
+      "Amazon SNS is a relational database",
+      "AWS WAF is used to store messages in a queue"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Queue vs pub/sub.",
+    "explanation": "SQS is a message queuing service. SNS is a pub/sub messaging and notification service."
+  },
+  {
+    "category": "Multi-Select: Application Integration",
+    "question": "Which services are associated with event-driven workflows? (Select TWO.)",
+    "options": [
+      "Amazon EventBridge",
+      "AWS Step Functions",
+      "Amazon EBS",
+      "AWS Cost Explorer",
+      "AWS Snowball Edge"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Event bus and step-by-step workflows.",
+    "explanation": "EventBridge is used for event-driven architectures. Step Functions coordinates workflows across services."
+  },
+  {
+    "category": "Multi-Select: Analytics & AI/ML",
+    "question": "Which services are analytics services? (Select TWO.)",
+    "options": [
+      "Amazon Athena",
+      "AWS Glue",
+      "AWS Shield",
+      "Amazon EBS",
+      "AWS Secrets Manager"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "SQL query S3 and ETL/data catalog.",
+    "explanation": "Athena queries data in S3 using SQL. Glue is used for data integration/ETL and cataloging."
+  },
+  {
+    "category": "Multi-Select: Analytics & AI/ML",
+    "question": "Which services are used for streaming or business intelligence analytics? (Select TWO.)",
+    "options": [
+      "Amazon Kinesis",
+      "Amazon QuickSight",
+      "AWS KMS",
+      "Amazon Route 53",
+      "AWS Outposts"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Streaming data and dashboards.",
+    "explanation": "Kinesis is used for streaming data. QuickSight provides BI dashboards and visualizations."
+  },
+  {
+    "category": "Multi-Select: Analytics & AI/ML",
+    "question": "Which services are AI/ML services? (Select TWO.)",
+    "options": [
+      "Amazon Rekognition",
+      "Amazon Polly",
+      "AWS Direct Connect",
+      "Amazon EFS",
+      "AWS Budgets"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Image/video analysis and text-to-speech.",
+    "explanation": "Rekognition analyzes images and videos. Polly converts text to speech."
+  },
+  {
+    "category": "Multi-Select: Analytics & AI/ML",
+    "question": "Which services process human language or documents? (Select TWO.)",
+    "options": [
+      "Amazon Comprehend",
+      "Amazon Textract",
+      "Amazon VPC",
+      "AWS Shield",
+      "Amazon EBS"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Sentiment/key phrases and text extraction from documents.",
+    "explanation": "Comprehend performs natural language processing. Textract extracts text and data from documents."
+  },
+  {
+    "category": "Multi-Select: Migration & Hybrid",
+    "question": "Which services help with migration to AWS? (Select TWO.)",
+    "options": [
+      "AWS Database Migration Service (AWS DMS)",
+      "AWS Application Migration Service",
+      "AWS WAF",
+      "Amazon CloudWatch alarms only",
+      "Amazon Polly"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Database migration and server/application migration.",
+    "explanation": "AWS DMS migrates databases. AWS Application Migration Service helps migrate applications/servers."
+  },
+  {
+    "category": "Multi-Select: Migration & Hybrid",
+    "question": "Which services are hybrid or on-premises related? (Select TWO.)",
+    "options": [
+      "AWS Outposts",
+      "AWS Storage Gateway",
+      "Amazon QuickSight",
+      "AWS CodeArtifact",
+      "Amazon Personalize"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "AWS infrastructure on-prem and hybrid storage gateway.",
+    "explanation": "Outposts brings AWS infrastructure on premises. Storage Gateway connects on-premises storage environments to AWS."
+  },
+  {
+    "category": "Multi-Select: Developer Tools",
+    "question": "Which services are AWS developer tools? (Select TWO.)",
+    "options": [
+      "AWS CodeBuild",
+      "AWS CodePipeline",
+      "Amazon Macie",
+      "AWS Direct Connect",
+      "Amazon RDS"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Build/test and release pipeline.",
+    "explanation": "CodeBuild builds and tests code. CodePipeline automates release workflows."
+  },
+  {
+    "category": "Multi-Select: Developer Tools",
+    "question": "Which services are related to code deployment or package repositories? (Select TWO.)",
+    "options": [
+      "AWS CodeDeploy",
+      "AWS CodeArtifact",
+      "Amazon Athena",
+      "AWS Shield",
+      "Amazon WorkSpaces"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Deploy code and store packages.",
+    "explanation": "CodeDeploy automates deployments. CodeArtifact stores software packages/artifacts."
+  },
+  {
+    "category": "Multi-Select: End User Computing",
+    "question": "Which services are end-user computing services? (Select TWO.)",
+    "options": [
+      "Amazon WorkSpaces",
+      "Amazon AppStream 2.0",
+      "Amazon Macie",
+      "AWS CloudTrail",
+      "Amazon S3 Glacier"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Virtual desktop and app streaming.",
+    "explanation": "WorkSpaces provides virtual desktops. AppStream 2.0 streams applications to users."
+  },
+  {
+    "category": "Multi-Select: Mixed Service Traps",
+    "question": "Which pairings are correct? (Select TWO.)",
+    "options": [
+      "CloudTrail = API/account activity history",
+      "CloudWatch = metrics, logs, and alarms",
+      "CloudTrail = CPU utilization graphs only",
+      "CloudWatch = closing AWS accounts",
+      "AWS Config = text-to-speech"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Trail = who did what; Watch = what is happening.",
+    "explanation": "CloudTrail records account/API activity. CloudWatch monitors metrics, logs, and alarms."
+  },
+  {
+    "category": "Multi-Select: Mixed Service Traps",
+    "question": "Which pairings are correct? (Select TWO.)",
+    "options": [
+      "AWS Config = resource configuration history",
+      "AWS Artifact = compliance reports and agreements",
+      "AWS Config = DDoS protection only",
+      "AWS Artifact = NoSQL database",
+      "Amazon Macie = managed Kubernetes"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Config tracks changes; Artifact provides documents.",
+    "explanation": "AWS Config tracks configuration history/compliance. AWS Artifact gives access to compliance reports and agreements."
+  },
+  {
+    "category": "Multi-Select: Mixed Service Traps",
+    "question": "Which pairings are correct? (Select TWO.)",
+    "options": [
+      "AWS WAF = SQL injection/XSS protection",
+      "AWS Shield = DDoS protection",
+      "AWS WAF = long-term archive storage",
+      "AWS Shield = database migration",
+      "Amazon S3 = managed Kubernetes"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Web firewall and DDoS shield.",
+    "explanation": "AWS WAF helps protect web apps from common web exploits. AWS Shield protects against DDoS."
+  },
+  {
+    "category": "Multi-Select: Mixed Service Traps",
+    "question": "Which pairings are correct? (Select TWO.)",
+    "options": [
+      "Amazon S3 = object storage",
+      "Amazon EBS = block storage for EC2",
+      "Amazon S3 = relational database with schema",
+      "Amazon EBS = DNS failover",
+      "Amazon EFS = account activity audit"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Object storage vs block storage.",
+    "explanation": "S3 is object storage. EBS is block storage commonly used with EC2."
+  },
+  {
+    "category": "Multi-Select: Mixed Service Traps",
+    "question": "Which pairings are correct? (Select TWO.)",
+    "options": [
+      "Route 53 = DNS and routing",
+      "CloudFront = CDN/content delivery",
+      "Route 53 = vulnerability scanning",
+      "CloudFront = relational database",
+      "Direct Connect = text-to-speech"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "DNS and CDN.",
+    "explanation": "Route 53 provides DNS/routing. CloudFront is a content delivery network."
+  }
+];
+
+    let currentSet = [];
+    let currentIndex = 0;
+    let score = 0;
+    let wrong = 0;
+    let answered = false;
+    let selected = new Set();
+    let wrongAnswers = [];
+
+    const categorySelect = document.getElementById("categorySelect");
+    const countSelect = document.getElementById("countSelect");
+    const searchInput = document.getElementById("searchInput");
+    const questionText = document.getElementById("questionText");
+    const optionsDiv = document.getElementById("options");
+    const hintBox = document.getElementById("hintBox");
+    const feedbackBox = document.getElementById("feedbackBox");
+    const scoreNum = document.getElementById("scoreNum");
+    const wrongNum = document.getElementById("wrongNum");
+    const leftNum = document.getElementById("leftNum");
+    const percentNum = document.getElementById("percentNum");
+    const progressBar = document.getElementById("progressBar");
+    const categoryPill = document.getElementById("categoryPill");
+    const counterPill = document.getElementById("counterPill");
+    const reviewList = document.getElementById("reviewList");
+    const reviewContent = document.getElementById("reviewContent");
+    const submitBtn = document.getElementById("submitBtn");
+
+    function shuffle(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function normalizeQuestion(q) {
+      const answers = Array.isArray(q.answers) ? q.answers : [q.answer];
+      return { ...q, answers };
+    }
+
+    function setupCategories() {
+      const categories = ["All", ...new Set(questionBank.map(q => q.category))];
+      categorySelect.innerHTML = categories.map(cat => `<option value="${cat}">${cat}</option>`).join("");
+    }
+
+    function prepareQuestion(qRaw) {
+      const q = normalizeQuestion(qRaw);
+      const optionObjects = q.options.map((text, idx) => ({ text, originalIndex: idx }));
+      const shuffledOptions = shuffle(optionObjects);
+      const correctIndices = shuffledOptions
+        .map((opt, idx) => q.answers.includes(opt.originalIndex) ? idx : -1)
+        .filter(idx => idx !== -1);
+      return { ...q, shuffledOptions, correctIndices };
+    }
+
+    function buildSet() {
+      const category = categorySelect.value;
+      const search = searchInput.value.trim().toLowerCase();
+      let filtered = questionBank.filter(q => category === "All" || q.category === category);
+
+      if (search) {
+        filtered = filtered.filter(q =>
+          q.question.toLowerCase().includes(search) ||
+          q.category.toLowerCase().includes(search) ||
+          q.options.join(" ").toLowerCase().includes(search) ||
+          q.explanation.toLowerCase().includes(search) ||
+          q.hint.toLowerCase().includes(search)
+        );
+      }
+
+      filtered = shuffle(filtered);
+      const count = countSelect.value === "all" ? filtered.length : Number(countSelect.value);
+      currentSet = filtered.slice(0, Math.min(count, filtered.length)).map(prepareQuestion);
+      currentIndex = 0;
+      score = 0;
+      wrong = 0;
+      answered = false;
+      selected = new Set();
+      wrongAnswers = [];
+      reviewList.style.display = "none";
+      renderQuestion();
+      updateStats();
+    }
+
+    function answerCountLabel(n) {
+      if (n === 1) return "Choose ONE answer";
+      if (n === 2) return "Select TWO answers";
+      if (n === 3) return "Select THREE answers";
+      return `Select ${n} answers`;
+    }
+
+    function renderQuestion() {
+      hintBox.style.display = "none";
+      feedbackBox.style.display = "none";
+      hintBox.textContent = "";
+      feedbackBox.textContent = "";
+      answered = false;
+      selected = new Set();
+      if (submitBtn) submitBtn.disabled = false;
+
+      if (currentSet.length === 0) {
+        questionText.textContent = "No questions found. Try changing the category/search.";
+        optionsDiv.innerHTML = "";
+        categoryPill.textContent = "No results";
+        counterPill.textContent = "0 / 0";
+        return;
+      }
+
+      if (currentIndex >= currentSet.length) {
+        showEndScreen();
+        return;
+      }
+
+      const q = currentSet[currentIndex];
+      categoryPill.textContent = q.category;
+      counterPill.textContent = `${currentIndex + 1} / ${currentSet.length}`;
+      questionText.innerHTML = `<div>${escapeHtml(q.question)}</div><div class="small" style="margin-top:8px;">${answerCountLabel(q.correctIndices.length)}. Click option(s), then press Submit.</div>`;
+
+      const letters = ["A", "B", "C", "D", "E", "F"];
+      optionsDiv.innerHTML = q.shuffledOptions.map((opt, idx) => `
+        <button class="option" data-index="${idx}">
+          <span class="letter">${letters[idx]}</span>
+          <span>${escapeHtml(opt.text)}</span>
+        </button>
+      `).join("");
+
+      [...document.querySelectorAll(".option")].forEach(btn => {
+        btn.addEventListener("click", () => toggleOption(Number(btn.dataset.index)));
+      });
+
+      updateStats();
+    }
+
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function toggleOption(index) {
+      if (answered || currentIndex >= currentSet.length) return;
+      const buttons = [...document.querySelectorAll(".option")];
+      if (selected.has(index)) {
+        selected.delete(index);
+        buttons[index].classList.remove("selected");
+      } else {
+        selected.add(index);
+        buttons[index].classList.add("selected");
+      }
+    }
+
+    function setsEqual(a, b) {
+      if (a.size !== b.size) return false;
+      for (const item of a) if (!b.has(item)) return false;
+      return true;
+    }
+
+    function submitAnswer() {
+      if (answered || currentIndex >= currentSet.length || currentSet.length === 0) return;
+      const q = currentSet[currentIndex];
+      if (selected.size === 0) {
+        hintBox.textContent = "Choose at least one option before submitting.";
+        hintBox.style.display = "block";
+        return;
+      }
+
+      answered = true;
+      const buttons = [...document.querySelectorAll(".option")];
+      buttons.forEach(btn => btn.disabled = true);
+      const correctSet = new Set(q.correctIndices);
+      const isCorrect = setsEqual(selected, correctSet);
+
+      q.correctIndices.forEach(idx => buttons[idx].classList.add("correct"));
+      [...selected].forEach(idx => {
+        if (!correctSet.has(idx)) buttons[idx].classList.add("incorrect");
+      });
+
+      if (isCorrect) {
+        score++;
+        feedbackBox.innerHTML = `<b style="color: var(--good);">Correct.</b><br>${escapeHtml(q.explanation)}`;
+      } else {
+        wrong++;
+        const correctText = q.correctIndices.map(idx => q.shuffledOptions[idx].text).join("; ");
+        const chosenText = [...selected].map(idx => q.shuffledOptions[idx].text).join("; ");
+        wrongAnswers.push({...q, chosenIndices:[...selected]});
+        feedbackBox.innerHTML = `<b style="color: var(--bad);">Wrong.</b><br><b>Your answer:</b> ${escapeHtml(chosenText)}<br><b>Correct answer(s):</b> ${escapeHtml(correctText)}<br><br>${escapeHtml(q.explanation)}`;
+      }
+
+      if (submitBtn) submitBtn.disabled = true;
+      feedbackBox.style.display = "block";
+      updateStats();
+    }
+
+    function showHint() {
+      if (currentIndex >= currentSet.length || currentSet.length === 0) return;
+      const q = currentSet[currentIndex];
+      hintBox.textContent = q.hint;
+      hintBox.style.display = "block";
+    }
+
+    function nextQuestion() {
+      if (currentSet.length === 0) return;
+      if (currentIndex < currentSet.length) {
+        currentIndex++;
+        renderQuestion();
+      }
+    }
+
+    function showEndScreen() {
+      const attempted = score + wrong;
+      const percent = attempted === 0 ? 0 : Math.round((score / attempted) * 100);
+      categoryPill.textContent = "Finished";
+      counterPill.textContent = `${currentSet.length} / ${currentSet.length}`;
+      questionText.innerHTML = `Quiz complete. Score: ${score} / ${attempted || currentSet.length} (${percent}%).`;
+      optionsDiv.innerHTML = `
+        <div class="feedback" style="display:block;">
+          <b>Target:</b> Try to consistently hit 80%+ before your exam.<br>
+          <b>Tip:</b> Multi-select questions are stricter. You must select every correct answer and no wrong answer.
+        </div>
+      `;
+      hintBox.style.display = "none";
+      feedbackBox.style.display = "none";
+      if (submitBtn) submitBtn.disabled = true;
+      updateStats();
+    }
+
+    function updateStats() {
+      const attempted = score + wrong;
+      const left = Math.max(currentSet.length - currentIndex - (answered ? 1 : 0), 0);
+      const percent = attempted === 0 ? 0 : Math.round((score / attempted) * 100);
+      scoreNum.textContent = score;
+      wrongNum.textContent = wrong;
+      leftNum.textContent = left;
+      percentNum.textContent = `${percent}%`;
+      const progress = currentSet.length === 0 ? 0 : Math.round((attempted / currentSet.length) * 100);
+      progressBar.style.width = `${progress}%`;
+    }
+
+    function resetScoreOnly() {
+      score = 0;
+      wrong = 0;
+      wrongAnswers = [];
+      currentIndex = 0;
+      currentSet = currentSet.map(q => prepareQuestion(q));
+      reviewList.style.display = "none";
+      renderQuestion();
+      updateStats();
+    }
+
+    function reviewWrong() {
+      if (wrongAnswers.length === 0) {
+        reviewContent.innerHTML = `<p class="small">No wrong answers yet. Do a quiz first, or get some wrong and come back here.</p>`;
+      } else {
+        reviewContent.innerHTML = wrongAnswers.map((q, idx) => {
+          const chosenText = q.chosenIndices.map(i => q.shuffledOptions[i].text).join("; ");
+          const correctText = q.correctIndices.map(i => q.shuffledOptions[i].text).join("; ");
+          return `
+          <details>
+            <summary>${idx + 1}. ${escapeHtml(q.question)}</summary>
+            <p><b>Category:</b> ${escapeHtml(q.category)}</p>
+            <p><b>Your answer:</b> ${escapeHtml(chosenText)}</p>
+            <p><b>Correct answer(s):</b> ${escapeHtml(correctText)}</p>
+            <p><b>Hint:</b> ${escapeHtml(q.hint)}</p>
+            <p><b>Explanation:</b> ${escapeHtml(q.explanation)}</p>
+          </details>`;
+        }).join("");
+      }
+      reviewList.style.display = "block";
+      reviewList.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    document.getElementById("startBtn").addEventListener("click", buildSet);
+    document.getElementById("shuffleBtn").addEventListener("click", () => {
+      currentSet = shuffle(currentSet).map(q => prepareQuestion(q));
+      currentIndex = 0;
+      score = 0;
+      wrong = 0;
+      wrongAnswers = [];
+      renderQuestion();
+      updateStats();
+    });
+    document.getElementById("hintBtn").addEventListener("click", showHint);
+    document.getElementById("nextBtn").addEventListener("click", nextQuestion);
+    document.getElementById("resetBtn").addEventListener("click", resetScoreOnly);
+    document.getElementById("reviewWrongBtn").addEventListener("click", reviewWrong);
+    if (submitBtn) submitBtn.addEventListener("click", submitAnswer);
+
+    document.addEventListener("keydown", (e) => {
+      const key = e.key.toLowerCase();
+      if (["1","2","3","4","5","6"].includes(key)) toggleOption(Number(key) - 1);
+      if (key === "h") showHint();
+      if (key === "n") nextQuestion();
+      if (key === "enter") submitAnswer();
+    });
+
+    setupCategories();
+    buildSet();
+  </script>
+</body>
+</html>
