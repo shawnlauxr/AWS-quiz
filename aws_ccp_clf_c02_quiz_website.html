@@ -3,12 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AWS CCP CLF-C02 MCQ Quiz</title>
+  <title>AWS CCP CLF-C02 Quiz - Enhanced</title>
   <style>
     :root {
       --bg: #0f172a;
       --panel: #111827;
       --panel2: #1f2937;
+      --panel3: #0b1220;
       --text: #e5e7eb;
       --muted: #9ca3af;
       --accent: #f59e0b;
@@ -16,17 +17,17 @@
       --good: #22c55e;
       --bad: #ef4444;
       --border: #374151;
-      --white: #ffffff;
+      --purple: #a78bfa;
     }
 
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(56,189,248,0.15), transparent 28rem),
-        radial-gradient(circle at top right, rgba(245,158,11,0.12), transparent 25rem),
+        radial-gradient(circle at top left, rgba(56,189,248,0.16), transparent 30rem),
+        radial-gradient(circle at top right, rgba(245,158,11,0.14), transparent 28rem),
+        radial-gradient(circle at bottom right, rgba(167,139,250,0.12), transparent 28rem),
         var(--bg);
       color: var(--text);
       min-height: 100vh;
@@ -37,63 +38,26 @@
       text-align: center;
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
+    header h1 { margin: 0; font-size: clamp(1.8rem, 4vw, 3rem); letter-spacing: -0.04em; }
+    header p { color: var(--muted); max-width: 900px; margin: 10px auto 0; line-height: 1.5; }
 
-    header h1 {
-      margin: 0;
-      font-size: clamp(1.8rem, 4vw, 3rem);
-      letter-spacing: -0.04em;
-    }
-
-    header p {
-      color: var(--muted);
-      max-width: 850px;
-      margin: 10px auto 0;
-      line-height: 1.5;
-    }
-
-    .wrap {
-      max-width: 1150px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    .top-grid {
-      display: grid;
-      grid-template-columns: 1.2fr 0.8fr;
-      gap: 18px;
-      align-items: stretch;
-    }
-
-    @media (max-width: 850px) {
-      .top-grid { grid-template-columns: 1fr; }
-    }
+    .wrap { max-width: 1200px; margin: 0 auto; padding: 20px; }
+    .grid { display: grid; grid-template-columns: 1.25fr 0.75fr; gap: 18px; align-items: start; }
+    @media (max-width: 900px) { .grid { grid-template-columns: 1fr; } }
 
     .card {
-      background: rgba(17, 24, 39, 0.88);
+      background: rgba(17, 24, 39, 0.9);
       border: 1px solid rgba(255,255,255,0.09);
       border-radius: 18px;
       padding: 18px;
       box-shadow: 0 20px 55px rgba(0,0,0,0.25);
     }
+    h2, h3 { margin-top: 0; }
+    .small { color: var(--muted); font-size: 0.92rem; line-height: 1.5; }
 
-    .controls {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    @media (max-width: 750px) {
-      .controls { grid-template-columns: 1fr; }
-    }
-
-    label {
-      display: block;
-      font-size: 0.85rem;
-      color: var(--muted);
-      margin-bottom: 6px;
-    }
-
+    .controls { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 14px; }
+    @media (max-width: 800px) { .controls { grid-template-columns: 1fr; } }
+    label { display: block; font-size: 0.85rem; color: var(--muted); margin-bottom: 6px; }
     select, input {
       width: 100%;
       padding: 11px 12px;
@@ -108,71 +72,56 @@
       border: 0;
       border-radius: 13px;
       padding: 11px 14px;
-      font-weight: 700;
+      font-weight: 800;
       cursor: pointer;
       background: var(--accent);
       color: #111827;
       transition: transform 0.08s ease, opacity 0.15s ease, background 0.15s ease;
     }
-
     button:hover { opacity: 0.92; }
     button:active { transform: translateY(1px); }
     button.secondary { background: var(--panel2); color: var(--text); border: 1px solid var(--border); }
     button.blue { background: var(--accent2); color: #06202b; }
+    button.purple { background: var(--purple); color: #1f1147; }
     button.good { background: var(--good); color: #052e16; }
     button.bad { background: var(--bad); color: white; }
+    button:disabled { opacity: 0.55; cursor: not-allowed; }
 
-    .stats {
+    .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+    .tools-panel {
+      margin-top: 18px;
       display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: 1fr;
       gap: 10px;
     }
-
-    .stat {
-      background: rgba(31, 41, 55, 0.8);
+    .tools-panel details {
+      margin: 0;
+      background: rgba(31, 41, 55, 0.72);
       border: 1px solid rgba(255,255,255,0.08);
       border-radius: 14px;
-      padding: 13px;
+      padding: 12px;
     }
-
-    .stat .num {
-      font-size: 1.65rem;
-      font-weight: 800;
+    .tools-panel summary {
+      cursor: pointer;
+      font-weight: 900;
+      color: #dbeafe;
     }
-
-    .stat .label {
-      color: var(--muted);
-      font-size: 0.83rem;
-      margin-top: 2px;
-    }
-
-    .progress {
-      height: 12px;
-      background: var(--panel2);
-      border-radius: 999px;
-      overflow: hidden;
-      margin-top: 14px;
-      border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    .progress > div {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
-      transition: width 0.25s ease;
-    }
-
-    .quiz-card {
-      margin-top: 18px;
-    }
-
-    .pill-row {
+    .tools-panel .tool-buttons {
       display: flex;
-      gap: 8px;
+      gap: 10px;
       flex-wrap: wrap;
-      margin-bottom: 12px;
+      margin-top: 12px;
     }
 
+    .stats { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .stat { background: rgba(31, 41, 55, 0.8); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 13px; }
+    .stat .num { font-size: 1.6rem; font-weight: 900; }
+    .stat .label { color: var(--muted); font-size: 0.83rem; margin-top: 2px; }
+    .progress { height: 12px; background: var(--panel2); border-radius: 999px; overflow: hidden; margin-top: 14px; border: 1px solid rgba(255,255,255,0.08); }
+    .progress > div { height: 100%; width: 0%; background: linear-gradient(90deg, var(--accent), var(--accent2)); transition: width 0.25s ease; }
+
+    .quiz-card { margin-top: 18px; }
+    .pill-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 12px; }
     .pill {
       background: rgba(56,189,248,0.12);
       border: 1px solid rgba(56,189,248,0.32);
@@ -180,70 +129,32 @@
       padding: 6px 10px;
       border-radius: 999px;
       font-size: 0.8rem;
-      font-weight: 700;
-    }
-
-    .pill.orange {
-      background: rgba(245,158,11,0.12);
-      border-color: rgba(245,158,11,0.35);
-      color: #fde68a;
-    }
-
-    .question {
-      font-size: clamp(1.15rem, 2.5vw, 1.65rem);
-      line-height: 1.35;
       font-weight: 800;
-      margin: 8px 0 16px;
     }
+    .pill.orange { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.35); color: #fde68a; }
+    .pill.purple { background: rgba(167,139,250,0.12); border-color: rgba(167,139,250,0.35); color: #ddd6fe; }
 
-    .options {
-      display: grid;
-      gap: 10px;
-    }
-
+    .question { font-size: clamp(1.15rem, 2.5vw, 1.6rem); line-height: 1.35; font-weight: 900; margin: 8px 0 16px; }
+    .options { display: grid; gap: 10px; }
     .option {
       text-align: left;
       width: 100%;
-      background: rgba(31, 41, 55, 0.9);
+      background: rgba(31, 41, 55, 0.92);
       color: var(--text);
       border: 1px solid var(--border);
       display: flex;
       gap: 10px;
       align-items: flex-start;
-      font-weight: 600;
+      font-weight: 650;
       line-height: 1.4;
     }
+    .option .letter { background: rgba(255,255,255,0.08); border-radius: 10px; padding: 3px 8px; font-weight: 900; min-width: 30px; text-align: center; }
+    .option.selected { border-color: rgba(56,189,248,0.9); background: rgba(56,189,248,0.13); }
+    .option.correct { border-color: rgba(34,197,94,0.9); background: rgba(34,197,94,0.14); }
+    .option.incorrect { border-color: rgba(239,68,68,0.9); background: rgba(239,68,68,0.13); }
+    .option:disabled { cursor: not-allowed; opacity: 0.98; }
 
-    .option .letter {
-      background: rgba(255,255,255,0.08);
-      border-radius: 10px;
-      padding: 3px 8px;
-      font-weight: 900;
-      min-width: 30px;
-      text-align: center;
-    }
-
-    .option.selected {
-      border-color: rgba(56,189,248,0.9);
-      background: rgba(56,189,248,0.15);
-    }
-
-    .option.correct {
-      border-color: rgba(34,197,94,0.9);
-      background: rgba(34,197,94,0.14);
-    }
-
-    .option.incorrect {
-      border-color: rgba(239,68,68,0.9);
-      background: rgba(239,68,68,0.13);
-    }
-
-    .option:disabled {
-      cursor: not-allowed;
-      opacity: 0.95;
-    }
-
-    .feedback {
+    .box {
       display: none;
       margin-top: 14px;
       padding: 14px;
@@ -252,102 +163,35 @@
       border: 1px solid rgba(255,255,255,0.08);
       line-height: 1.5;
     }
+    .hint { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.35); color: #fde68a; }
+    .ok { color: var(--good); font-weight: 900; }
+    .no { color: var(--bad); font-weight: 900; }
 
-    .hint {
-      display: none;
-      margin-top: 12px;
-      padding: 12px;
-      border-radius: 14px;
-      background: rgba(245,158,11,0.12);
-      border: 1px solid rgba(245,158,11,0.35);
-      color: #fde68a;
-      line-height: 1.45;
-    }
+    .dash { margin-top: 18px; display: none; }
+    .dash-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    @media (max-width: 850px) { .dash-grid { grid-template-columns: 1fr; } }
+    .mini-card { background: rgba(31, 41, 55, 0.78); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 14px; }
+    .bar { height: 8px; background: var(--panel3); border-radius: 999px; overflow: hidden; margin: 8px 0 4px; border: 1px solid rgba(255,255,255,0.06); }
+    .bar div { height: 100%; background: linear-gradient(90deg, var(--bad), var(--accent)); width: 0%; }
 
-    .quiz-actions {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-top: 16px;
-    }
-
-    .review-list {
-      margin-top: 18px;
-      display: none;
-    }
-
-    details {
-      background: rgba(31, 41, 55, 0.75);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 14px;
-      padding: 12px;
-      margin: 10px 0;
-    }
-
-    summary {
-      cursor: pointer;
-      font-weight: 800;
-    }
-
-    .small {
-      color: var(--muted);
-      font-size: 0.9rem;
-      line-height: 1.5;
-    }
-
-    .footer {
-      text-align: center;
-      color: var(--muted);
-      padding: 28px 12px 40px;
-      font-size: 0.9rem;
-    }
-
-    .domain-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      margin-top: 14px;
-    }
-
-    @media (max-width: 800px) {
-      .domain-grid { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 480px) {
-      .domain-grid { grid-template-columns: 1fr; }
-    }
-
-    .domain {
-      background: rgba(31, 41, 55, 0.75);
-      border: 1px solid rgba(255,255,255,0.08);
-      border-radius: 14px;
-      padding: 12px;
-    }
-
-    .domain b { display: block; margin-bottom: 4px; }
-    .domain span { color: var(--muted); font-size: 0.88rem; }
-
-    .kbd {
-      display: inline-block;
-      padding: 2px 6px;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      background: var(--panel2);
-      color: var(--text);
-      font-size: 0.8rem;
-    }
+    details { background: rgba(31, 41, 55, 0.75); border: 1px solid rgba(255,255,255,0.08); border-radius: 14px; padding: 12px; margin: 10px 0; }
+    summary { cursor: pointer; font-weight: 900; }
+    .footer { text-align: center; color: var(--muted); padding: 28px 12px 40px; font-size: 0.9rem; }
+    .kbd { display: inline-block; padding: 2px 6px; border: 1px solid var(--border); border-radius: 6px; background: var(--panel2); color: var(--text); font-size: 0.8rem; }
+    .notice { border-left: 4px solid var(--accent2); padding: 10px 12px; background: rgba(56,189,248,0.08); border-radius: 10px; color: #dbeafe; }
   </style>
 </head>
 <body>
   <header>
     <h1>AWS CCP CLF-C02 Quiz Website</h1>
-    <p>MCQ and multi-select revision for Cloud Concepts, Security, AWS services, Billing, Support, Well-Architected, and common exam traps. Each question has its own hint button and explanation.</p>
+    <p>Enhanced with definition questions, acronym questions, “which service is what” questions, multi-select mode, back button, saved progress, and pattern tracking for right/wrong answers.</p>
   </header>
 
   <main class="wrap">
-    <section class="top-grid">
+    <section class="grid">
       <div class="card">
-        <h2 style="margin-top:0;">Quiz Setup</h2>
-        <p class="small">Choose a category, search topic, and number of questions. Some questions are single-answer and some are multi-select, just like the real exam style.</p>
+        <h2>Quiz Setup</h2>
+        <p class="notice">New: definition-style questions like “What is Macie?”, acronym questions like “What does WAF stand for?”, and a memory dashboard that shows your weak categories and service patterns.</p>
 
         <div class="controls">
           <div>
@@ -368,34 +212,27 @@
           </div>
           <div>
             <label for="searchInput">Search topic/service</label>
-            <input id="searchInput" placeholder="e.g. Macie, IAM, S3, billing" />
+            <input id="searchInput" placeholder="e.g. Macie, WAF, IAM, S3, billing" />
           </div>
         </div>
 
-        <div class="quiz-actions">
-          <button id="startBtn">Start / Restart Quiz</button>
-          <button id="shuffleBtn" class="blue">Shuffle Current Set</button>
-          <button id="reviewWrongBtn" class="secondary">Review Wrong Answers</button>
-        </div>
-
-        <div class="domain-grid">
-          <div class="domain"><b>Cloud Concepts</b><span>Elasticity, HA, global reach</span></div>
-          <div class="domain"><b>Security</b><span>IAM, Macie, WAF, Shield</span></div>
-          <div class="domain"><b>Services</b><span>EC2, S3, RDS, VPC</span></div>
-          <div class="domain"><b>Billing</b><span>Cost Explorer, support plans</span></div>
+        <div class="actions">
+          <button id="startBtn">Start / Restart</button>
+          <button id="continueBtn" class="blue">Continue Saved Quiz</button>
+          <button id="weakBtn" class="purple">Practice Weak Areas</button>
         </div>
       </div>
 
       <aside class="card">
-        <h2 style="margin-top:0;">Scoreboard</h2>
+        <h2>Scoreboard</h2>
         <div class="stats">
-          <div class="stat"><div class="num" id="scoreNum">0</div><div class="label">Correct</div></div>
-          <div class="stat"><div class="num" id="wrongNum">0</div><div class="label">Wrong</div></div>
+          <div class="stat"><div class="num" id="scoreNum">0</div><div class="label">Correct this quiz</div></div>
+          <div class="stat"><div class="num" id="wrongNum">0</div><div class="label">Wrong this quiz</div></div>
           <div class="stat"><div class="num" id="leftNum">0</div><div class="label">Left</div></div>
           <div class="stat"><div class="num" id="percentNum">0%</div><div class="label">Accuracy</div></div>
         </div>
         <div class="progress"><div id="progressBar"></div></div>
-        <p class="small" style="margin-bottom:0;">Keyboard: press <span class="kbd">1</span> to <span class="kbd">6</span> to select, <span class="kbd">Enter</span> to submit, <span class="kbd">H</span> for hint, <span class="kbd">N</span> for next.</p>
+        <p class="small">Keyboard: <span class="kbd">1-6</span> select, <span class="kbd">Enter</span> submit, <span class="kbd">H</span> hint, <span class="kbd">N</span> next, <span class="kbd">B</span> back.</p>
       </aside>
     </section>
 
@@ -403,30 +240,49 @@
       <div class="pill-row">
         <span class="pill" id="categoryPill">Ready</span>
         <span class="pill orange" id="counterPill">0 / 0</span>
+        <span class="pill purple" id="typePill">Choose ONE</span>
       </div>
 
-      <div id="questionText" class="question">Press “Start / Restart Quiz” to begin.</div>
+      <div id="questionText" class="question">Press “Start / Restart” to begin.</div>
       <div id="options" class="options"></div>
 
-      <div id="hintBox" class="hint"></div>
-      <div id="feedbackBox" class="feedback"></div>
+      <div id="hintBox" class="box hint"></div>
+      <div id="feedbackBox" class="box"></div>
 
-      <div class="quiz-actions">
-        <button id="submitBtn" class="good">Submit Answer</button>
+      <div class="actions">
+        <button id="backBtn" class="secondary">← Go Back</button>
         <button id="hintBtn" class="secondary">Show Hint</button>
-        <button id="nextBtn">Next Question</button>
-        <button id="resetBtn" class="secondary">Reset Score</button>
+        <button id="submitBtn">Submit Answer</button>
+        <button id="nextBtn" class="blue">Next →</button>
       </div>
     </section>
 
-    <section id="reviewList" class="card review-list">
-      <h2 style="margin-top:0;">Wrong Answer Review</h2>
+    <section class="card tools-panel">
+      <details>
+        <summary>Study Tools & Saved Progress</summary>
+        <p class="small">Use these when you want to review mistakes or check your long-term weak patterns. Kept here so the main quiz area stays clean.</p>
+        <div class="tool-buttons">
+          <button id="patternBtn" class="secondary">Show Saved Pattern</button>
+          <button id="reviewWrongBtn" class="secondary">Review Wrong Answers</button>
+          <button id="clearStatsBtn" class="bad">Clear Saved Pattern</button>
+        </div>
+      </details>
+    </section>
+
+    <section id="patternDash" class="card dash">
+      <h2>Saved Right/Wrong Pattern</h2>
+      <p class="small">This uses your browser storage. It remembers what you got right and wrong on this device, so your weak areas become clearer over time.</p>
+      <div id="patternContent"></div>
+    </section>
+
+    <section id="reviewList" class="card dash">
+      <h2>Wrong Answer Review</h2>
       <div id="reviewContent"></div>
     </section>
   </main>
 
   <div class="footer">
-    Made for AWS Certified Cloud Practitioner CLF-C02 revision. This quiz uses original practice wording and focuses on exam-style service clues.
+    Keep drilling until your weak patterns stop repeating. CCP is mostly service clue → correct AWS service.
   </div>
 
   <script>
@@ -3055,34 +2911,2128 @@
     ],
     "hint": "DNS and CDN.",
     "explanation": "Route 53 provides DNS/routing. CloudFront is a content delivery network."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon Macie?",
+    "options": [
+      "A security service that discovers sensitive data in Amazon S3",
+      "A service for building CI/CD pipelines",
+      "A managed relational database service",
+      "A content delivery network"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Macie = sensitive data + S3.",
+    "explanation": "Amazon Macie helps discover sensitive data such as PII in Amazon S3."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What does AWS WAF stand for?",
+    "options": [
+      "Web Application Firewall",
+      "Wireless Access Framework",
+      "Workflow Automation Function",
+      "Web Analytics Framework"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "It protects web applications.",
+    "explanation": "AWS WAF stands for Web Application Firewall. It helps protect web apps from common web attacks."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS IAM?",
+    "options": [
+      "A service for managing users, groups, roles, and permissions",
+      "A service for storing objects",
+      "A data warehouse service",
+      "A VPN service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "IAM controls identity and access.",
+    "explanation": "AWS Identity and Access Management is used to manage access to AWS resources."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What does IAM stand for?",
+    "options": [
+      "Identity and Access Management",
+      "Internet Access Manager",
+      "Integrated Application Monitoring",
+      "Instance Automation Manager"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Identity + permissions.",
+    "explanation": "IAM stands for Identity and Access Management."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What does VPC stand for?",
+    "options": [
+      "Virtual Private Cloud",
+      "Verified Public Connection",
+      "Virtual Processing Cluster",
+      "Volume Provisioning Console"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "It is your private network in AWS.",
+    "explanation": "VPC stands for Virtual Private Cloud."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What does EC2 stand for?",
+    "options": [
+      "Elastic Compute Cloud",
+      "Elastic Container Console",
+      "Encrypted Cloud Cache",
+      "Enterprise Compute Class"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Compute = virtual servers.",
+    "explanation": "Amazon EC2 stands for Elastic Compute Cloud."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What does S3 stand for?",
+    "options": [
+      "Simple Storage Service",
+      "Secure Server System",
+      "Scalable Streaming Service",
+      "Static Site Service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Three S words.",
+    "explanation": "Amazon S3 stands for Simple Storage Service."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon S3?",
+    "options": [
+      "Object storage for files, backups, static websites, and images",
+      "A managed Kubernetes service",
+      "A virtual desktop service",
+      "A DDoS protection service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "S3 = object storage.",
+    "explanation": "Amazon S3 is object storage used for storing objects such as files, images, backups, and static website assets."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What does EBS stand for?",
+    "options": [
+      "Elastic Block Store",
+      "Elastic Backup Service",
+      "Encrypted Bucket Storage",
+      "External Billing System"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Block storage for EC2.",
+    "explanation": "Amazon EBS stands for Elastic Block Store."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon EBS?",
+    "options": [
+      "Block storage volumes for EC2 instances",
+      "Object storage for static websites",
+      "A DNS service",
+      "A machine learning service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Think disk attached to EC2.",
+    "explanation": "Amazon EBS provides block-level storage volumes for EC2 instances."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What does EFS stand for?",
+    "options": [
+      "Elastic File System",
+      "Elastic Firewall Service",
+      "Encrypted File Storage",
+      "Enterprise File Security"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Shared Linux file storage.",
+    "explanation": "Amazon EFS stands for Elastic File System."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon EFS?",
+    "options": [
+      "A scalable shared file system for Linux workloads",
+      "A block volume for one EC2 instance only",
+      "A DNS failover service",
+      "A cost estimation tool"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "File system shared by multiple instances.",
+    "explanation": "Amazon EFS provides scalable file storage that can be mounted by multiple Linux instances."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What does RDS stand for?",
+    "options": [
+      "Relational Database Service",
+      "Regional Data Storage",
+      "Reserved Database System",
+      "Remote Desktop Service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Managed relational database.",
+    "explanation": "Amazon RDS stands for Relational Database Service."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon RDS?",
+    "options": [
+      "A managed relational database service",
+      "A NoSQL key-value database only",
+      "A CDN",
+      "A serverless function service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "MySQL, PostgreSQL, MariaDB, Oracle, SQL Server.",
+    "explanation": "Amazon RDS is a managed relational database service."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon DynamoDB?",
+    "options": [
+      "A serverless NoSQL database service",
+      "A relational database engine",
+      "A block storage service",
+      "A DDoS protection service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "DynamoDB = NoSQL.",
+    "explanation": "Amazon DynamoDB is a fully managed serverless NoSQL database."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS Lambda?",
+    "options": [
+      "A serverless compute service that runs code without managing servers",
+      "A relational database",
+      "A physical data transfer device",
+      "A billing report"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Serverless functions.",
+    "explanation": "AWS Lambda runs code without requiring users to provision or manage servers."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon CloudFront?",
+    "options": [
+      "A content delivery network service",
+      "A vulnerability scanner",
+      "A database migration service",
+      "An IAM policy editor"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "CDN.",
+    "explanation": "Amazon CloudFront is a CDN that delivers content through edge locations."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon Route 53?",
+    "options": [
+      "A DNS and routing service",
+      "A monitoring service",
+      "A virtual desktop service",
+      "A container image registry"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Route users with DNS.",
+    "explanation": "Amazon Route 53 is AWS's DNS service and can support health checks and failover routing."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS CloudTrail?",
+    "options": [
+      "A service that records AWS API and account activity",
+      "A service that monitors CPU metrics only",
+      "A service that finds PII in S3",
+      "A service that hosts static websites"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Who did what?",
+    "explanation": "CloudTrail records AWS API calls and account activity for auditing."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon CloudWatch?",
+    "options": [
+      "A service for metrics, logs, alarms, and monitoring",
+      "A service for DNS routing",
+      "A managed graph database",
+      "A physical migration truck"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Metrics and alarms.",
+    "explanation": "CloudWatch is used for monitoring, metrics, logs, dashboards, and alarms."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS Config?",
+    "options": [
+      "A service that records resource configuration history and compliance",
+      "A service that creates encryption keys only",
+      "A serverless compute service",
+      "A text-to-speech service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "What changed?",
+    "explanation": "AWS Config tracks resource configurations and can evaluate them against rules."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon GuardDuty?",
+    "options": [
+      "A threat detection service",
+      "A cost estimation tool",
+      "A static website hosting service",
+      "A database engine"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Guard against threats.",
+    "explanation": "GuardDuty detects threats and suspicious activity in AWS accounts and workloads."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon Inspector?",
+    "options": [
+      "A vulnerability management/scanning service",
+      "A sensitive data discovery service only",
+      "A CDN",
+      "A budget alert service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Inspector inspects vulnerabilities.",
+    "explanation": "Amazon Inspector scans for software vulnerabilities and unintended network exposure."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS Shield?",
+    "options": [
+      "A DDoS protection service",
+      "A SQL database service",
+      "A data warehouse",
+      "A migration assessment service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Shield protects against DDoS.",
+    "explanation": "AWS Shield helps protect applications against DDoS attacks."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What does KMS stand for in AWS KMS?",
+    "options": [
+      "Key Management Service",
+      "Kubernetes Management Service",
+      "Knowledge Management System",
+      "Key Monitoring Software"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Encryption keys.",
+    "explanation": "AWS KMS stands for Key Management Service."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS KMS?",
+    "options": [
+      "A service for creating and managing encryption keys",
+      "A service for detecting SQL injection",
+      "A service for virtual desktops",
+      "A service for database migration"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Keys for encryption.",
+    "explanation": "AWS KMS is used to create and manage cryptographic keys."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS Secrets Manager?",
+    "options": [
+      "A service for storing and rotating secrets such as passwords",
+      "A service for hosting containers",
+      "A service for static images",
+      "A data warehouse"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Secrets = passwords/API keys.",
+    "explanation": "Secrets Manager stores, manages, and can rotate secrets like database credentials."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What does ACM stand for in AWS Certificate Manager?",
+    "options": [
+      "AWS Certificate Manager",
+      "Application Control Module",
+      "Access Credential Manager",
+      "Automated Cloud Monitoring"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Certificates.",
+    "explanation": "ACM refers to AWS Certificate Manager, which provisions and manages SSL/TLS certificates."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS Certificate Manager?",
+    "options": [
+      "A service for provisioning and managing SSL/TLS certificates",
+      "A service for cost analysis",
+      "A service for patching EC2 only",
+      "A service for queue messaging"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Website certificates.",
+    "explanation": "AWS Certificate Manager manages SSL/TLS certificates for services like CloudFront and load balancers."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS Artifact?",
+    "options": [
+      "A portal for AWS compliance reports and agreements",
+      "A software package repository only",
+      "A virtual server service",
+      "A monitoring dashboard"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Compliance documents.",
+    "explanation": "AWS Artifact provides access to AWS compliance reports and agreements."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS Trusted Advisor?",
+    "options": [
+      "A service that gives best-practice checks and recommendations",
+      "A service that stores secrets",
+      "A service that runs containers",
+      "A DNS service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Advisor = recommendations.",
+    "explanation": "Trusted Advisor checks your AWS environment against best practices such as cost, security, performance, and quotas."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS Organizations?",
+    "options": [
+      "A service for centrally managing multiple AWS accounts",
+      "A service for scanning vulnerabilities",
+      "A service for object storage",
+      "A service for translating text"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Multiple accounts.",
+    "explanation": "AWS Organizations helps centrally manage accounts and consolidated billing."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS Control Tower?",
+    "options": [
+      "A service for setting up and governing a multi-account AWS environment",
+      "A DNS failover service",
+      "A queue service",
+      "A container registry"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Multi-account landing zone.",
+    "explanation": "AWS Control Tower helps set up and govern a secure multi-account AWS environment."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS Pricing Calculator?",
+    "options": [
+      "A tool for estimating future AWS costs",
+      "A service for showing past usage trends only",
+      "A service for compliance reports",
+      "A service for DNS routing"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Estimate before using.",
+    "explanation": "AWS Pricing Calculator helps estimate the cost of AWS services before or during planning."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS Cost Explorer?",
+    "options": [
+      "A tool for viewing and analyzing AWS spending and usage over time",
+      "A service for creating SSL certificates",
+      "A service for threat detection",
+      "A physical migration device"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Explore past/current costs.",
+    "explanation": "Cost Explorer helps visualize, understand, and manage costs and usage over time."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS Budgets?",
+    "options": [
+      "A service for setting cost or usage budgets and alerts",
+      "A service for DNS",
+      "A serverless container service",
+      "A vulnerability scanner"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Budget alerts.",
+    "explanation": "AWS Budgets lets you set custom budgets and alerts for cost and usage."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is the AWS Cost and Usage Report?",
+    "options": [
+      "A detailed report of AWS costs and usage",
+      "A threat detection report only",
+      "A DNS routing table",
+      "A list of EC2 instance passwords"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Most detailed billing report.",
+    "explanation": "The Cost and Usage Report provides detailed AWS billing and usage data."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What does SQS stand for?",
+    "options": [
+      "Simple Queue Service",
+      "Secure Query System",
+      "Scalable Queue Storage",
+      "Simple Query Service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Queue service.",
+    "explanation": "Amazon SQS stands for Simple Queue Service."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon SQS?",
+    "options": [
+      "A message queue service for decoupling application components",
+      "A notification fan-out service",
+      "A data warehouse",
+      "A DNS service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Queue = SQS.",
+    "explanation": "SQS provides message queues that help decouple application components."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What does SNS stand for?",
+    "options": [
+      "Simple Notification Service",
+      "Secure Network Storage",
+      "Serverless Notification System",
+      "Simple Network Service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Notification service.",
+    "explanation": "Amazon SNS stands for Simple Notification Service."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon SNS?",
+    "options": [
+      "A pub/sub notification service for sending messages to subscribers",
+      "A block storage service",
+      "A key management service",
+      "A relational database"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Fan-out notifications.",
+    "explanation": "SNS is used for pub/sub messaging and notifications to multiple subscribers."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon EventBridge?",
+    "options": [
+      "A serverless event bus service",
+      "A relational database service",
+      "A DDoS protection service",
+      "A file system service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Event bus.",
+    "explanation": "EventBridge helps build event-driven applications using events from AWS services, SaaS apps, and custom applications."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS Step Functions?",
+    "options": [
+      "A service for coordinating workflows across multiple steps/services",
+      "A data warehouse",
+      "A CDN",
+      "A password rotation service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Step-by-step workflows.",
+    "explanation": "Step Functions coordinates distributed applications and workflows using state machines."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What does ECS stand for?",
+    "options": [
+      "Elastic Container Service",
+      "Elastic Compute System",
+      "Enterprise Cloud Storage",
+      "Encrypted Container Service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Container service.",
+    "explanation": "Amazon ECS stands for Elastic Container Service."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What does EKS stand for?",
+    "options": [
+      "Elastic Kubernetes Service",
+      "Elastic Key Service",
+      "Enterprise Kubernetes Storage",
+      "Encrypted Kubernetes System"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Managed Kubernetes.",
+    "explanation": "Amazon EKS stands for Elastic Kubernetes Service."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What does ECR stand for?",
+    "options": [
+      "Elastic Container Registry",
+      "Elastic Compute Registry",
+      "Enterprise Container Runtime",
+      "External Code Repository"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Container image registry.",
+    "explanation": "Amazon ECR stands for Elastic Container Registry."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS Fargate?",
+    "options": [
+      "Serverless compute for containers",
+      "A DNS service",
+      "A relational database",
+      "A billing calculator"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "No server management for containers.",
+    "explanation": "AWS Fargate lets you run containers without managing servers."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS Elastic Beanstalk?",
+    "options": [
+      "A service that deploys and manages web applications while handling infrastructure details",
+      "A data warehouse",
+      "A queue service",
+      "A certificate manager"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Easy app deployment.",
+    "explanation": "Elastic Beanstalk helps deploy web applications and automatically handles infrastructure provisioning."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS CloudFormation?",
+    "options": [
+      "Infrastructure as code using templates",
+      "A CDN",
+      "A threat detection service",
+      "A virtual desktop service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Templates for AWS resources.",
+    "explanation": "CloudFormation lets you model and provision AWS resources using templates."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS Systems Manager?",
+    "options": [
+      "A service for managing and operating AWS resources and servers",
+      "A service for image recognition",
+      "A DNS service",
+      "A data warehouse"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Operational management; Session Manager is part of it.",
+    "explanation": "Systems Manager helps manage infrastructure, automate operational tasks, and securely access instances using Session Manager."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS Outposts?",
+    "options": [
+      "AWS infrastructure and services delivered to on-premises locations",
+      "A text-to-speech service",
+      "A web application firewall",
+      "A managed graph database"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "AWS on premises.",
+    "explanation": "AWS Outposts brings AWS hardware and services to your own data center or on-premises location."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon WorkSpaces?",
+    "options": [
+      "A managed virtual desktop service",
+      "A managed DNS service",
+      "A NoSQL database",
+      "A physical data transfer appliance"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Virtual desktops.",
+    "explanation": "Amazon WorkSpaces provides secure managed virtual desktops."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon AppStream 2.0?",
+    "options": [
+      "An application streaming service",
+      "A container registry",
+      "A DDoS protection service",
+      "A graph database"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Stream apps, not full desktops.",
+    "explanation": "AppStream 2.0 streams desktop applications to users through a browser."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon Rekognition?",
+    "options": [
+      "A service for image and video analysis",
+      "A service for sensitive data discovery in S3",
+      "A service for DNS",
+      "A service for cost alerts"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Recognize content in images/videos.",
+    "explanation": "Amazon Rekognition analyzes images and videos using machine learning."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon Polly?",
+    "options": [
+      "A text-to-speech service",
+      "A speech-to-text service",
+      "A translation service",
+      "A data warehouse"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Polly talks.",
+    "explanation": "Amazon Polly converts text into lifelike speech."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon Transcribe?",
+    "options": [
+      "A speech-to-text service",
+      "A text-to-speech service",
+      "A SQL query service for S3",
+      "A queue service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Transcribe audio.",
+    "explanation": "Amazon Transcribe converts speech/audio into text."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon Translate?",
+    "options": [
+      "A service for translating text between languages",
+      "A service for extracting text from PDFs",
+      "A data warehouse",
+      "A serverless function service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Translate languages.",
+    "explanation": "Amazon Translate provides language translation."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon Textract?",
+    "options": [
+      "A service that extracts text and data from documents",
+      "A text-to-speech service",
+      "A DNS service",
+      "A cost report"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Extract text from documents.",
+    "explanation": "Amazon Textract extracts text, handwriting, and structured data from documents."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon Comprehend?",
+    "options": [
+      "A natural language processing service for insights like sentiment and key phrases",
+      "A CDN",
+      "A block storage service",
+      "A DDoS protection service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Understand text.",
+    "explanation": "Amazon Comprehend uses NLP to find insights and relationships in text."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon Personalize?",
+    "options": [
+      "A service for building personalized recommendations",
+      "A sensitive data discovery service",
+      "A managed firewall",
+      "A virtual desktop service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Recommendations.",
+    "explanation": "Amazon Personalize helps build recommendation systems."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon SageMaker?",
+    "options": [
+      "A service to build, train, and deploy machine learning models",
+      "A DNS failover service",
+      "A queue service",
+      "A shared file system"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "ML model lifecycle.",
+    "explanation": "Amazon SageMaker helps build, train, and deploy machine learning models."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon Lex?",
+    "options": [
+      "A service for building conversational chatbots and voice bots",
+      "A cost analysis service",
+      "A NoSQL database",
+      "A web application firewall"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Lex = chatbot conversations.",
+    "explanation": "Amazon Lex is used to build conversational interfaces using voice and text."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS DMS?",
+    "options": [
+      "Database Migration Service",
+      "Data Monitoring System",
+      "Distributed Messaging Service",
+      "Dynamic Management Server"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "DMS migrates databases.",
+    "explanation": "AWS DMS stands for Database Migration Service."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon Athena?",
+    "options": [
+      "A service to query data in S3 using SQL",
+      "A virtual desktop service",
+      "A vulnerability scanner",
+      "A DNS service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "SQL directly on S3.",
+    "explanation": "Athena lets you use SQL to query data stored in Amazon S3."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is AWS Glue?",
+    "options": [
+      "A serverless data integration and ETL service",
+      "A DDoS protection service",
+      "A block storage service",
+      "A certificate manager"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "ETL.",
+    "explanation": "AWS Glue is used for data integration, ETL, and preparing data for analytics."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon Kinesis?",
+    "options": [
+      "A service for real-time streaming data",
+      "A relational database service",
+      "A static website hosting service",
+      "A root user management tool"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Streaming data.",
+    "explanation": "Kinesis is used to collect, process, and analyze real-time streaming data."
+  },
+  {
+    "category": "Definitions & Acronyms",
+    "question": "What is Amazon QuickSight?",
+    "options": [
+      "A business intelligence dashboard and visualization service",
+      "A database migration service",
+      "A queue service",
+      "A secret rotation service"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Dashboards and BI.",
+    "explanation": "QuickSight is AWS's business intelligence service for dashboards and visual analytics."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service is AWS object storage?",
+    "options": [
+      "Amazon S3",
+      "Amazon EBS",
+      "Amazon RDS",
+      "Amazon EKS"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Object storage, buckets, objects.",
+    "explanation": "Amazon S3 is AWS object storage."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service is AWS block storage for EC2?",
+    "options": [
+      "Amazon EBS",
+      "Amazon S3",
+      "Amazon Route 53",
+      "AWS WAF"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Block volume attached to EC2.",
+    "explanation": "Amazon EBS provides block storage volumes for EC2 instances."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service is AWS shared file storage for Linux workloads?",
+    "options": [
+      "Amazon EFS",
+      "Amazon EBS",
+      "Amazon DynamoDB",
+      "AWS Shield"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Elastic File System.",
+    "explanation": "Amazon EFS provides shared file storage."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service is AWS managed Kubernetes?",
+    "options": [
+      "Amazon EKS",
+      "Amazon ECS",
+      "AWS Fargate",
+      "Amazon ECR"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Kubernetes = EKS.",
+    "explanation": "Amazon EKS is AWS's managed Kubernetes service."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service is AWS container image registry?",
+    "options": [
+      "Amazon ECR",
+      "Amazon ECS",
+      "Amazon EKS",
+      "AWS Lambda"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Registry stores images.",
+    "explanation": "Amazon ECR stores and manages container images."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service is AWS serverless container compute?",
+    "options": [
+      "AWS Fargate",
+      "Amazon ECR",
+      "Amazon EBS",
+      "AWS Shield"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Run containers without managing servers.",
+    "explanation": "AWS Fargate provides serverless compute for containers."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service is AWS pub/sub notifications?",
+    "options": [
+      "Amazon SNS",
+      "Amazon SQS",
+      "AWS DMS",
+      "Amazon S3"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "SNS = notifications.",
+    "explanation": "SNS is a pub/sub messaging and notification service."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service is AWS message queueing?",
+    "options": [
+      "Amazon SQS",
+      "Amazon SNS",
+      "Amazon Route 53",
+      "AWS Config"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Queue = SQS.",
+    "explanation": "SQS provides message queues for decoupling applications."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service is AWS event bus for event-driven applications?",
+    "options": [
+      "Amazon EventBridge",
+      "AWS CloudFormation",
+      "Amazon EBS",
+      "AWS Artifact"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Events = EventBridge.",
+    "explanation": "EventBridge is a serverless event bus service."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service coordinates workflows using steps and state machines?",
+    "options": [
+      "AWS Step Functions",
+      "Amazon Athena",
+      "AWS KMS",
+      "Amazon Inspector"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Step-by-step workflows.",
+    "explanation": "Step Functions coordinates application workflows."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service is AWS data warehouse?",
+    "options": [
+      "Amazon Redshift",
+      "Amazon RDS",
+      "Amazon DynamoDB",
+      "Amazon EFS"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Redshift = analytics warehouse.",
+    "explanation": "Amazon Redshift is a data warehouse for analytics."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service runs SQL queries directly on S3 data?",
+    "options": [
+      "Amazon Athena",
+      "Amazon Aurora",
+      "Amazon Neptune",
+      "Amazon WorkSpaces"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Athena = SQL on S3.",
+    "explanation": "Athena lets you query S3 data using SQL."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service handles ETL and data cataloging?",
+    "options": [
+      "AWS Glue",
+      "Amazon CloudFront",
+      "AWS Shield",
+      "Amazon Route 53"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Glue sticks data pipelines together.",
+    "explanation": "AWS Glue is used for ETL and data integration."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service handles real-time data streaming?",
+    "options": [
+      "Amazon Kinesis",
+      "AWS Budgets",
+      "Amazon S3 Glacier",
+      "AWS Artifact"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Kinesis = streaming.",
+    "explanation": "Amazon Kinesis handles real-time streaming data."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service provides business intelligence dashboards?",
+    "options": [
+      "Amazon QuickSight",
+      "Amazon Macie",
+      "AWS Systems Manager",
+      "Amazon SQS"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Sight = dashboards.",
+    "explanation": "QuickSight is a BI dashboard and visualization service."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service is used to migrate an active database to AWS?",
+    "options": [
+      "AWS DMS",
+      "AWS CloudTrail",
+      "Amazon Inspector",
+      "AWS IAM Identity Center"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Database migration.",
+    "explanation": "AWS DMS migrates databases to AWS."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service is used for infrastructure as code templates?",
+    "options": [
+      "AWS CloudFormation",
+      "Amazon Rekognition",
+      "Amazon Macie",
+      "AWS VPN"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Templates define resources.",
+    "explanation": "CloudFormation provisions AWS resources using templates."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service brings AWS hardware and services on premises?",
+    "options": [
+      "AWS Outposts",
+      "AWS Direct Connect",
+      "Amazon CloudFront",
+      "AWS Organizations"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "AWS racks on-premises.",
+    "explanation": "AWS Outposts extends AWS infrastructure to on-premises locations."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service gives secure browser-based shell access to EC2 without opening SSH ports?",
+    "options": [
+      "AWS Systems Manager Session Manager",
+      "EC2 key pairs",
+      "AWS Shield",
+      "Amazon CloudFront"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Session Manager.",
+    "explanation": "Session Manager allows secure instance access without opening inbound SSH/RDP ports."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service provides single sign-on access to AWS accounts and applications?",
+    "options": [
+      "AWS IAM Identity Center",
+      "Amazon Inspector",
+      "AWS CloudTrail",
+      "Amazon S3"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Formerly AWS SSO.",
+    "explanation": "IAM Identity Center provides centralized workforce access and single sign-on."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service shares resources across AWS accounts?",
+    "options": [
+      "AWS Resource Access Manager",
+      "AWS Config",
+      "Amazon EBS",
+      "AWS Secrets Manager"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "RAM = resource sharing.",
+    "explanation": "AWS RAM lets users share supported resources with other accounts."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service helps manage software licenses on AWS and on premises?",
+    "options": [
+      "AWS License Manager",
+      "AWS Budgets",
+      "Amazon Lex",
+      "AWS Shield"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Licenses.",
+    "explanation": "AWS License Manager helps manage software licenses."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service recommends better EC2 instance sizes and resource choices?",
+    "options": [
+      "AWS Compute Optimizer",
+      "Amazon Textract",
+      "AWS WAF",
+      "Amazon Route 53"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Optimize compute resources.",
+    "explanation": "AWS Compute Optimizer recommends optimal AWS resources based on utilization."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service lets remote employee laptops connect securely to AWS?",
+    "options": [
+      "AWS Client VPN",
+      "AWS Direct Connect",
+      "AWS Snowball Edge",
+      "Amazon CloudFront"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Client VPN = individual remote users.",
+    "explanation": "AWS Client VPN provides secure VPN access for remote users."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service provides a dedicated private connection from on-premises to AWS?",
+    "options": [
+      "AWS Direct Connect",
+      "AWS Site-to-Site VPN",
+      "AWS Client VPN",
+      "Amazon Route 53"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Dedicated line, not public internet.",
+    "explanation": "Direct Connect provides dedicated private connectivity to AWS."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service provides encrypted tunnels over the internet from on-premises to AWS?",
+    "options": [
+      "AWS Site-to-Site VPN",
+      "AWS Direct Connect",
+      "Amazon CloudFront",
+      "Amazon Macie"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "VPN = encrypted internet connection.",
+    "explanation": "Site-to-Site VPN provides encrypted connectivity over the internet."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which component lets private subnet resources initiate outbound internet traffic?",
+    "options": [
+      "NAT Gateway",
+      "Internet Gateway only",
+      "AWS Artifact",
+      "Security Hub"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Private outbound internet = NAT.",
+    "explanation": "A NAT Gateway allows private subnet resources to access the internet outbound."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which component allows internet connectivity for a VPC?",
+    "options": [
+      "Internet Gateway",
+      "NAT Gateway only",
+      "AWS Glue",
+      "Amazon Inspector"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Gateway to internet.",
+    "explanation": "An Internet Gateway enables connectivity between a VPC and the internet."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service connects multiple VPCs and on-premises networks through a central hub?",
+    "options": [
+      "AWS Transit Gateway",
+      "AWS Shield",
+      "Amazon SQS",
+      "AWS Artifact"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Transit hub.",
+    "explanation": "Transit Gateway connects VPCs and on-premises networks through a central hub."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service detects sensitive data in S3?",
+    "options": [
+      "Amazon Macie",
+      "Amazon GuardDuty",
+      "Amazon Inspector",
+      "AWS CloudTrail"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "S3 + PII.",
+    "explanation": "Macie discovers sensitive data in S3."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service detects threats and suspicious account activity?",
+    "options": [
+      "Amazon GuardDuty",
+      "Amazon Macie",
+      "Amazon EBS",
+      "Amazon Athena"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Threat detection.",
+    "explanation": "GuardDuty is used for threat detection."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service scans EC2 and container workloads for vulnerabilities?",
+    "options": [
+      "Amazon Inspector",
+      "Amazon Macie",
+      "AWS WAF",
+      "AWS KMS"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Vulnerability inspection.",
+    "explanation": "Inspector scans workloads for vulnerabilities."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service protects against SQL injection and XSS?",
+    "options": [
+      "AWS WAF",
+      "AWS Shield",
+      "Amazon CloudWatch",
+      "AWS DMS"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Web application attacks.",
+    "explanation": "AWS WAF helps block common web exploits like SQL injection and XSS."
+  },
+  {
+    "category": "Which Service Is What",
+    "question": "Which service gives centralized security findings from multiple AWS services?",
+    "options": [
+      "AWS Security Hub",
+      "AWS Cost Explorer",
+      "Amazon EFS",
+      "AWS Step Functions"
+    ],
+    "answers": [
+      0
+    ],
+    "hint": "Hub for security findings.",
+    "explanation": "Security Hub centralizes and prioritizes security findings."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which statements about Amazon Macie are correct? (Select TWO.)",
+    "options": [
+      "It discovers sensitive data in Amazon S3",
+      "It can identify PII in S3 buckets",
+      "It is primarily a DNS service",
+      "It is used to deploy Java web apps",
+      "It replaces IAM roles"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Macie = S3 sensitive data.",
+    "explanation": "Macie discovers sensitive data, including PII, in Amazon S3."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which statements about AWS WAF are correct? (Select TWO.)",
+    "options": [
+      "WAF stands for Web Application Firewall",
+      "It helps protect against SQL injection and XSS",
+      "It is a relational database service",
+      "It is used for cost estimation",
+      "It stores container images"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Web app firewall.",
+    "explanation": "AWS WAF is a web application firewall that protects against common web exploits."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which statements about IAM are correct? (Select THREE.)",
+    "options": [
+      "IAM manages users, groups, roles, and policies",
+      "IAM supports least privilege access",
+      "IAM roles can provide temporary credentials",
+      "IAM is object storage",
+      "IAM is a CDN"
+    ],
+    "answers": [
+      0,
+      1,
+      2
+    ],
+    "hint": "Identity and permissions.",
+    "explanation": "IAM manages access to AWS resources, supports least privilege, and roles provide temporary credentials."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which statements about Security Groups and Network ACLs are correct? (Select TWO.)",
+    "options": [
+      "Security Groups are stateful",
+      "Network ACLs are stateless",
+      "Security Groups are subnet-level only",
+      "Network ACLs are used to manage IAM permissions",
+      "Security Groups store objects"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Stateful vs stateless.",
+    "explanation": "Security Groups are stateful instance-level firewalls. Network ACLs are stateless subnet-level firewalls."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which are AWS billing and cost tools? (Select THREE.)",
+    "options": [
+      "AWS Pricing Calculator",
+      "AWS Cost Explorer",
+      "AWS Budgets",
+      "Amazon GuardDuty",
+      "Amazon Rekognition"
+    ],
+    "answers": [
+      0,
+      1,
+      2
+    ],
+    "hint": "Calculator, explorer, budgets.",
+    "explanation": "Pricing Calculator estimates costs, Cost Explorer analyzes spending, and Budgets sends budget alerts."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which are AWS machine learning or AI services? (Select THREE.)",
+    "options": [
+      "Amazon Rekognition",
+      "Amazon Polly",
+      "Amazon Textract",
+      "Amazon EBS",
+      "AWS Direct Connect"
+    ],
+    "answers": [
+      0,
+      1,
+      2
+    ],
+    "hint": "Image/video, speech, document extraction.",
+    "explanation": "Rekognition, Polly, and Textract are AI/ML services. EBS and Direct Connect are not ML services."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which services are used for messaging and event-driven applications? (Select THREE.)",
+    "options": [
+      "Amazon SQS",
+      "Amazon SNS",
+      "Amazon EventBridge",
+      "Amazon EBS",
+      "AWS Shield"
+    ],
+    "answers": [
+      0,
+      1,
+      2
+    ],
+    "hint": "Queue, notification, event bus.",
+    "explanation": "SQS, SNS, and EventBridge are messaging/event services."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which services are used for analytics? (Select THREE.)",
+    "options": [
+      "Amazon Athena",
+      "AWS Glue",
+      "Amazon Redshift",
+      "Amazon Macie",
+      "AWS Certificate Manager"
+    ],
+    "answers": [
+      0,
+      1,
+      2
+    ],
+    "hint": "SQL on S3, ETL, data warehouse.",
+    "explanation": "Athena, Glue, and Redshift are analytics-related services."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which services are container-related? (Select THREE.)",
+    "options": [
+      "Amazon ECS",
+      "Amazon EKS",
+      "Amazon ECR",
+      "Amazon RDS",
+      "Amazon Route 53"
+    ],
+    "answers": [
+      0,
+      1,
+      2
+    ],
+    "hint": "Container service, Kubernetes, registry.",
+    "explanation": "ECS runs containers, EKS runs Kubernetes, and ECR stores container images."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which services are related to monitoring, auditing, or configuration tracking? (Select THREE.)",
+    "options": [
+      "Amazon CloudWatch",
+      "AWS CloudTrail",
+      "AWS Config",
+      "Amazon Polly",
+      "Amazon S3 Glacier"
+    ],
+    "answers": [
+      0,
+      1,
+      2
+    ],
+    "hint": "Metrics, API activity, config history.",
+    "explanation": "CloudWatch monitors metrics/logs, CloudTrail records account activity, and Config tracks resource configurations."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which services help protect applications or accounts from attacks? (Select THREE.)",
+    "options": [
+      "AWS WAF",
+      "AWS Shield",
+      "Amazon GuardDuty",
+      "AWS Cost Explorer",
+      "Amazon QuickSight"
+    ],
+    "answers": [
+      0,
+      1,
+      2
+    ],
+    "hint": "Web attacks, DDoS, threats.",
+    "explanation": "WAF protects web apps, Shield protects against DDoS, and GuardDuty detects threats."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which are storage services or features? (Select THREE.)",
+    "options": [
+      "Amazon S3",
+      "Amazon EBS",
+      "Amazon EFS",
+      "Amazon Lex",
+      "AWS WAF"
+    ],
+    "answers": [
+      0,
+      1,
+      2
+    ],
+    "hint": "Object, block, file.",
+    "explanation": "S3 is object storage, EBS is block storage, and EFS is file storage."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which are database services? (Select THREE.)",
+    "options": [
+      "Amazon RDS",
+      "Amazon DynamoDB",
+      "Amazon Aurora",
+      "Amazon CloudFront",
+      "AWS Shield"
+    ],
+    "answers": [
+      0,
+      1,
+      2
+    ],
+    "hint": "Relational, NoSQL, relational.",
+    "explanation": "RDS and Aurora are relational database services; DynamoDB is NoSQL."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which are networking/content delivery services or features? (Select THREE.)",
+    "options": [
+      "Amazon Route 53",
+      "Amazon CloudFront",
+      "AWS Direct Connect",
+      "Amazon Inspector",
+      "AWS Budgets"
+    ],
+    "answers": [
+      0,
+      1,
+      2
+    ],
+    "hint": "DNS, CDN, private connectivity.",
+    "explanation": "Route 53 is DNS, CloudFront is CDN, and Direct Connect is private connectivity."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which are AWS governance or multi-account services? (Select TWO.)",
+    "options": [
+      "AWS Organizations",
+      "AWS Control Tower",
+      "Amazon Polly",
+      "Amazon EBS",
+      "Amazon Transcribe"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Multiple accounts.",
+    "explanation": "Organizations manages accounts and billing; Control Tower sets up/governs multi-account environments."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which pairings are correct? (Select THREE.)",
+    "options": [
+      "Macie = sensitive data discovery in S3",
+      "WAF = Web Application Firewall",
+      "CloudTrail = records API activity",
+      "S3 = relational database",
+      "EBS = DNS service"
+    ],
+    "answers": [
+      0,
+      1,
+      2
+    ],
+    "hint": "Macie, WAF, CloudTrail.",
+    "explanation": "Macie finds sensitive data in S3, WAF is Web Application Firewall, and CloudTrail records API activity."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which pairings are correct? (Select THREE.)",
+    "options": [
+      "CloudWatch = metrics/logs/alarms",
+      "Config = resource configuration history",
+      "KMS = encryption key management",
+      "Secrets Manager = CDN",
+      "Route 53 = vulnerability scanning"
+    ],
+    "answers": [
+      0,
+      1,
+      2
+    ],
+    "hint": "Monitoring, configuration, encryption keys.",
+    "explanation": "CloudWatch monitors, Config tracks configurations, and KMS manages keys."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which pairings are correct? (Select THREE.)",
+    "options": [
+      "SQS = queue messages",
+      "SNS = pub/sub notifications",
+      "EventBridge = event bus",
+      "Step Functions = object storage",
+      "Athena = virtual desktop"
+    ],
+    "answers": [
+      0,
+      1,
+      2
+    ],
+    "hint": "Messaging trio.",
+    "explanation": "SQS queues, SNS publishes notifications, and EventBridge is an event bus."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which pairings are correct? (Select THREE.)",
+    "options": [
+      "RDS = relational database",
+      "DynamoDB = NoSQL database",
+      "ElastiCache = in-memory cache",
+      "Redshift = DNS",
+      "Neptune = block storage"
+    ],
+    "answers": [
+      0,
+      1,
+      2
+    ],
+    "hint": "Database services.",
+    "explanation": "RDS is relational, DynamoDB is NoSQL, and ElastiCache is in-memory cache."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which pairings are correct? (Select THREE.)",
+    "options": [
+      "Rekognition = image/video analysis",
+      "Polly = text-to-speech",
+      "Transcribe = speech-to-text",
+      "Textract = DDoS protection",
+      "Comprehend = block storage"
+    ],
+    "answers": [
+      0,
+      1,
+      2
+    ],
+    "hint": "AI service clues.",
+    "explanation": "Rekognition analyzes media, Polly converts text to speech, and Transcribe converts speech to text."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which options are examples of security best practices? (Select THREE.)",
+    "options": [
+      "Enable MFA",
+      "Use least privilege",
+      "Rotate credentials regularly",
+      "Share root user password",
+      "Use root user for daily tasks"
+    ],
+    "answers": [
+      0,
+      1,
+      2
+    ],
+    "hint": "Protect identity and credentials.",
+    "explanation": "MFA, least privilege, and credential rotation are IAM/security best practices."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which tasks are usually the customer's responsibility on Amazon EC2? (Select THREE.)",
+    "options": [
+      "Patch the guest operating system",
+      "Configure security groups",
+      "Protect customer data",
+      "Patch AWS physical hosts",
+      "Secure AWS data center doors"
+    ],
+    "answers": [
+      0,
+      1,
+      2
+    ],
+    "hint": "Inside the cloud on EC2.",
+    "explanation": "Customers manage guest OS patching, security group configuration, and customer data for EC2 workloads."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which tasks are AWS responsibilities? (Select TWO.)",
+    "options": [
+      "Secure AWS physical facilities",
+      "Maintain the underlying global infrastructure",
+      "Patch customer application code",
+      "Create customer's IAM policies",
+      "Classify customer data"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Security OF the cloud.",
+    "explanation": "AWS secures physical facilities and maintains underlying infrastructure."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which options describe AWS Regions and Availability Zones correctly? (Select TWO.)",
+    "options": [
+      "A Region is a geographic area",
+      "A Region contains multiple Availability Zones",
+      "An Availability Zone contains multiple Regions",
+      "Regions are always in the same city",
+      "Edge locations are the same as IAM groups"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Region > AZ.",
+    "explanation": "A Region is a geographic area and contains multiple Availability Zones."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which options can improve reliability? (Select THREE.)",
+    "options": [
+      "Deploy across multiple Availability Zones",
+      "Test recovery procedures",
+      "Automatically recover from failure",
+      "Use one server only",
+      "Disable monitoring"
+    ],
+    "answers": [
+      0,
+      1,
+      2
+    ],
+    "hint": "Redundancy and recovery.",
+    "explanation": "Multi-AZ deployment, recovery testing, and automated recovery help improve reliability."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which options are part of the AWS Well-Architected Framework pillars? (Select THREE.)",
+    "options": [
+      "Security",
+      "Reliability",
+      "Cost Optimization",
+      "Object Storage",
+      "Identity Federation only"
+    ],
+    "answers": [
+      0,
+      1,
+      2
+    ],
+    "hint": "Six pillars.",
+    "explanation": "Security, Reliability, and Cost Optimization are Well-Architected pillars."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which questions point to Amazon Macie? (Select TWO.)",
+    "options": [
+      "Which service finds PII in S3?",
+      "Which service discovers sensitive data in S3?",
+      "Which service distributes traffic?",
+      "Which service provides DNS?",
+      "Which service estimates cost?"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "PII/sensitive data in S3.",
+    "explanation": "Macie is the service for sensitive data discovery in S3."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which questions point to AWS WAF? (Select TWO.)",
+    "options": [
+      "Which service blocks SQL injection?",
+      "Which service protects against XSS?",
+      "Which service stores objects?",
+      "Which service provides virtual desktops?",
+      "Which service migrates databases?"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Web application attacks.",
+    "explanation": "AWS WAF helps protect against SQL injection, XSS, and other web exploits."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which questions point to CloudTrail? (Select TWO.)",
+    "options": [
+      "Who made this API call?",
+      "Which IAM user deleted this resource?",
+      "What is the EC2 CPU utilization?",
+      "Which S3 object contains PII?",
+      "Which service translates text?"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Who did what?",
+    "explanation": "CloudTrail records AWS account and API activity."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which questions point to CloudWatch? (Select TWO.)",
+    "options": [
+      "What is the EC2 CPU utilization?",
+      "Can I create an alarm on this metric?",
+      "Who changed this IAM policy?",
+      "Which bucket contains PII?",
+      "Which service is a data warehouse?"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Metrics and alarms.",
+    "explanation": "CloudWatch monitors metrics and supports alarms."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which questions point to AWS Config? (Select TWO.)",
+    "options": [
+      "What changed in this resource configuration?",
+      "Is this resource compliant with a rule?",
+      "Who made the API call?",
+      "What is the S3 object content?",
+      "How much will Redshift cost next month?"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Configuration history and compliance.",
+    "explanation": "AWS Config tracks configuration changes and evaluates compliance."
+  },
+  {
+    "category": "Multi-Select: Definitions & Acronyms",
+    "question": "Which questions point to Cost Explorer? (Select TWO.)",
+    "options": [
+      "How has spending changed over time?",
+      "Which service usage is driving current costs?",
+      "How do I create an SSL certificate?",
+      "Which resource has PII?",
+      "How do I run Kubernetes?"
+    ],
+    "answers": [
+      0,
+      1
+    ],
+    "hint": "Explore cost trends.",
+    "explanation": "Cost Explorer visualizes and analyzes cost and usage over time."
   }
 ];
 
+    const STATS_KEY = "awsCcpEnhancedStatsV1";
+    const SESSION_KEY = "awsCcpEnhancedSessionV1";
+
+    const topics = [
+      "Macie","WAF","IAM","VPC","EC2","S3","EBS","EFS","RDS","Aurora","DynamoDB","Lambda","CloudTrail","CloudWatch","Config",
+      "GuardDuty","Inspector","Shield","KMS","Secrets Manager","Certificate Manager","Artifact","Trusted Advisor","Organizations",
+      "Control Tower","Pricing Calculator","Cost Explorer","Budgets","Route 53","CloudFront","Direct Connect","VPN","Client VPN",
+      "Transit Gateway","NAT Gateway","Internet Gateway","Security Group","Network ACL","Snowball","Storage Gateway","DMS",
+      "Redshift","Athena","Glue","Kinesis","QuickSight","SQS","SNS","EventBridge","Step Functions","ECS","EKS","ECR","Fargate",
+      "Elastic Beanstalk","CloudFormation","Systems Manager","Outposts","WorkSpaces","AppStream","Rekognition","Polly","Transcribe",
+      "Translate","Textract","Comprehend","Personalize","SageMaker","Lex","Well-Architected","Shared Responsibility","Billing",
+      "Support","Region","Availability Zone","Edge Location"
+    ];
+
+    function stableId(q, i) {
+      const raw = q.category + "|" + q.question + "|" + q.options.join("|");
+      let hash = 0;
+      for (let c = 0; c < raw.length; c++) hash = ((hash << 5) - hash) + raw.charCodeAt(c) | 0;
+      return "q" + i + "_" + Math.abs(hash);
+    }
+
+    const bank = questionBank.map((q, i) => ({
+      ...q,
+      id: stableId(q, i),
+      answers: (q.answers || [q.answer || 0]).slice().sort((a,b)=>a-b)
+    }));
+
     let currentSet = [];
     let currentIndex = 0;
+    let selections = {};
+    let submitted = {};
+    let scoredThisSession = {};
     let score = 0;
     let wrong = 0;
-    let answered = false;
-    let selected = new Set();
     let wrongAnswers = [];
 
-    const categorySelect = document.getElementById("categorySelect");
-    const countSelect = document.getElementById("countSelect");
-    const searchInput = document.getElementById("searchInput");
-    const questionText = document.getElementById("questionText");
-    const optionsDiv = document.getElementById("options");
-    const hintBox = document.getElementById("hintBox");
-    const feedbackBox = document.getElementById("feedbackBox");
-    const scoreNum = document.getElementById("scoreNum");
-    const wrongNum = document.getElementById("wrongNum");
-    const leftNum = document.getElementById("leftNum");
-    const percentNum = document.getElementById("percentNum");
-    const progressBar = document.getElementById("progressBar");
-    const categoryPill = document.getElementById("categoryPill");
-    const counterPill = document.getElementById("counterPill");
-    const reviewList = document.getElementById("reviewList");
-    const reviewContent = document.getElementById("reviewContent");
-    const submitBtn = document.getElementById("submitBtn");
+    const $ = (id) => document.getElementById(id);
+    const categorySelect = $("categorySelect");
+    const countSelect = $("countSelect");
+    const searchInput = $("searchInput");
 
     function shuffle(array) {
       const arr = [...array];
@@ -3093,76 +5043,162 @@
       return arr;
     }
 
-    function normalizeQuestion(q) {
-      const answers = Array.isArray(q.answers) ? q.answers : [q.answer];
-      return { ...q, answers };
+    function escapeHtml(str) {
+      return String(str)
+        .replaceAll("&","&amp;")
+        .replaceAll("<","&lt;")
+        .replaceAll(">","&gt;")
+        .replaceAll('"',"&quot;")
+        .replaceAll("'","&#039;");
+    }
+
+    function loadStats() {
+      try { return JSON.parse(localStorage.getItem(STATS_KEY)) || { overall:{correct:0, wrong:0}, categories:{}, topics:{}, questions:{}, wrongLog:[] }; }
+      catch { return { overall:{correct:0, wrong:0}, categories:{}, topics:{}, questions:{}, wrongLog:[] }; }
+    }
+
+    function saveStats(stats) {
+      localStorage.setItem(STATS_KEY, JSON.stringify(stats));
+    }
+
+    function questionTopics(q) {
+      const text = (q.category + " " + q.question + " " + q.options.join(" ") + " " + q.explanation).toLowerCase();
+      return topics.filter(t => text.includes(t.toLowerCase()));
+    }
+
+    function addStatBucket(obj, key, correct) {
+      if (!obj[key]) obj[key] = {correct:0, wrong:0};
+      if (correct) obj[key].correct++;
+      else obj[key].wrong++;
+    }
+
+    function recordResult(q, isCorrect, selectedDisplayIndexes) {
+      const stats = loadStats();
+      if (isCorrect) stats.overall.correct++;
+      else stats.overall.wrong++;
+
+      addStatBucket(stats.categories, q.category, isCorrect);
+      addStatBucket(stats.questions, q.id, isCorrect);
+      questionTopics(q).forEach(t => addStatBucket(stats.topics, t, isCorrect));
+
+      if (!isCorrect) {
+        const chosen = selectedDisplayIndexes.map(i => q.shuffledOptions[i]?.text).filter(Boolean);
+        const correct = q.shuffledOptions
+          .filter(opt => q.answers.includes(opt.originalIndex))
+          .map(opt => opt.text);
+        stats.wrongLog.unshift({
+          id: q.id,
+          category: q.category,
+          question: q.question,
+          chosen,
+          correct,
+          explanation: q.explanation,
+          time: new Date().toISOString()
+        });
+        stats.wrongLog = stats.wrongLog.slice(0, 80);
+      }
+
+      saveStats(stats);
+    }
+
+    function prepareQuestion(q) {
+      const opts = q.options.map((text, idx) => ({text, originalIndex: idx}));
+      return {...q, shuffledOptions: shuffle(opts)};
     }
 
     function setupCategories() {
-      const categories = ["All", ...new Set(questionBank.map(q => q.category))];
-      categorySelect.innerHTML = categories.map(cat => `<option value="${cat}">${cat}</option>`).join("");
+      const cats = ["All", ...new Set(bank.map(q => q.category))];
+      categorySelect.innerHTML = cats.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join("");
     }
 
-    function prepareQuestion(qRaw) {
-      const q = normalizeQuestion(qRaw);
-      const optionObjects = q.options.map((text, idx) => ({ text, originalIndex: idx }));
-      const shuffledOptions = shuffle(optionObjects);
-      const correctIndices = shuffledOptions
-        .map((opt, idx) => q.answers.includes(opt.originalIndex) ? idx : -1)
-        .filter(idx => idx !== -1);
-      return { ...q, shuffledOptions, correctIndices };
-    }
-
-    function buildSet() {
-      const category = categorySelect.value;
+    function buildSet({weak=false}={}) {
+      let filtered = [...bank];
+      const cat = categorySelect.value;
       const search = searchInput.value.trim().toLowerCase();
-      let filtered = questionBank.filter(q => category === "All" || q.category === category);
+
+      if (!weak && cat !== "All") filtered = filtered.filter(q => q.category === cat);
 
       if (search) {
-        filtered = filtered.filter(q =>
-          q.question.toLowerCase().includes(search) ||
-          q.category.toLowerCase().includes(search) ||
-          q.options.join(" ").toLowerCase().includes(search) ||
-          q.explanation.toLowerCase().includes(search) ||
-          q.hint.toLowerCase().includes(search)
-        );
+        filtered = filtered.filter(q => (q.category + " " + q.question + " " + q.options.join(" ") + " " + q.explanation + " " + q.hint).toLowerCase().includes(search));
+      }
+
+      if (weak) {
+        const stats = loadStats();
+        filtered = filtered.filter(q => {
+          const qs = stats.questions[q.id];
+          if (qs && qs.wrong > 0 && qs.wrong >= qs.correct) return true;
+          return questionTopics(q).some(t => stats.topics[t] && stats.topics[t].wrong > stats.topics[t].correct);
+        });
+        if (filtered.length === 0) {
+          filtered = [...bank].filter(q => /Macie|WAF|IAM|CloudTrail|CloudWatch|Config|S3|VPC|billing|shared responsibility/i.test(q.question + q.explanation + q.category));
+        }
       }
 
       filtered = shuffle(filtered);
       const count = countSelect.value === "all" ? filtered.length : Number(countSelect.value);
       currentSet = filtered.slice(0, Math.min(count, filtered.length)).map(prepareQuestion);
       currentIndex = 0;
+      selections = {};
+      submitted = {};
+      scoredThisSession = {};
       score = 0;
       wrong = 0;
-      answered = false;
-      selected = new Set();
       wrongAnswers = [];
-      reviewList.style.display = "none";
+      $("reviewList").style.display = "none";
+      $("patternDash").style.display = "none";
+      saveSession();
       renderQuestion();
       updateStats();
     }
 
-    function answerCountLabel(n) {
-      if (n === 1) return "Choose ONE answer";
-      if (n === 2) return "Select TWO answers";
-      if (n === 3) return "Select THREE answers";
-      return `Select ${n} answers`;
+    function saveSession() {
+      localStorage.setItem(SESSION_KEY, JSON.stringify({currentSet, currentIndex, selections, submitted, scoredThisSession, score, wrong, wrongAnswers}));
+    }
+
+    function continueSession() {
+      try {
+        const saved = JSON.parse(localStorage.getItem(SESSION_KEY));
+        if (!saved || !saved.currentSet || saved.currentSet.length === 0) {
+          alert("No saved quiz found. Start a new quiz first.");
+          return;
+        }
+        currentSet = saved.currentSet;
+        currentIndex = saved.currentIndex || 0;
+        selections = saved.selections || {};
+        submitted = saved.submitted || {};
+        scoredThisSession = saved.scoredThisSession || {};
+        score = saved.score || 0;
+        wrong = saved.wrong || 0;
+        wrongAnswers = saved.wrongAnswers || [];
+        renderQuestion();
+        updateStats();
+      } catch {
+        alert("Could not load saved quiz. Start a new one.");
+      }
+    }
+
+    function currentQuestion() {
+      return currentSet[currentIndex];
+    }
+
+    function isCorrectSelection(q, displaySelection) {
+      const chosenOriginals = displaySelection.map(i => q.shuffledOptions[i]?.originalIndex).filter(i => i !== undefined).sort((a,b)=>a-b);
+      return JSON.stringify(chosenOriginals) === JSON.stringify(q.answers.slice().sort((a,b)=>a-b));
     }
 
     function renderQuestion() {
-      hintBox.style.display = "none";
-      feedbackBox.style.display = "none";
-      hintBox.textContent = "";
-      feedbackBox.textContent = "";
-      answered = false;
-      selected = new Set();
-      if (submitBtn) submitBtn.disabled = false;
+      $("hintBox").style.display = "none";
+      $("feedbackBox").style.display = "none";
+      $("hintBox").innerHTML = "";
+      $("feedbackBox").innerHTML = "";
 
       if (currentSet.length === 0) {
-        questionText.textContent = "No questions found. Try changing the category/search.";
-        optionsDiv.innerHTML = "";
-        categoryPill.textContent = "No results";
-        counterPill.textContent = "0 / 0";
+        $("questionText").textContent = "No questions found. Try another category/search.";
+        $("options").innerHTML = "";
+        $("categoryPill").textContent = "No results";
+        $("counterPill").textContent = "0 / 0";
+        $("typePill").textContent = "Choose ONE";
+        updateStats();
         return;
       }
 
@@ -3171,14 +5207,17 @@
         return;
       }
 
-      const q = currentSet[currentIndex];
-      categoryPill.textContent = q.category;
-      counterPill.textContent = `${currentIndex + 1} / ${currentSet.length}`;
-      questionText.innerHTML = `<div>${escapeHtml(q.question)}</div><div class="small" style="margin-top:8px;">${answerCountLabel(q.correctIndices.length)}. Click option(s), then press Submit.</div>`;
+      const q = currentQuestion();
+      const required = q.answers.length;
+      $("categoryPill").textContent = q.category;
+      $("counterPill").textContent = `${currentIndex + 1} / ${currentSet.length}`;
+      $("typePill").textContent = required === 1 ? "Choose ONE" : `Select ${required}`;
+      $("questionText").textContent = q.question;
 
-      const letters = ["A", "B", "C", "D", "E", "F"];
-      optionsDiv.innerHTML = q.shuffledOptions.map((opt, idx) => `
-        <button class="option" data-index="${idx}">
+      const letters = ["A","B","C","D","E","F"];
+      const sel = selections[q.id] || [];
+      $("options").innerHTML = q.shuffledOptions.map((opt, idx) => `
+        <button class="option ${sel.includes(idx) ? "selected" : ""}" data-index="${idx}">
           <span class="letter">${letters[idx]}</span>
           <span>${escapeHtml(opt.text)}</span>
         </button>
@@ -3188,77 +5227,93 @@
         btn.addEventListener("click", () => toggleOption(Number(btn.dataset.index)));
       });
 
+      if (submitted[q.id]) showSubmittedState(q);
+      updateButtons();
       updateStats();
+      saveSession();
     }
 
-    function escapeHtml(str) {
-      return String(str)
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-    }
+    function toggleOption(idx) {
+      if (!currentQuestion()) return;
+      const q = currentQuestion();
+      if (submitted[q.id]) return;
 
-    function toggleOption(index) {
-      if (answered || currentIndex >= currentSet.length) return;
-      const buttons = [...document.querySelectorAll(".option")];
-      if (selected.has(index)) {
-        selected.delete(index);
-        buttons[index].classList.remove("selected");
-      } else {
-        selected.add(index);
-        buttons[index].classList.add("selected");
+      let sel = selections[q.id] || [];
+      if (q.answers.length === 1) sel = [idx];
+      else {
+        if (sel.includes(idx)) sel = sel.filter(x => x !== idx);
+        else sel = [...sel, idx];
       }
-    }
-
-    function setsEqual(a, b) {
-      if (a.size !== b.size) return false;
-      for (const item of a) if (!b.has(item)) return false;
-      return true;
+      selections[q.id] = sel;
+      renderQuestion();
     }
 
     function submitAnswer() {
-      if (answered || currentIndex >= currentSet.length || currentSet.length === 0) return;
-      const q = currentSet[currentIndex];
-      if (selected.size === 0) {
-        hintBox.textContent = "Choose at least one option before submitting.";
-        hintBox.style.display = "block";
+      const q = currentQuestion();
+      if (!q || submitted[q.id]) return;
+      const sel = selections[q.id] || [];
+      if (sel.length === 0) {
+        alert("Select an answer first.");
+        return;
+      }
+      if (q.answers.length > 1 && sel.length !== q.answers.length) {
+        alert(`This is multi-select. Select exactly ${q.answers.length} answers.`);
         return;
       }
 
-      answered = true;
-      const buttons = [...document.querySelectorAll(".option")];
-      buttons.forEach(btn => btn.disabled = true);
-      const correctSet = new Set(q.correctIndices);
-      const isCorrect = setsEqual(selected, correctSet);
+      const correct = isCorrectSelection(q, sel);
+      submitted[q.id] = { correct, sel: [...sel] };
 
-      q.correctIndices.forEach(idx => buttons[idx].classList.add("correct"));
-      [...selected].forEach(idx => {
-        if (!correctSet.has(idx)) buttons[idx].classList.add("incorrect");
-      });
-
-      if (isCorrect) {
-        score++;
-        feedbackBox.innerHTML = `<b style="color: var(--good);">Correct.</b><br>${escapeHtml(q.explanation)}`;
-      } else {
-        wrong++;
-        const correctText = q.correctIndices.map(idx => q.shuffledOptions[idx].text).join("; ");
-        const chosenText = [...selected].map(idx => q.shuffledOptions[idx].text).join("; ");
-        wrongAnswers.push({...q, chosenIndices:[...selected]});
-        feedbackBox.innerHTML = `<b style="color: var(--bad);">Wrong.</b><br><b>Your answer:</b> ${escapeHtml(chosenText)}<br><b>Correct answer(s):</b> ${escapeHtml(correctText)}<br><br>${escapeHtml(q.explanation)}`;
+      if (!scoredThisSession[q.id]) {
+        scoredThisSession[q.id] = true;
+        if (correct) score++;
+        else {
+          wrong++;
+          wrongAnswers.push({...q, chosenIndexes:[...sel]});
+        }
+        recordResult(q, correct, sel);
       }
 
-      if (submitBtn) submitBtn.disabled = true;
-      feedbackBox.style.display = "block";
+      showSubmittedState(q);
       updateStats();
+      saveSession();
+    }
+
+    function showSubmittedState(q) {
+      const result = submitted[q.id];
+      if (!result) return;
+
+      const buttons = [...document.querySelectorAll(".option")];
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        const opt = q.shuffledOptions[idx];
+        const isCorrectOpt = q.answers.includes(opt.originalIndex);
+        const wasSelected = result.sel.includes(idx);
+        if (isCorrectOpt) btn.classList.add("correct");
+        if (wasSelected && !isCorrectOpt) btn.classList.add("incorrect");
+        if (wasSelected) btn.classList.add("selected");
+      });
+
+      const correctTexts = q.shuffledOptions.filter(opt => q.answers.includes(opt.originalIndex)).map(opt => opt.text);
+      $("feedbackBox").innerHTML = result.correct
+        ? `<span class="ok">Correct.</span><br>${escapeHtml(q.explanation)}`
+        : `<span class="no">Wrong.</span><br><b>Correct answer${correctTexts.length>1?"s":""}:</b> ${escapeHtml(correctTexts.join(" | "))}<br><br>${escapeHtml(q.explanation)}`;
+      $("feedbackBox").style.display = "block";
+      updateButtons();
+    }
+
+    function updateButtons() {
+      const q = currentQuestion();
+      $("backBtn").disabled = currentIndex <= 0;
+      $("nextBtn").disabled = currentSet.length === 0;
+      $("submitBtn").disabled = !q || !!submitted[q.id];
     }
 
     function showHint() {
-      if (currentIndex >= currentSet.length || currentSet.length === 0) return;
-      const q = currentSet[currentIndex];
-      hintBox.textContent = q.hint;
-      hintBox.style.display = "block";
+      const q = currentQuestion();
+      if (!q) return;
+      $("hintBox").innerHTML = `<b>Hint:</b> ${escapeHtml(q.hint)}`;
+      $("hintBox").style.display = "block";
     }
 
     function nextQuestion() {
@@ -3266,94 +5321,162 @@
       if (currentIndex < currentSet.length) {
         currentIndex++;
         renderQuestion();
+        saveSession();
+      }
+    }
+
+    function prevQuestion() {
+      if (currentIndex > 0) {
+        currentIndex--;
+        renderQuestion();
+        saveSession();
       }
     }
 
     function showEndScreen() {
-      const attempted = score + wrong;
-      const percent = attempted === 0 ? 0 : Math.round((score / attempted) * 100);
-      categoryPill.textContent = "Finished";
-      counterPill.textContent = `${currentSet.length} / ${currentSet.length}`;
-      questionText.innerHTML = `Quiz complete. Score: ${score} / ${attempted || currentSet.length} (${percent}%).`;
-      optionsDiv.innerHTML = `
-        <div class="feedback" style="display:block;">
-          <b>Target:</b> Try to consistently hit 80%+ before your exam.<br>
-          <b>Tip:</b> Multi-select questions are stricter. You must select every correct answer and no wrong answer.
-        </div>
-      `;
-      hintBox.style.display = "none";
-      feedbackBox.style.display = "none";
-      if (submitBtn) submitBtn.disabled = true;
+      const attempted = Object.keys(submitted).length;
+      const pct = attempted === 0 ? 0 : Math.round((score / attempted) * 100);
+      $("categoryPill").textContent = "Finished";
+      $("counterPill").textContent = `${currentSet.length} / ${currentSet.length}`;
+      $("typePill").textContent = "Done";
+      $("questionText").innerHTML = `Quiz complete. Score: ${score} / ${attempted || currentSet.length} (${pct}%).`;
+      $("options").innerHTML = `<div class="box" style="display:block;"><b>Next move:</b> Open “Show Pattern” and practise your weakest services. For CCP, repeated service clues are the key.</div>`;
+      $("hintBox").style.display = "none";
+      $("feedbackBox").style.display = "none";
       updateStats();
+      saveSession();
     }
 
     function updateStats() {
-      const attempted = score + wrong;
-      const left = Math.max(currentSet.length - currentIndex - (answered ? 1 : 0), 0);
-      const percent = attempted === 0 ? 0 : Math.round((score / attempted) * 100);
-      scoreNum.textContent = score;
-      wrongNum.textContent = wrong;
-      leftNum.textContent = left;
-      percentNum.textContent = `${percent}%`;
-      const progress = currentSet.length === 0 ? 0 : Math.round((attempted / currentSet.length) * 100);
-      progressBar.style.width = `${progress}%`;
+      const attempted = Object.keys(submitted).length;
+      const left = Math.max(currentSet.length - attempted, 0);
+      const pct = attempted === 0 ? 0 : Math.round((score / attempted) * 100);
+      $("scoreNum").textContent = score;
+      $("wrongNum").textContent = wrong;
+      $("leftNum").textContent = left;
+      $("percentNum").textContent = `${pct}%`;
+      $("progressBar").style.width = `${currentSet.length === 0 ? 0 : Math.round((attempted / currentSet.length) * 100)}%`;
     }
 
-    function resetScoreOnly() {
-      score = 0;
-      wrong = 0;
-      wrongAnswers = [];
-      currentIndex = 0;
-      currentSet = currentSet.map(q => prepareQuestion(q));
-      reviewList.style.display = "none";
-      renderQuestion();
-      updateStats();
+    function accuracy(obj) {
+      const total = (obj.correct || 0) + (obj.wrong || 0);
+      return total === 0 ? 100 : Math.round((obj.correct / total) * 100);
+    }
+
+    function renderPattern() {
+      const stats = loadStats();
+      const overallTotal = stats.overall.correct + stats.overall.wrong;
+      const overallAcc = overallTotal === 0 ? 0 : Math.round((stats.overall.correct / overallTotal) * 100);
+
+      const weakestCategories = Object.entries(stats.categories)
+        .map(([name, v]) => ({name, ...v, total:v.correct+v.wrong, acc:accuracy(v)}))
+        .filter(x => x.total > 0)
+        .sort((a,b) => a.acc - b.acc || b.total - a.total)
+        .slice(0, 8);
+
+      const weakestTopics = Object.entries(stats.topics)
+        .map(([name, v]) => ({name, ...v, total:v.correct+v.wrong, acc:accuracy(v)}))
+        .filter(x => x.total > 0)
+        .sort((a,b) => a.acc - b.acc || b.total - a.total)
+        .slice(0, 12);
+
+      const bucketHtml = (items, title) => `
+        <div class="mini-card">
+          <h3>${title}</h3>
+          ${items.length ? items.map(x => `
+            <div style="margin-bottom:12px;">
+              <b>${escapeHtml(x.name)}</b>
+              <div class="bar"><div style="width:${100-x.acc}%"></div></div>
+              <span class="small">${x.acc}% correct | ${x.correct} right, ${x.wrong} wrong | ${x.total} attempts</span>
+            </div>
+          `).join("") : `<p class="small">No data yet. Answer more questions first.</p>`}
+        </div>
+      `;
+
+      const wrongLog = (stats.wrongLog || []).slice(0, 12).map((w, i) => `
+        <details>
+          <summary>${i+1}. ${escapeHtml(w.question)}</summary>
+          <p><b>Category:</b> ${escapeHtml(w.category)}</p>
+          <p><b>Your answer:</b> ${escapeHtml((w.chosen || []).join(" | "))}</p>
+          <p><b>Correct:</b> ${escapeHtml((w.correct || []).join(" | "))}</p>
+          <p><b>Explanation:</b> ${escapeHtml(w.explanation || "")}</p>
+        </details>
+      `).join("");
+
+      $("patternContent").innerHTML = `
+        <div class="stats" style="margin-bottom:14px;">
+          <div class="stat"><div class="num">${overallTotal}</div><div class="label">Saved attempts</div></div>
+          <div class="stat"><div class="num">${overallAcc}%</div><div class="label">Saved accuracy</div></div>
+          <div class="stat"><div class="num">${stats.overall.correct}</div><div class="label">All-time correct</div></div>
+          <div class="stat"><div class="num">${stats.overall.wrong}</div><div class="label">All-time wrong</div></div>
+        </div>
+        <div class="dash-grid">
+          ${bucketHtml(weakestCategories, "Weakest Categories")}
+          ${bucketHtml(weakestTopics, "Weakest Services / Topics")}
+        </div>
+        <div class="mini-card" style="margin-top:12px;">
+          <h3>Recent Wrong Answers</h3>
+          ${wrongLog || `<p class="small">No wrong answers saved yet.</p>`}
+        </div>
+      `;
+      $("patternDash").style.display = "block";
+      $("patternDash").scrollIntoView({behavior:"smooth", block:"start"});
     }
 
     function reviewWrong() {
       if (wrongAnswers.length === 0) {
-        reviewContent.innerHTML = `<p class="small">No wrong answers yet. Do a quiz first, or get some wrong and come back here.</p>`;
+        $("reviewContent").innerHTML = `<p class="small">No wrong answers in this quiz yet.</p>`;
       } else {
-        reviewContent.innerHTML = wrongAnswers.map((q, idx) => {
-          const chosenText = q.chosenIndices.map(i => q.shuffledOptions[i].text).join("; ");
-          const correctText = q.correctIndices.map(i => q.shuffledOptions[i].text).join("; ");
+        $("reviewContent").innerHTML = wrongAnswers.map((q, idx) => {
+          const chosen = q.chosenIndexes.map(i => q.shuffledOptions[i]?.text).filter(Boolean);
+          const correct = q.shuffledOptions.filter(opt => q.answers.includes(opt.originalIndex)).map(opt => opt.text);
           return `
-          <details>
-            <summary>${idx + 1}. ${escapeHtml(q.question)}</summary>
-            <p><b>Category:</b> ${escapeHtml(q.category)}</p>
-            <p><b>Your answer:</b> ${escapeHtml(chosenText)}</p>
-            <p><b>Correct answer(s):</b> ${escapeHtml(correctText)}</p>
-            <p><b>Hint:</b> ${escapeHtml(q.hint)}</p>
-            <p><b>Explanation:</b> ${escapeHtml(q.explanation)}</p>
-          </details>`;
+            <details>
+              <summary>${idx+1}. ${escapeHtml(q.question)}</summary>
+              <p><b>Category:</b> ${escapeHtml(q.category)}</p>
+              <p><b>Your answer:</b> ${escapeHtml(chosen.join(" | "))}</p>
+              <p><b>Correct answer:</b> ${escapeHtml(correct.join(" | "))}</p>
+              <p><b>Hint:</b> ${escapeHtml(q.hint)}</p>
+              <p><b>Explanation:</b> ${escapeHtml(q.explanation)}</p>
+            </details>
+          `;
         }).join("");
       }
-      reviewList.style.display = "block";
-      reviewList.scrollIntoView({ behavior: "smooth", block: "start" });
+      $("reviewList").style.display = "block";
+      $("reviewList").scrollIntoView({behavior:"smooth", block:"start"});
     }
 
-    document.getElementById("startBtn").addEventListener("click", buildSet);
-    document.getElementById("shuffleBtn").addEventListener("click", () => {
-      currentSet = shuffle(currentSet).map(q => prepareQuestion(q));
-      currentIndex = 0;
-      score = 0;
-      wrong = 0;
-      wrongAnswers = [];
-      renderQuestion();
-      updateStats();
-    });
-    document.getElementById("hintBtn").addEventListener("click", showHint);
-    document.getElementById("nextBtn").addEventListener("click", nextQuestion);
-    document.getElementById("resetBtn").addEventListener("click", resetScoreOnly);
-    document.getElementById("reviewWrongBtn").addEventListener("click", reviewWrong);
-    if (submitBtn) submitBtn.addEventListener("click", submitAnswer);
+    function clearStats() {
+      if (confirm("Clear saved right/wrong pattern and saved quiz session?")) {
+        localStorage.removeItem(STATS_KEY);
+        localStorage.removeItem(SESSION_KEY);
+        alert("Saved pattern cleared.");
+        $("patternDash").style.display = "none";
+      }
+    }
+
+    $("startBtn").addEventListener("click", () => buildSet());
+    $("continueBtn").addEventListener("click", continueSession);
+    $("weakBtn").addEventListener("click", () => buildSet({weak:true}));
+    $("patternBtn").addEventListener("click", renderPattern);
+    $("hintBtn").addEventListener("click", showHint);
+    $("submitBtn").addEventListener("click", submitAnswer);
+    $("nextBtn").addEventListener("click", nextQuestion);
+    $("backBtn").addEventListener("click", prevQuestion);
+    $("reviewWrongBtn").addEventListener("click", reviewWrong);
+    $("clearStatsBtn").addEventListener("click", clearStats);
 
     document.addEventListener("keydown", (e) => {
       const key = e.key.toLowerCase();
-      if (["1","2","3","4","5","6"].includes(key)) toggleOption(Number(key) - 1);
+      if (["1","2","3","4","5","6"].includes(key)) {
+        const idx = Number(key) - 1;
+        const q = currentQuestion();
+        if (q && idx < q.shuffledOptions.length) toggleOption(idx);
+      }
+      if (key === "enter") submitAnswer();
       if (key === "h") showHint();
       if (key === "n") nextQuestion();
-      if (key === "enter") submitAnswer();
+      if (key === "b") prevQuestion();
     });
 
     setupCategories();
