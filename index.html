@@ -179,6 +179,28 @@
     .footer { text-align: center; color: var(--muted); padding: 28px 12px 40px; font-size: 0.9rem; }
     .kbd { display: inline-block; padding: 2px 6px; border: 1px solid var(--border); border-radius: 6px; background: var(--panel2); color: var(--text); font-size: 0.8rem; }
     .notice { border-left: 4px solid var(--accent2); padding: 10px 12px; background: rgba(56,189,248,0.08); border-radius: 10px; color: #dbeafe; }
+    .link-panel {
+      margin-top: 18px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+    }
+    .link-panel a {
+      text-decoration: none;
+      border-radius: 13px;
+      padding: 11px 14px;
+      font-weight: 900;
+      background: var(--accent2);
+      color: #06202b;
+      display: inline-block;
+    }
+    .link-panel a.secondary-link {
+      background: var(--panel2);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
   </style>
 </head>
 <body>
@@ -223,6 +245,10 @@
           <button id="startBtn">Start / Restart</button>
           <button id="continueBtn" class="blue">Continue Saved Quiz</button>
           <button id="weakBtn" class="purple">Practice Weak Areas</button>
+        </div>
+        <div id="linkedQuizNav" class="link-panel">
+          <span class="small">Linked quiz page:</span>
+          <a href="aws_ccp_github_1142_questions.html">Open GitHub 1142 Question Bank →</a>
         </div>
       </div>
 
