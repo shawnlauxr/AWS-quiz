@@ -235,7 +235,7 @@
           <div class="stat"><div class="num" id="percentNum">0%</div><div class="label">Accuracy</div></div>
         </div>
         <div class="progress"><div id="progressBar"></div></div>
-        <p class="small">Keyboard: <span class="kbd">1-6</span> select, <span class="kbd">Enter</span> submit, <span class="kbd">H</span> hint, <span class="kbd">N</span> next, <span class="kbd">B</span> back.</p>
+        <p class="small">Keyboard: <span class="kbd">1-6</span> select, <span class="kbd">M</span> submit, <span class="kbd">H</span> hint, <span class="kbd">N</span> next, <span class="kbd">B</span> back.</p>
       </aside>
     </section>
 
@@ -7391,7 +7391,7 @@
         const q = currentQuestion();
         if (q && idx < q.shuffledOptions.length) toggleOption(idx);
       }
-      if (key === "enter") submitAnswer();
+      if (key === "m") submitAnswer();
       if (key === "h") showHint();
       if (key === "n") nextQuestion();
       if (key === "b") prevQuestion();
