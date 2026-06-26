@@ -206,7 +206,7 @@
 <body>
   <header>
     <h1>AWS CCP GitHub Practice Exams Question Bank</h1>
-    <p>Separate question-bank version built from the GitHub repository practice exam files only: 1142 questions from Practice Exam 1–23, with clue-based teaching hints, answer breakdowns, explanations/references, saved progress, weak-pattern tracking, and the same styling as your current HTML.</p>
+    <p>Separate question-bank version built from the GitHub repository practice exam files only: 1142 questions from Practice Exam 1–23, with teaching hints that allude to the answer, detailed right/wrong answer breakdowns, explanations/references, saved progress, weak-pattern tracking, and the same styling as your current HTML.</p>
   </header>
 
   <main class="wrap">
@@ -21624,67 +21624,111 @@
     }
 
     const serviceConcepts = [
-      {patterns:["aws artifact","artifact"], clue:"Think of the AWS place for audit/compliance paperwork, official reports, and customer agreements — not a tool that runs servers.", does:"AWS Artifact is used to access AWS compliance reports and manage AWS agreements. When the question says agreements, audit documents, compliance reports, or attestations, this is the clue.", short:"compliance reports and AWS agreements"},
-      {patterns:["aws systems manager","systems manager"], clue:"Think fleet operations: patching, automation, run commands, inventory, and managing EC2/on-prem servers at scale.", does:"AWS Systems Manager helps operate and manage infrastructure, such as patching, automation, Session Manager, Run Command, and inventory.", short:"operational management of instances and infrastructure"},
-      {patterns:["aws organizations","organizations"], clue:"Think multiple AWS accounts under one structure, consolidated billing, and centralized account policies.", does:"AWS Organizations manages multiple AWS accounts, consolidated billing, organizational units, and service control policies.", short:"multi-account management and consolidated billing"},
-      {patterns:["aws certificate manager","certificate manager","acm"], clue:"Think SSL/TLS certificates for HTTPS, not contracts or compliance documents.", does:"AWS Certificate Manager provisions and manages SSL/TLS certificates used to secure websites and applications.", short:"SSL/TLS certificates"},
-      {patterns:["cloudtrail"], clue:"Think audit trail: who did what, when, from where, and which API call was made.", does:"AWS CloudTrail records account activity and API calls, so it answers 'who did what' in AWS.", short:"API activity and user action auditing"},
-      {patterns:["cloudwatch"], clue:"Think metrics, logs, alarms, dashboards, and monitoring workload health.", does:"Amazon CloudWatch collects metrics/logs and creates alarms and dashboards for monitoring.", short:"monitoring, metrics, logs, and alarms"},
-      {patterns:["aws config","config"], clue:"Think resource configuration history, compliance rules, and whether settings changed over time.", does:"AWS Config records resource configurations and evaluates them against compliance rules.", short:"configuration tracking and compliance evaluation"},
-      {patterns:["trusted advisor"], clue:"Think best-practice checks across cost, security, performance, fault tolerance, and service limits.", does:"AWS Trusted Advisor gives best-practice recommendations for cost, security, performance, fault tolerance, and limits.", short:"best-practice recommendations"},
-      {patterns:["iam role","role"], clue:"Think temporary permissions, especially for AWS services like EC2 or Lambda to access other services.", does:"An IAM role provides temporary credentials and is the best practice for granting AWS services permissions.", short:"temporary permissions"},
-      {patterns:["iam user","iam users","user groups","iam groups","iam group","iam"], clue:"Think identities, users, groups, policies, permissions, MFA, and least privilege.", does:"AWS IAM manages identities and permissions: users, groups, roles, policies, MFA, and access keys.", short:"identity and access permissions"},
-      {patterns:["mfa","multi-factor"], clue:"Think stronger sign-in: password plus a second factor.", does:"MFA adds an additional authentication factor, making account sign-in more secure.", short:"a second authentication factor"},
-      {patterns:["s3 glacier deep archive","glacier deep archive","glacier"], clue:"Think very low-cost archive storage for data rarely accessed, especially long-term retention.", does:"S3 Glacier storage classes are for low-cost archival storage when data is rarely accessed.", short:"long-term archive storage"},
-      {patterns:["amazon s3"," s3","s3 "], clue:"Think object storage for files, images, backups, static websites, and durable buckets.", does:"Amazon S3 is object storage for scalable, durable file/object storage in buckets.", short:"object storage"},
-      {patterns:["ebs","elastic block store"], clue:"Think block storage volume attached to an EC2 instance, like a virtual hard disk.", does:"Amazon EBS provides block storage volumes for EC2 instances.", short:"block storage for EC2"},
-      {patterns:["efs","elastic file system"], clue:"Think shared file system that multiple Linux instances can mount at the same time.", does:"Amazon EFS provides scalable shared file storage for Linux workloads.", short:"shared file storage"},
-      {patterns:["storage gateway"], clue:"Think hybrid storage between on-premises environments and AWS storage services.", does:"AWS Storage Gateway connects on-premises applications to AWS cloud storage.", short:"hybrid on-prem to cloud storage"},
-      {patterns:["snowball","snowmobile"], clue:"Think physical data transfer device/service when data is too large for normal internet transfer.", does:"AWS Snow Family helps move very large datasets into or out of AWS using physical devices.", short:"large offline data transfer"},
-      {patterns:["dynamodb"], clue:"Think fully managed NoSQL key-value/document database with low-latency access.", does:"Amazon DynamoDB is a managed NoSQL key-value and document database.", short:"managed NoSQL database"},
-      {patterns:["rds","relational database service"], clue:"Think managed relational databases like MySQL, PostgreSQL, MariaDB, Oracle, or SQL Server.", does:"Amazon RDS is a managed relational database service with automated operational tasks.", short:"managed relational databases"},
-      {patterns:["aurora"], clue:"Think AWS's high-performance MySQL/PostgreSQL-compatible relational database engine.", does:"Amazon Aurora is an AWS-managed relational database compatible with MySQL and PostgreSQL.", short:"high-performance relational database"},
-      {patterns:["redshift"], clue:"Think data warehouse and analytics over large structured datasets.", does:"Amazon Redshift is a cloud data warehouse for analytics.", short:"data warehousing and analytics"},
-      {patterns:["elasticache"], clue:"Think in-memory cache to speed up read-heavy apps and reduce database load.", does:"Amazon ElastiCache provides in-memory caching using Redis or Memcached.", short:"in-memory caching"},
-      {patterns:["neptune"], clue:"Think graph database for highly connected data and relationships.", does:"Amazon Neptune is a managed graph database.", short:"graph database"},
-      {patterns:["database migration service","dms"], clue:"Think moving databases to AWS with minimal downtime.", does:"AWS Database Migration Service migrates databases to AWS with minimal downtime.", short:"database migration"},
-      {patterns:["ec2 spot","spot instances","spot instance"], clue:"Think cheapest EC2 spare capacity, but it can be interrupted.", does:"EC2 Spot Instances use spare capacity at a lower price but can be interrupted.", short:"low-cost interruptible compute"},
-      {patterns:["reserved instances","reserved instance","reserved"], clue:"Think commitment discount for steady, predictable usage.", does:"Reserved Instances provide discounts when you commit to a term for predictable usage.", short:"commitment-based compute discount"},
-      {patterns:["on-demand instances","on-demand instance","on-demand"], clue:"Think pay-as-you-go compute with no long-term commitment and no interruption risk like Spot.", does:"On-Demand Instances let you pay for compute by usage without long-term commitment.", short:"pay-as-you-go compute"},
-      {patterns:["dedicated host","dedicated hosts"], clue:"Think physical server dedicated to your use, often for licensing or compliance.", does:"Dedicated Hosts provide a physical EC2 server dedicated for your use.", short:"dedicated physical server capacity"},
-      {patterns:["lambda"], clue:"Think running code without managing servers, triggered by events.", does:"AWS Lambda runs code serverlessly in response to events.", short:"serverless functions"},
-      {patterns:["auto scaling","autoscaling"], clue:"Think automatically adding or removing capacity based on demand.", does:"AWS Auto Scaling adjusts capacity automatically to match demand.", short:"automatic capacity scaling"},
-      {patterns:["elastic load balancing","load balancer","elb"], clue:"Think spreading traffic across multiple targets for availability and scale.", does:"Elastic Load Balancing distributes incoming traffic across multiple targets.", short:"traffic distribution"},
-      {patterns:["cloudfront"], clue:"Think CDN and edge caching to reduce latency for global users.", does:"Amazon CloudFront is a CDN that caches and serves content from edge locations.", short:"content delivery and edge caching"},
-      {patterns:["route 53","route53"], clue:"Think DNS, domain names, routing policies, and health-check-based routing.", does:"Amazon Route 53 is AWS's DNS and domain routing service.", short:"DNS and domain routing"},
-      {patterns:["global accelerator"], clue:"Think improving global application traffic using the AWS global network and static anycast IPs.", does:"AWS Global Accelerator improves availability and performance for global traffic.", short:"global traffic acceleration"},
-      {patterns:["direct connect"], clue:"Think dedicated private network connection from on-premises to AWS.", does:"AWS Direct Connect provides a dedicated private connection to AWS.", short:"dedicated private connectivity"},
-      {patterns:["vpn"], clue:"Think encrypted connection over the internet between a network/device and AWS.", does:"AWS VPN creates encrypted network connectivity over the internet.", short:"encrypted VPN connectivity"},
-      {patterns:["vpc"], clue:"Think isolated virtual network where you control subnets, routing, and network access.", does:"Amazon VPC lets you create an isolated virtual network in AWS.", short:"isolated virtual networking"},
-      {patterns:["internet gateway"], clue:"Think allowing a VPC subnet with public IP resources to reach the internet.", does:"An Internet Gateway enables internet connectivity for resources in a VPC.", short:"internet access for a VPC"},
-      {patterns:["nat gateway"], clue:"Think private subnet instances going out to the internet without being reachable from the internet.", does:"A NAT Gateway lets private subnet resources initiate outbound internet access.", short:"outbound internet for private subnets"},
-      {patterns:["waf"], clue:"Think protecting web applications from Layer 7 attacks like SQL injection and cross-site scripting.", does:"AWS WAF protects web applications from common web exploits at the HTTP/S layer.", short:"web application firewall protection"},
-      {patterns:["shield"], clue:"Think DDoS protection.", does:"AWS Shield protects applications against DDoS attacks.", short:"DDoS protection"},
-      {patterns:["macie"], clue:"Think machine learning discovery of sensitive data inside S3 buckets.", does:"Amazon Macie uses machine learning to discover and protect sensitive data in Amazon S3.", short:"sensitive data discovery in S3"},
-      {patterns:["kms","key management service"], clue:"Think creating and managing encryption keys.", does:"AWS KMS creates and manages encryption keys used to protect data.", short:"encryption key management"},
-      {patterns:["secrets manager"], clue:"Think storing, retrieving, and rotating database passwords/API secrets.", does:"AWS Secrets Manager stores and rotates secrets such as database credentials and API keys.", short:"secrets storage and rotation"},
-      {patterns:["cognito"], clue:"Think user sign-up, sign-in, and identity for applications.", does:"Amazon Cognito provides authentication, authorization, and user management for apps.", short:"app user authentication"},
-      {patterns:["inspector"], clue:"Think vulnerability assessment for workloads.", does:"Amazon Inspector scans workloads for software vulnerabilities and unintended network exposure.", short:"vulnerability assessment"},
-      {patterns:["guardduty"], clue:"Think intelligent threat detection from logs and account/network activity.", does:"Amazon GuardDuty detects potential threats using AWS account, network, and activity data.", short:"threat detection"},
-      {patterns:["security hub"], clue:"Think central security posture dashboard and standards checks.", does:"AWS Security Hub aggregates security findings and checks against security standards.", short:"central security findings and posture"},
-      {patterns:["cost explorer"], clue:"Think visualizing and analyzing past AWS spending and usage trends.", does:"AWS Cost Explorer visualizes and analyzes cost and usage over time.", short:"cost analysis"},
-      {patterns:["budgets"], clue:"Think alerts when cost or usage crosses a planned threshold.", does:"AWS Budgets sends alerts when costs or usage exceed budgets or forecasts.", short:"cost and usage alerts"},
-      {patterns:["pricing calculator","calculator"], clue:"Think estimating costs before you build or migrate.", does:"AWS Pricing Calculator estimates AWS service costs before deployment.", short:"cost estimation"},
-      {patterns:["cost and usage report","cost & usage","cur"], clue:"Think detailed billing files and granular usage reports.", does:"AWS Cost and Usage Reports provide detailed cost and usage data.", short:"detailed cost and usage reporting"},
-      {patterns:["sns","simple notification service"], clue:"Think pub/sub notifications, fanout messages, SMS/email alerts.", does:"Amazon SNS sends pub/sub notifications to subscribers.", short:"pub/sub notifications"},
-      {patterns:["sqs","simple queue service"], clue:"Think message queue that decouples application components.", does:"Amazon SQS is a message queue for decoupling applications.", short:"message queuing"},
-      {patterns:["eventbridge"], clue:"Think event bus that routes events between AWS services and apps.", does:"Amazon EventBridge routes events from applications and AWS services.", short:"event routing"},
-      {patterns:["cloudformation"], clue:"Think infrastructure as code templates.", does:"AWS CloudFormation provisions infrastructure using templates.", short:"infrastructure as code"},
-      {patterns:["elastic beanstalk","beanstalk"], clue:"Think deploying web apps without manually managing the underlying infrastructure.", does:"AWS Elastic Beanstalk deploys and manages web applications while handling infrastructure details.", short:"managed application deployment"},
-      {patterns:["codecommit"], clue:"Think managed Git repository.", does:"AWS CodeCommit is a managed source-control service for Git repositories.", short:"managed Git source control"},
-      {patterns:["support concierge","concierge"], clue:"Think billing/account guidance included with Enterprise Support.", does:"AWS Support Concierge helps Enterprise Support customers with billing and account questions.", short:"Enterprise billing and account support"},
-      {patterns:["technical account manager","tam"], clue:"Think named technical guidance contact in Enterprise Support.", does:"A Technical Account Manager is the primary technical contact for Enterprise Support customers.", short:"Enterprise Support technical guidance"},
-      {patterns:["personal health dashboard","health dashboard","aws health"], clue:"Think personalized AWS service events affecting your own resources.", does:"AWS Health Dashboard shows service events and guidance affecting your AWS account/resources.", short:"personalized service health events"}
+      {patterns:["aws artifact","artifact"], clue:"Think: official AWS compliance paperwork, audit reports, and online AWS agreements. This is a document/agreement portal, not an operations tool.", does:"AWS Artifact gives customers on-demand access to AWS compliance reports and lets them review, accept, and manage certain AWS agreements.", short:"AWS compliance reports and agreements"},
+      {patterns:["aws systems manager","systems manager"], clue:"Think: operating a fleet after it already exists — patching, Run Command, Session Manager, inventory, automation, and maintenance.", does:"AWS Systems Manager is for operating and managing infrastructure at scale, including patching instances, running commands, inventory, automation, and session access.", short:"operational management of instances and infrastructure"},
+      {patterns:["aws organizations","organizations"], clue:"Think: multiple AWS accounts, consolidated billing, organizational units, and Service Control Policies.", does:"AWS Organizations centrally manages multiple AWS accounts, consolidated billing, organizational units, and Service Control Policies.", short:"multi-account management and consolidated billing"},
+      {patterns:["aws certificate manager","certificate manager","acm"], clue:"Think: SSL/TLS certificates for HTTPS websites and apps.", does:"AWS Certificate Manager provisions, renews, and manages SSL/TLS certificates used to secure websites and applications.", short:"SSL/TLS certificate management"},
+
+      {patterns:["cloudtrail"], clue:"Think: audit trail — who did what, when, from where, and through which API call.", does:"AWS CloudTrail records AWS account activity and API calls, so it is used to investigate actions such as who terminated an EC2 instance.", short:"API activity and user action auditing"},
+      {patterns:["cloudwatch"], clue:"Think: metrics, logs, alarms, dashboards, and workload health monitoring.", does:"Amazon CloudWatch collects metrics and logs, creates alarms, and builds dashboards for monitoring AWS resources and applications.", short:"monitoring, metrics, logs, and alarms"},
+      {patterns:["aws config","config"], clue:"Think: resource configuration history and compliance rules — what changed and whether the resource settings follow rules.", does:"AWS Config records resource configuration changes and evaluates resources against compliance rules; it does not deploy applications.", short:"configuration tracking and compliance evaluation"},
+      {patterns:["trusted advisor"], clue:"Think: best-practice recommendations for cost, security, performance, fault tolerance, and service limits.", does:"AWS Trusted Advisor checks an account against AWS best practices and recommends improvements across cost, security, performance, fault tolerance, and limits.", short:"best-practice recommendations"},
+
+      {patterns:["iam role","role"], clue:"Think: temporary permissions, especially when an AWS service like EC2 or Lambda needs to access another AWS service.", does:"An IAM role provides temporary credentials and is the best practice for granting AWS services permissions without hard-coded access keys.", short:"temporary permissions for services or users"},
+      {patterns:["iam user","iam users","user groups","iam groups","iam group","iam"], clue:"Think: identities, users, groups, policies, permissions, MFA, and least privilege.", does:"AWS IAM manages identities and permissions, including users, groups, roles, policies, MFA, and access keys.", short:"identity and access permissions"},
+      {patterns:["mfa","multi factor","multi-factor"], clue:"Think: stronger sign-in using password plus a second factor.", does:"MFA adds an additional authentication factor, making sign-in more secure than a password alone.", short:"a second authentication factor"},
+      {patterns:["cognito"], clue:"Think: sign-up, sign-in, and user identity for your application users.", does:"Amazon Cognito provides authentication, authorization, and user management for web and mobile applications.", short:"application user authentication"},
+
+      {patterns:["s3 glacier deep archive","glacier deep archive"], clue:"Think: the lowest-cost archive tier for data kept for years and rarely retrieved.", does:"S3 Glacier Deep Archive is designed for very low-cost, long-term archive storage for rarely accessed data.", short:"lowest-cost long-term archive storage"},
+      {patterns:["s3 glacier","glacier"], clue:"Think: low-cost archive storage for data that is rarely accessed but must be retained.", does:"Amazon S3 Glacier storage classes are for low-cost archival storage when data is rarely accessed.", short:"archive storage"},
+      {patterns:["amazon s3","simple storage service"," s3","s3 "], clue:"Think: object storage in buckets for files, images, backups, static websites, logs, and highly durable storage.", does:"Amazon S3 is scalable object storage that stores data as objects in buckets.", short:"object storage"},
+      {patterns:["s3 transfer acceleration","transfer acceleration"], clue:"Think: speeding long-distance uploads to S3 using edge locations.", does:"S3 Transfer Acceleration speeds uploads to S3 by routing traffic through AWS edge locations.", short:"accelerated S3 uploads"},
+      {patterns:["ebs","elastic block store"], clue:"Think: a block storage volume attached to an EC2 instance, like a virtual hard disk.", does:"Amazon EBS provides persistent block storage volumes for EC2 instances.", short:"block storage for EC2"},
+      {patterns:["efs","elastic file system"], clue:"Think: a shared Linux file system that multiple EC2 instances can mount at the same time.", does:"Amazon EFS provides scalable shared file storage for Linux workloads.", short:"shared file storage"},
+      {patterns:["storage gateway"], clue:"Think: hybrid storage connecting on-premises applications to AWS storage.", does:"AWS Storage Gateway connects on-premises environments with AWS cloud storage services.", short:"hybrid on-premises to cloud storage"},
+      {patterns:["snowball","snowmobile","snow family"], clue:"Think: physical device/service for moving very large datasets when internet transfer is too slow.", does:"AWS Snow Family services move very large datasets into or out of AWS using physical devices.", short:"large offline data transfer"},
+
+      {patterns:["dynamodb"], clue:"Think: fully managed NoSQL key-value/document database with low-latency access at scale.", does:"Amazon DynamoDB is a fully managed NoSQL key-value and document database designed for low-latency access at scale.", short:"managed NoSQL database"},
+      {patterns:["rds","relational database service"], clue:"Think: managed relational databases such as MySQL, PostgreSQL, MariaDB, Oracle, and SQL Server.", does:"Amazon RDS is a managed relational database service that handles tasks such as backups, patching, and database operations.", short:"managed relational databases"},
+      {patterns:["aurora"], clue:"Think: AWS high-performance MySQL/PostgreSQL-compatible relational database.", does:"Amazon Aurora is an AWS-managed relational database compatible with MySQL and PostgreSQL.", short:"high-performance relational database"},
+      {patterns:["redshift"], clue:"Think: data warehouse and analytics over large structured datasets.", does:"Amazon Redshift is a cloud data warehouse for large-scale analytics.", short:"data warehousing and analytics"},
+      {patterns:["elasticache"], clue:"Think: in-memory cache to speed up read-heavy apps and reduce database load.", does:"Amazon ElastiCache provides in-memory caching using Redis or Memcached to improve application performance.", short:"in-memory caching"},
+      {patterns:["dax","dynamodb accelerator"], clue:"Think: in-memory cache specifically for DynamoDB.", does:"DynamoDB Accelerator (DAX) is an in-memory cache for DynamoDB workloads.", short:"DynamoDB caching"},
+      {patterns:["neptune"], clue:"Think: graph database for highly connected data and relationships.", does:"Amazon Neptune is a managed graph database for relationship-heavy data.", short:"graph database"},
+      {patterns:["database migration service","dms"], clue:"Think: moving databases to AWS with minimal downtime.", does:"AWS Database Migration Service migrates databases to AWS with minimal downtime.", short:"database migration"},
+
+      {patterns:["ec2 spot","spot instances","spot instance"], clue:"Think: cheapest EC2 spare capacity, but it can be interrupted.", does:"EC2 Spot Instances use spare EC2 capacity at a lower price but can be interrupted if AWS needs the capacity back.", short:"low-cost interruptible compute"},
+      {patterns:["reserved instances","reserved instance","reserved"], clue:"Think: commitment discount for steady, predictable usage.", does:"Reserved Instances provide a discount when you commit to a one-year or three-year term for predictable compute usage.", short:"commitment-based compute discount"},
+      {patterns:["on-demand instances","on-demand instance","on-demand"], clue:"Think: pay-as-you-go compute with no long-term commitment and no interruption risk like Spot.", does:"On-Demand Instances let you pay for compute by usage without long-term commitment.", short:"pay-as-you-go compute"},
+      {patterns:["dedicated host","dedicated hosts"], clue:"Think: a physical server dedicated to your use, often for licensing or compliance.", does:"Dedicated Hosts provide physical EC2 servers dedicated for your use, often used for compliance or bring-your-own-license requirements.", short:"dedicated physical server capacity"},
+      {patterns:["dedicated instance","dedicated instances"], clue:"Think: EC2 instances running on hardware dedicated to one customer account, but without host-level license control.", does:"Dedicated Instances run on hardware dedicated to a single customer account but do not provide the same server-level control as Dedicated Hosts.", short:"single-tenant EC2 instance hardware"},
+      {patterns:["lambda"], clue:"Think: running code without managing servers, triggered by events.", does:"AWS Lambda runs code serverlessly in response to events without requiring you to provision or manage servers.", short:"serverless functions"},
+      {patterns:["ec2","elastic compute cloud"], clue:"Think: virtual servers where you manage the instance, operating system, and applications.", does:"Amazon EC2 provides resizable virtual servers in the cloud.", short:"virtual servers"},
+      {patterns:["fargate"], clue:"Think: serverless compute for containers where you do not manage EC2 instances.", does:"AWS Fargate runs containers without requiring you to manage the underlying servers or EC2 instances.", short:"serverless containers"},
+      {patterns:["ecs","elastic container service"], clue:"Think: AWS container orchestration for Docker containers.", does:"Amazon ECS is a managed container orchestration service for running containers on AWS.", short:"container orchestration"},
+      {patterns:["eks","elastic kubernetes"], clue:"Think: managed Kubernetes on AWS.", does:"Amazon EKS runs managed Kubernetes clusters on AWS.", short:"managed Kubernetes"},
+      {patterns:["lightsail"], clue:"Think: simple VPS-style hosting bundles for quick websites and small apps.", does:"Amazon Lightsail provides simplified virtual private servers, storage, networking, and bundles for small workloads.", short:"simple VPS-style hosting"},
+
+      {patterns:["auto scaling","autoscaling"], clue:"Think: automatically adding or removing capacity as demand changes.", does:"AWS Auto Scaling adjusts capacity automatically to match demand.", short:"automatic capacity scaling"},
+      {patterns:["elastic load balancing","load balancer","elb"], clue:"Think: distributing traffic across multiple targets for availability and scale.", does:"Elastic Load Balancing distributes incoming traffic across multiple targets such as EC2 instances, containers, and IP addresses.", short:"traffic distribution across targets"},
+      {patterns:["cloudfront"], clue:"Think: CDN and edge caching to reduce latency for global users.", does:"Amazon CloudFront is a content delivery network that caches and serves content from edge locations close to users.", short:"content delivery and edge caching"},
+      {patterns:["route 53","route53"], clue:"Think: DNS, domain names, routing policies, and health-check-based routing.", does:"Amazon Route 53 is AWS's DNS and domain routing service.", short:"DNS and domain routing"},
+      {patterns:["global accelerator"], clue:"Think: improving global application traffic using the AWS global network and static anycast IPs.", does:"AWS Global Accelerator improves availability and performance for global users by routing traffic through the AWS global network.", short:"global traffic acceleration"},
+      {patterns:["direct connect"], clue:"Think: dedicated private network connection from on-premises to AWS.", does:"AWS Direct Connect provides a dedicated private network connection between an on-premises environment and AWS.", short:"dedicated private connectivity"},
+      {patterns:["vpn"], clue:"Think: encrypted network connection over the internet.", does:"AWS VPN creates encrypted connectivity over the internet between a network/device and AWS.", short:"encrypted VPN connectivity"},
+      {patterns:["vpc"], clue:"Think: isolated virtual network where you control subnets, routing, and network access.", does:"Amazon VPC lets you create an isolated virtual network in AWS with your own subnets, route tables, and network controls.", short:"isolated virtual networking"},
+      {patterns:["internet gateway"], clue:"Think: allowing public resources in a VPC to communicate with the internet.", does:"An Internet Gateway enables internet connectivity for resources in a VPC that have public routing.", short:"internet access for a VPC"},
+      {patterns:["nat gateway"], clue:"Think: private subnet resources going out to the internet without accepting inbound internet traffic.", does:"A NAT Gateway lets private subnet resources initiate outbound internet access while remaining unreachable from inbound internet connections.", short:"outbound internet for private subnets"},
+
+      {patterns:["waf"], clue:"Think: protecting web applications from Layer 7 attacks like SQL injection and cross-site scripting.", does:"AWS WAF protects web applications from common web exploits at the HTTP/S layer, such as SQL injection and cross-site scripting.", short:"web application firewall protection"},
+      {patterns:["shield"], clue:"Think: DDoS protection.", does:"AWS Shield protects applications against distributed denial-of-service attacks.", short:"DDoS protection"},
+      {patterns:["macie"], clue:"Think: machine learning discovery of sensitive data inside S3 buckets.", does:"Amazon Macie uses machine learning and pattern matching to discover and protect sensitive data stored in Amazon S3.", short:"sensitive data discovery in S3"},
+      {patterns:["kms","key management service"], clue:"Think: creating and managing encryption keys.", does:"AWS KMS creates and manages cryptographic keys used to encrypt and protect data.", short:"encryption key management"},
+      {patterns:["secrets manager"], clue:"Think: storing and rotating database passwords, API keys, and secrets.", does:"AWS Secrets Manager stores, retrieves, and rotates secrets such as database credentials and API keys.", short:"secrets storage and rotation"},
+      {patterns:["inspector"], clue:"Think: vulnerability assessment for workloads.", does:"Amazon Inspector scans workloads for software vulnerabilities and unintended network exposure.", short:"vulnerability assessment"},
+      {patterns:["guardduty"], clue:"Think: intelligent threat detection from account, network, and log activity.", does:"Amazon GuardDuty detects potential threats using AWS account, network, DNS, and activity data.", short:"threat detection"},
+      {patterns:["security hub"], clue:"Think: central security posture dashboard and aggregated security findings.", does:"AWS Security Hub aggregates security findings and checks security posture against standards.", short:"central security findings and posture"},
+
+      {patterns:["cost explorer"], clue:"Think: visualizing and analyzing past AWS spending and usage trends.", does:"AWS Cost Explorer visualizes and analyzes AWS cost and usage over time.", short:"cost analysis"},
+      {patterns:["budgets"], clue:"Think: alerts when cost or usage crosses a threshold you set.", does:"AWS Budgets sends alerts when costs or usage exceed budgeted thresholds or forecasts.", short:"cost and usage alerts"},
+      {patterns:["pricing calculator","calculator"], clue:"Think: estimating AWS costs before building or migrating.", does:"AWS Pricing Calculator estimates AWS service costs before deployment.", short:"cost estimation"},
+      {patterns:["cost and usage report","cost & usage","cur"], clue:"Think: detailed billing files and granular usage reports.", does:"AWS Cost and Usage Reports provide detailed cost and usage data for billing analysis.", short:"detailed cost and usage reporting"},
+      {patterns:["consolidated billing"], clue:"Think: combining charges across accounts and sharing volume discounts.", does:"Consolidated billing combines billing across accounts in AWS Organizations and can help share volume pricing benefits.", short:"combined billing across accounts"},
+
+      {patterns:["sns","simple notification service"], clue:"Think: pub/sub notifications, fanout messages, SMS, email, and alerts.", does:"Amazon SNS sends pub/sub notifications to subscribers such as email, SMS, Lambda, or SQS endpoints.", short:"pub/sub notifications"},
+      {patterns:["sqs","simple queue service"], clue:"Think: message queue that decouples application components.", does:"Amazon SQS is a message queue used to decouple application components and buffer work between producers and consumers.", short:"message queuing and decoupling"},
+      {patterns:["eventbridge"], clue:"Think: event bus that routes events between AWS services, SaaS apps, and applications.", does:"Amazon EventBridge routes events from applications, AWS services, and SaaS sources using event buses and rules.", short:"event routing"},
+      {patterns:["step functions"], clue:"Think: workflow orchestration with steps, branches, retries, and state machines.", does:"AWS Step Functions coordinates multi-step workflows using state machines.", short:"workflow orchestration"},
+      {patterns:["swf","simple workflow"], clue:"Think: older workflow coordination service.", does:"Amazon Simple Workflow Service coordinates distributed application workflow tasks.", short:"workflow coordination"},
+      {patterns:["amazon mq"], clue:"Think: managed message broker compatible with ActiveMQ or RabbitMQ.", does:"Amazon MQ is a managed message broker service for ActiveMQ and RabbitMQ.", short:"managed message broker"},
+
+      {patterns:["cloudformation"], clue:"Think: infrastructure as code templates that create AWS resources.", does:"AWS CloudFormation provisions AWS infrastructure using templates, which makes infrastructure repeatable and version-controlled.", short:"infrastructure as code"},
+      {patterns:["elastic beanstalk","beanstalk"], clue:"Think: upload web app code and let AWS handle provisioning, load balancing, scaling, monitoring, and deployment details.", does:"AWS Elastic Beanstalk is a managed application platform for deploying web applications; it handles infrastructure such as EC2, Auto Scaling, load balancing, monitoring, and application deployment.", short:"managed web application deployment"},
+      {patterns:["opsworks"], clue:"Think: Chef/Puppet-style configuration management for stacks/layers and application deployments to servers.", does:"AWS OpsWorks is a configuration management service based on Chef and Puppet that helps configure servers, manage stacks/layers, and deploy applications to EC2 or on-premises instances.", short:"configuration management and application deployment"},
+      {patterns:["codedeploy","code deploy"], clue:"Think: automating application deployments to EC2, Lambda, ECS, or on-premises servers.", does:"AWS CodeDeploy automates application deployments to compute services such as EC2, Lambda, ECS, and on-premises servers.", short:"automated application deployment"},
+      {patterns:["codepipeline","code pipeline"], clue:"Think: CI/CD pipeline that automates build, test, and deploy stages.", does:"AWS CodePipeline automates release pipelines across source, build, test, and deploy stages.", short:"release pipeline automation"},
+      {patterns:["codebuild","code build"], clue:"Think: managed build/test service for compiling source code and running tests.", does:"AWS CodeBuild is a managed build service that compiles source code, runs tests, and produces artifacts.", short:"managed build service"},
+      {patterns:["codecommit","code commit"], clue:"Think: managed Git repository for source code.", does:"AWS CodeCommit is a managed source-control service for Git repositories.", short:"managed Git source control"},
+      {patterns:["application discovery service"], clue:"Think: discovering on-premises servers and dependencies before migration — inventory/planning, not deployment.", does:"AWS Application Discovery Service collects information about on-premises servers, usage, and dependencies to help plan migrations to AWS; it does not deploy applications.", short:"migration discovery and planning"},
+
+      {patterns:["kinesis video"], clue:"Think: streaming video data.", does:"Amazon Kinesis Video Streams captures, processes, and stores video streams for analytics and machine learning.", short:"video streaming"},
+      {patterns:["kinesis data firehose","firehose"], clue:"Think: loading streaming data into destinations like S3, Redshift, OpenSearch, or Splunk.", does:"Amazon Kinesis Data Firehose delivers streaming data to destinations such as S3, Redshift, OpenSearch, and Splunk.", short:"streaming data delivery"},
+      {patterns:["kinesis"], clue:"Think: real-time streaming data ingestion and processing, not application deployment.", does:"Amazon Kinesis collects, processes, and analyzes real-time streaming data such as logs, clickstreams, and IoT telemetry; it is not an application deployment service.", short:"real-time streaming data"},
+      {patterns:["athena"], clue:"Think: serverless SQL queries directly against data in S3.", does:"Amazon Athena runs serverless SQL queries against data stored in Amazon S3.", short:"serverless SQL queries on S3"},
+      {patterns:["emr","elastic mapreduce"], clue:"Think: big data processing using Hadoop, Spark, Hive, and related frameworks.", does:"Amazon EMR runs big data frameworks such as Apache Spark, Hadoop, Hive, and Presto.", short:"big data processing"},
+      {patterns:["glue"], clue:"Think: serverless ETL and data catalog.", does:"AWS Glue is a serverless data integration/ETL service with a data catalog.", short:"ETL and data catalog"},
+      {patterns:["quicksight"], clue:"Think: business intelligence dashboards and visual analytics.", does:"Amazon QuickSight is a business intelligence service for dashboards, reports, and visual analytics.", short:"BI dashboards and analytics"},
+
+      {patterns:["api gateway"], clue:"Think: creating and managing APIs in front of backend services.", does:"Amazon API Gateway creates, publishes, secures, monitors, and manages APIs for backend services.", short:"API creation and management"},
+      {patterns:["ses","simple email service"], clue:"Think: sending email from applications.", does:"Amazon SES is an email service for sending application, marketing, or transactional email.", short:"email sending"},
+      {patterns:["pinpoint"], clue:"Think: customer engagement messaging campaigns across email, SMS, push, and channels.", does:"Amazon Pinpoint helps run targeted customer engagement messaging campaigns.", short:"customer engagement messaging"},
+
+      {patterns:["support concierge","concierge"], clue:"Think: billing/account guidance included with Enterprise Support.", does:"AWS Support Concierge helps Enterprise Support customers with billing and account questions.", short:"Enterprise Support billing and account support"},
+      {patterns:["technical account manager","tam"], clue:"Think: named technical guidance contact in Enterprise Support.", does:"A Technical Account Manager is the primary technical contact for AWS Enterprise Support customers.", short:"Enterprise Support technical guidance"},
+      {patterns:["personal health dashboard","health dashboard","aws health"], clue:"Think: personalized AWS service events affecting your own account/resources.", does:"AWS Health Dashboard shows service events and guidance that affect your AWS account and resources.", short:"personalized service health events"},
+      {patterns:["customer service"], clue:"Think: general account and billing support, not deep technical architecture support.", does:"AWS Customer Service handles general account and billing support questions.", short:"general account and billing support"},
+      {patterns:["professional services"], clue:"Think: AWS experts who help with larger transformation, migration, and implementation projects.", does:"AWS Professional Services helps customers plan and execute cloud adoption, migration, and transformation projects.", short:"expert consulting for cloud projects"},
+      {patterns:["marketplace"], clue:"Think: finding and buying third-party software and services that run on AWS.", does:"AWS Marketplace is a catalog for discovering and purchasing third-party software, data, and services.", short:"third-party software marketplace"}
     ];
 
     function normalizeConceptText(text) {
@@ -21700,52 +21744,90 @@
       return (q.answers || []).map(i => q.options[i]).filter(Boolean);
     }
 
+    function correctConceptsFor(q) {
+      return originalCorrectTexts(q).map(conceptFor).filter(Boolean);
+    }
+
+    function uniqueByShort(concepts) {
+      const seen = new Set();
+      return concepts.filter(c => {
+        const key = c.short || c.clue;
+        if (seen.has(key)) return false;
+        seen.add(key);
+        return true;
+      });
+    }
+
     function extractQuestionClue(q) {
       const text = String(q.question || "");
       const lower = text.toLowerCase();
       const clues = [];
-      if (/agreement|audit|compliance|report|attestation|artifact/.test(lower)) clues.push("agreement/compliance/audit wording");
-      if (/who|terminated|api|activity|trail|action/.test(lower)) clues.push("who did what / API activity wording");
-      if (/sensitive|personally identifiable|pii|s3 bucket/.test(lower)) clues.push("sensitive data in S3 wording");
-      if (/ddos|web exploit|sql injection|cross-site|xss/.test(lower)) clues.push("attack/protection wording");
-      if (/cost|billing|budget|spend|price|pricing/.test(lower)) clues.push("cost/billing wording");
-      if (/latency|global|edge|cdn|content/.test(lower)) clues.push("latency/global delivery wording");
-      if (/scale|traffic|demand|capacity|elastic/.test(lower)) clues.push("scaling/capacity wording");
-      if (/database|mysql|oracle|nosql|relational|warehouse/.test(lower)) clues.push("database type wording");
-      if (/permission|access|iam|identity|mfa|credential/.test(lower)) clues.push("identity/permission wording");
-      if (/storage|archive|backup|file|object|volume/.test(lower)) clues.push("storage wording");
-      return clues.length ? clues.join(", ") : "the exact wording in the question";
+      if (/deploy|deployment|application|web app|app/.test(lower)) clues.push("application deployment/management");
+      if (/agreement|audit|compliance|report|attestation|artifact/.test(lower)) clues.push("agreements, compliance reports, or audit paperwork");
+      if (/who|terminated|api|activity|trail|action/.test(lower)) clues.push("who did what / API activity");
+      if (/sensitive|personally identifiable|pii|s3 bucket/.test(lower)) clues.push("sensitive data in S3");
+      if (/ddos|web exploit|sql injection|cross.site|xss|firewall/.test(lower)) clues.push("protection from attacks or web exploits");
+      if (/cost|billing|budget|spend|price|pricing|discount/.test(lower)) clues.push("cost, billing, budget, or pricing");
+      if (/latency|global|edge|cdn|content|accelerat/.test(lower)) clues.push("low-latency global delivery");
+      if (/scale|traffic|demand|capacity|elastic|available/.test(lower)) clues.push("scaling, capacity, or availability");
+      if (/database|mysql|oracle|nosql|relational|warehouse|query/.test(lower)) clues.push("database or analytics requirement");
+      if (/permission|access|iam|identity|mfa|credential|least privilege/.test(lower)) clues.push("identity, access, or permissions");
+      if (/storage|archive|backup|file|object|volume|bucket/.test(lower)) clues.push("storage requirement");
+      if (/message|queue|decoupl|notification|pub|sub|event/.test(lower)) clues.push("messaging, events, or decoupling");
+      if (/migration|migrate|on-prem|on premises|data center/.test(lower)) clues.push("migration or hybrid/on-premises requirement");
+      return clues.length ? clues.join(" + ") : "the main requirement in the question";
+    }
+
+    function neededAnswerIdea(q) {
+      const concepts = uniqueByShort(correctConceptsFor(q));
+      if (concepts.length) {
+        return concepts.map(c => c.short).join(concepts.length === 2 ? " and " : ", ");
+      }
+      return extractQuestionClue(q);
     }
 
     function fallbackHint(q) {
       const lower = String(q.question || "").toLowerCase();
-      if (/responsibility|customer|aws responsible/.test(lower)) return "Separate security OF the cloud (AWS) from security IN the cloud (customer).";
-      if (/availability zone|region|edge location/.test(lower)) return "Identify whether the clue points to a geographic area, isolated data center location, or edge cache location.";
-      if (/horizontal/.test(lower)) return "Horizontal scaling means adding more resources; vertical scaling means making one resource bigger.";
-      if (/least privilege/.test(lower)) return "Least privilege means only the permissions needed, nothing extra.";
-      if (/pay.as.you.go|capex|opex|capital/.test(lower)) return "Cloud pricing questions often contrast upfront hardware spending with usage-based operating expense.";
-      return "Underline the main clue words in the question, then match them to the service purpose. Eliminate options that solve a different problem.";
+      if (/responsibility|customer|aws responsible/.test(lower)) return "Split the task into security OF the cloud versus security IN the cloud. AWS handles the underlying cloud; the customer handles their data, identity, app, and configurations.";
+      if (/availability zone|region|edge location/.test(lower)) return "Decide the infrastructure level being described: Region = geographic area, Availability Zone = isolated data center location inside a Region, edge location = cache/edge delivery point.";
+      if (/horizontal/.test(lower)) return "Ask whether the solution adds more resources or makes one resource bigger. More resources = horizontal scaling.";
+      if (/least privilege/.test(lower)) return "Look for the answer that grants only the permissions required to do the job, with nothing extra.";
+      if (/pay.as.you.go|capex|opex|capital/.test(lower)) return "Cloud pricing questions often contrast buying hardware upfront with paying only for usage.";
+      return "Underline the requirement words, then match them to the AWS service purpose. Avoid options that are useful AWS services but solve a different problem.";
     }
 
     function correctHintText(q) {
-      const required = q.answers.length;
-      const typeText = required === 1
-        ? "Choose ONE best answer."
-        : `Select exactly ${required} correct answers.`;
-      const concepts = originalCorrectTexts(q).map(conceptFor).filter(Boolean);
-      const uniqueClues = [...new Set(concepts.map(c => c.clue))];
-      const hintCore = uniqueClues.length ? uniqueClues.join(" ") : fallbackHint(q);
-      const sourceText = q.source ? ` Source: ${q.source}${q.originalNumber ? `, question ${q.originalNumber}` : ""}.` : "";
-      return `${typeText} ${hintCore} Use M to submit.${sourceText}`;
+      const correctConcepts = uniqueByShort(correctConceptsFor(q));
+      const correctClues = correctConcepts.map(c => c.clue);
+      let hint = correctClues.length ? correctClues.join(" ") : fallbackHint(q);
+
+      const correctShorts = new Set(correctConcepts.map(c => c.short));
+      const distractorConcepts = uniqueByShort((q.options || [])
+        .map((opt, idx) => (q.answers || []).includes(idx) ? null : conceptFor(opt))
+        .filter(Boolean)
+        .filter(c => !correctShorts.has(c.short)));
+
+      if (distractorConcepts.length) {
+        const distractors = distractorConcepts.slice(0, 3).map(c => c.short).join(", ");
+        hint += ` Be careful not to confuse that with ${distractors}; those solve different AWS problems.`;
+      }
+      return hint;
     }
 
     function explainOptionForQuestion(optionText, q, isCorrect) {
       const c = conceptFor(optionText);
+      const needed = neededAnswerIdea(q);
       const clue = extractQuestionClue(q);
-      if (c && isCorrect) return `${escapeHtml(optionText)} fits because ${escapeHtml(c.does)} The key clue is ${escapeHtml(clue)}.`;
-      if (c && !isCorrect) return `${escapeHtml(optionText)} is mainly for ${escapeHtml(c.short)}. That does not match the key clue here: ${escapeHtml(clue)}.`;
-      if (isCorrect) return `${escapeHtml(optionText)} fits the wording of the question better than the distractors. Key clue: ${escapeHtml(clue)}.`;
-      return `${escapeHtml(optionText)} solves a different problem from the key clue here: ${escapeHtml(clue)}.`;
+      if (c && isCorrect) {
+        return `${escapeHtml(optionText)} is right because ${escapeHtml(c.does)} The question is asking for ${escapeHtml(clue)}, so ${escapeHtml(c.short)} directly matches that requirement.`;
+      }
+      if (c && !isCorrect) {
+        return `${escapeHtml(optionText)} is not the best answer because ${escapeHtml(c.does)} That means it is mainly for ${escapeHtml(c.short)}, while this question needs ${escapeHtml(needed)}.`;
+      }
+      if (isCorrect) {
+        return `${escapeHtml(optionText)} is right because it matches the main requirement: ${escapeHtml(clue)}. Compare it with the distractors and choose the option that directly solves that requirement.`;
+      }
+      return `${escapeHtml(optionText)} is not the best answer because it does not directly solve the main requirement: ${escapeHtml(clue)}. This question needs ${escapeHtml(needed)}.`;
     }
 
     function buildTeachingFeedback(q, result, correctItems, selectedItems) {
